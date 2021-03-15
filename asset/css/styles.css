@@ -1,0 +1,77 @@
+.bg-gradient-primary {
+    background-color: #232323 !important;
+    background-image: linear-gradient( 137deg, #b44fde 10%, #9e2bcf 100%);
+}
+
+.border-left-primary {
+    border-left: .25rem solid #b44fde !important;
+}
+
+.tablecard {
+    padding: 30px;
+}
+
+div.dataTables_wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.dataTables_info,
+.dataTables_paginate {
+    margin-top: 4% !important;
+}
+
+.btn-area {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: unset !important;
+}
+
+.boxbtn {
+    background-color: unset;
+    border: unset;
+    text-align: center;
+}
+
+.btnatas {
+    margin-bottom: 5px;
+}
+
+.btnhitung {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnhitung:hover {
+    text-decoration: none;
+}
+
+
+/* .btn-area {
+    position: absolute;
+    bottom: 0;
+} */
+
+.hitungtext {
+    padding-right: 5%;
+}
+
+.tablehitung {
+    padding: 60px;
+}
+
+.close_res {
+    position: absolute;
+    right: 0;
+    padding-right: 20px;
+    padding-top: 10px;
+    color: red;
+}
+
+.card_gen {
+    padding: 20px;
+}
