@@ -26,9 +26,14 @@ class Pengguna extends CI_Controller
         $checkAge = $this->getdata->check_Age();
         $get_before_proces = $this->getdata->avg_Age();
         if ($checkAge['age'] >= 1) {
-            $this->db->set('age', floor($get_before_proces['rerata_no']));
+            $this->db->set('age', floor($get_before_proces['rerata_NO']));
             $this->db->where('age', 0);
-            $this->db->where('autism', 'no');
+            $this->db->where('Class', 'NO');
+            $this->db->update('data_latih');
+
+            $this->db->set('age', floor($get_before_proces['rerata_YES']));
+            $this->db->where('age', 0);
+            $this->db->where('Class', 'YES');
             $this->db->update('data_latih');
             goto start;
         } else {
@@ -53,6 +58,7 @@ class Pengguna extends CI_Controller
                 $row[] = $ds->gender;
                 $row[] = $ds->jundice;
                 $row[] = $ds->autism;
+                $row[] = ($ds->Class == 'NO') ? 'Normal' : 'ASD';
                 $data[] = $row;
             }
 
@@ -100,6 +106,7 @@ class Pengguna extends CI_Controller
             $row[] = $ds->gender;
             $row[] = $ds->jundice;
             $row[] = $ds->autism;
+            $row[] = ($ds->Class == 'NO') ? 'Normal' : 'ASD';
             $data[] = $row;
         }
 
@@ -156,38 +163,38 @@ class Pengguna extends CI_Controller
             $row3['A_N_AUTIS'] = number_format($as['A3_NO_AUTIS'] / $row_autism, 6);
 
             $row4['A_Y_NORMAL'] =  number_format($as['A4_YES_NORMAL'] / $row_normal, 6);
-            $row4['A_Y_AUTIS'] =  number_format($as['A4_NO_AUTIS'] / $row_autism, 6);
-            $row4['A_N_NORMAL'] =  number_format($as['A4_YES_NORMAL'] / $row_normal, 6);
+            $row4['A_Y_AUTIS'] =  number_format($as['A4_YES_AUTIS'] / $row_autism, 6);
+            $row4['A_N_NORMAL'] =  number_format($as['A4_NO_NORMAL'] / $row_normal, 6);
             $row4['A_N_AUTIS'] =  number_format($as['A4_NO_AUTIS'] / $row_autism, 6);
 
             $row5['A_Y_NORMAL'] =  number_format($as['A5_YES_NORMAL'] / $row_normal, 6);
-            $row5['A_Y_AUTIS'] =  number_format($as['A5_NO_AUTIS'] / $row_autism, 6);
-            $row5['A_N_NORMAL'] =  number_format($as['A5_YES_NORMAL'] / $row_normal, 6);
+            $row5['A_Y_AUTIS'] =  number_format($as['A5_YES_AUTIS'] / $row_autism, 6);
+            $row5['A_N_NORMAL'] =  number_format($as['A5_NO_NORMAL'] / $row_normal, 6);
             $row5['A_N_AUTIS'] =  number_format($as['A5_NO_AUTIS'] / $row_autism, 6);
 
             $row6['A_Y_NORMAL'] =  number_format($as['A6_YES_NORMAL'] / $row_normal, 6);
-            $row6['A_Y_AUTIS'] =  number_format($as['A6_NO_AUTIS'] / $row_autism, 6);
-            $row6['A_N_NORMAL'] =  number_format($as['A6_YES_NORMAL'] / $row_normal, 6);
+            $row6['A_Y_AUTIS'] =  number_format($as['A6_YES_AUTIS'] / $row_autism, 6);
+            $row6['A_N_NORMAL'] =  number_format($as['A6_NO_NORMAL'] / $row_normal, 6);
             $row6['A_N_AUTIS'] =  number_format($as['A6_NO_AUTIS'] / $row_autism, 6);
 
             $row7['A_Y_NORMAL'] =  number_format($as['A7_YES_NORMAL'] / $row_normal, 6);
-            $row7['A_Y_AUTIS'] =  number_format($as['A7_NO_AUTIS'] / $row_autism, 6);
-            $row7['A_N_NORMAL'] =  number_format($as['A7_YES_NORMAL'] / $row_normal, 6);
+            $row7['A_Y_AUTIS'] =  number_format($as['A7_YES_AUTIS'] / $row_autism, 6);
+            $row7['A_N_NORMAL'] =  number_format($as['A7_NO_NORMAL'] / $row_normal, 6);
             $row7['A_N_AUTIS'] =  number_format($as['A7_NO_AUTIS'] / $row_autism, 6);
 
             $row8['A_Y_NORMAL'] =  number_format($as['A8_YES_NORMAL'] / $row_normal, 6);
-            $row8['A_Y_AUTIS'] =  number_format($as['A8_NO_AUTIS'] / $row_autism, 6);
-            $row8['A_N_NORMAL'] =  number_format($as['A8_YES_NORMAL'] / $row_normal, 6);
+            $row8['A_Y_AUTIS'] =  number_format($as['A8_YES_AUTIS'] / $row_autism, 6);
+            $row8['A_N_NORMAL'] =  number_format($as['A8_NO_NORMAL'] / $row_normal, 6);
             $row8['A_N_AUTIS'] =  number_format($as['A8_NO_AUTIS'] / $row_autism, 6);
 
             $row9['A_Y_NORMAL'] =  number_format($as['A9_YES_NORMAL'] / $row_normal, 6);
-            $row9['A_Y_AUTIS'] =  number_format($as['A9_NO_AUTIS'] / $row_autism, 6);
-            $row9['A_N_NORMAL'] =  number_format($as['A9_YES_NORMAL'] / $row_normal, 6);
+            $row9['A_Y_AUTIS'] =  number_format($as['A9_YES_AUTIS'] / $row_autism, 6);
+            $row9['A_N_NORMAL'] =  number_format($as['A9_NO_NORMAL'] / $row_normal, 6);
             $row9['A_N_AUTIS'] =  number_format($as['A9_NO_AUTIS'] / $row_autism, 6);
 
             $row10['A_Y_NORMAL'] = number_format($as['A10_YES_NORMAL'] / $row_normal, 6);
-            $row10['A_Y_AUTIS'] = number_format($as['A10_NO_AUTIS'] / $row_autism, 6);
-            $row10['A_N_NORMAL'] = number_format($as['A10_YES_NORMAL'] / $row_normal, 6);
+            $row10['A_Y_AUTIS'] = number_format($as['A10_YES_AUTIS'] / $row_autism, 6);
+            $row10['A_N_NORMAL'] = number_format($as['A10_NO_NORMAL'] / $row_normal, 6);
             $row10['A_N_AUTIS'] = number_format($as['A10_NO_AUTIS'] / $row_autism, 6);
 
             $data['A1_score'] = $row;
@@ -273,38 +280,38 @@ class Pengguna extends CI_Controller
             $row0['A_N_AUTIS'][] = number_format($as['A3_NO_AUTIS'] / $row_autism, 6);
 
             $row1['A_Y_NORMAL'][] =  number_format($as['A4_YES_NORMAL'] / $row_normal, 6);
-            $row1['A_Y_AUTIS'][] =  number_format($as['A4_NO_AUTIS'] / $row_autism, 6);
-            $row0['A_N_NORMAL'][] =  number_format($as['A4_YES_NORMAL'] / $row_normal, 6);
+            $row1['A_Y_AUTIS'][] =  number_format($as['A4_YES_AUTIS'] / $row_autism, 6);
+            $row0['A_N_NORMAL'][] =  number_format($as['A4_NO_NORMAL'] / $row_normal, 6);
             $row0['A_N_AUTIS'][] =  number_format($as['A4_NO_AUTIS'] / $row_autism, 6);
 
             $row1['A_Y_NORMAL'][] =  number_format($as['A5_YES_NORMAL'] / $row_normal, 6);
-            $row1['A_Y_AUTIS'][] =  number_format($as['A5_NO_AUTIS'] / $row_autism, 6);
-            $row0['A_N_NORMAL'][] =  number_format($as['A5_YES_NORMAL'] / $row_normal, 6);
+            $row1['A_Y_AUTIS'][] =  number_format($as['A5_YES_AUTIS'] / $row_autism, 6);
+            $row0['A_N_NORMAL'][] =  number_format($as['A5_NO_NORMAL'] / $row_normal, 6);
             $row0['A_N_AUTIS'][] =  number_format($as['A5_NO_AUTIS'] / $row_autism, 6);
 
             $row1['A_Y_NORMAL'][] =  number_format($as['A6_YES_NORMAL'] / $row_normal, 6);
-            $row1['A_Y_AUTIS'][] =  number_format($as['A6_NO_AUTIS'] / $row_autism, 6);
-            $row0['A_N_NORMAL'][] =  number_format($as['A6_YES_NORMAL'] / $row_normal, 6);
+            $row1['A_Y_AUTIS'][] =  number_format($as['A6_YES_AUTIS'] / $row_autism, 6);
+            $row0['A_N_NORMAL'][] =  number_format($as['A6_NO_NORMAL'] / $row_normal, 6);
             $row0['A_N_AUTIS'][] =  number_format($as['A6_NO_AUTIS'] / $row_autism, 6);
 
             $row1['A_Y_NORMAL'][] =  number_format($as['A7_YES_NORMAL'] / $row_normal, 6);
-            $row1['A_Y_AUTIS'][] =  number_format($as['A7_NO_AUTIS'] / $row_autism, 6);
-            $row0['A_N_NORMAL'][] =  number_format($as['A7_YES_NORMAL'] / $row_normal, 6);
+            $row1['A_Y_AUTIS'][] =  number_format($as['A7_YES_AUTIS'] / $row_autism, 6);
+            $row0['A_N_NORMAL'][] =  number_format($as['A7_NO_NORMAL'] / $row_normal, 6);
             $row0['A_N_AUTIS'][] =  number_format($as['A7_NO_AUTIS'] / $row_autism, 6);
 
             $row1['A_Y_NORMAL'][] =  number_format($as['A8_YES_NORMAL'] / $row_normal, 6);
-            $row1['A_Y_AUTIS'][] =  number_format($as['A8_NO_AUTIS'] / $row_autism, 6);
-            $row0['A_N_NORMAL'][] =  number_format($as['A8_YES_NORMAL'] / $row_normal, 6);
+            $row1['A_Y_AUTIS'][] =  number_format($as['A8_YES_AUTIS'] / $row_autism, 6);
+            $row0['A_N_NORMAL'][] =  number_format($as['A8_NO_NORMAL'] / $row_normal, 6);
             $row0['A_N_AUTIS'][] =  number_format($as['A8_NO_AUTIS'] / $row_autism, 6);
 
             $row1['A_Y_NORMAL'][] =  number_format($as['A9_YES_NORMAL'] / $row_normal, 6);
-            $row1['A_Y_AUTIS'][] =  number_format($as['A9_NO_AUTIS'] / $row_autism, 6);
-            $row0['A_N_NORMAL'][] =  number_format($as['A9_YES_NORMAL'] / $row_normal, 6);
+            $row1['A_Y_AUTIS'][] =  number_format($as['A9_YES_AUTIS'] / $row_autism, 6);
+            $row0['A_N_NORMAL'][] =  number_format($as['A9_NO_NORMAL'] / $row_normal, 6);
             $row0['A_N_AUTIS'][] =  number_format($as['A9_NO_AUTIS'] / $row_autism, 6);
 
             $row1['A_Y_NORMAL'][] = number_format($as['A10_YES_NORMAL'] / $row_normal, 6);
-            $row1['A_Y_AUTIS'][] = number_format($as['A10_NO_AUTIS'] / $row_autism, 6);
-            $row0['A_N_NORMAL'][] = number_format($as['A10_YES_NORMAL'] / $row_normal, 6);
+            $row1['A_Y_AUTIS'][] = number_format($as['A10_YES_AUTIS'] / $row_autism, 6);
+            $row0['A_N_NORMAL'][] = number_format($as['A10_NO_NORMAL'] / $row_normal, 6);
             $row0['A_N_AUTIS'][] = number_format($as['A10_NO_AUTIS'] / $row_autism, 6);
 
             $data['1'] = $row1;
@@ -328,20 +335,22 @@ class Pengguna extends CI_Controller
             $data[$age['age']] =  $rowAge;
         }
         foreach ($get_row_jundice as $jun) {
-            $rowJun['J_Y_NORMAL'] = number_format($jun['Y_normal'] / $row_normal, 6);
-            $rowJun['J_Y_AUTISM'] =  number_format($jun['Y_autism'] / $row_autism, 6);
-            $rowJun['J_N_NORMAL'] = number_format($jun['N_normal'] / $row_normal, 6);
-            $rowJun['J_N_AUTISM'] =  number_format($jun['N_autism'] / $row_autism, 6);
+            $rowJunY['J_Y_NORMAL'] = number_format($jun['Y_normal'] / $row_normal, 6);
+            $rowJunY['J_Y_AUTISM'] =  number_format($jun['Y_autism'] / $row_autism, 6);
+            $rowJunN['J_N_NORMAL'] = number_format($jun['N_normal'] / $row_normal, 6);
+            $rowJunN['J_N_AUTISM'] =  number_format($jun['N_autism'] / $row_autism, 6);
 
-            $data['jundice'] =  $rowJun;
+            $data['yes'] =  $rowJunY;
+            $data['no'] =  $rowJunN;
         }
         foreach ($get_row_autis_tree as $AT) {
-            $rowAT['AT_Y_NORMAL'] = number_format($AT['Y_normal'] / $row_normal, 6);
-            $rowAT['AT_Y_AUTISM'] =  number_format($AT['Y_autism'] / $row_autism, 6);
-            $rowAT['AT_N_NORMAL'] = number_format($AT['N_normal'] / $row_normal, 6);
-            $rowAT['AT_N_AUTISM'] =  number_format($AT['N_autism'] / $row_autism, 6);
+            $rowATY['AT_Y_NORMAL'] = number_format($AT['Y_normal'] / $row_normal, 6);
+            $rowATY['AT_Y_AUTISM'] =  number_format($AT['Y_autism'] / $row_autism, 6);
+            $rowATN['AT_N_NORMAL'] = number_format($AT['N_normal'] / $row_normal, 6);
+            $rowATN['AT_N_AUTISM'] =  number_format($AT['N_autism'] / $row_autism, 6);
 
-            $data['autis_tree'] =  $rowAT;
+            $data['yes'] =  $rowATY;
+            $data['no'] =  $rowATN;
         }
 
         $this->form_validation->set_rules('pilih1', 'Pilih1', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
@@ -457,122 +466,163 @@ class Pengguna extends CI_Controller
                 $AS['input'] = $da[0];
                 $masukan[] = $AS;
             }
-            foreach ($data as $gender => $value) {
-                if ($masukan[11]['input'] == $gender) {
 
-                    foreach ($value as $v) {
+
+            $gen = [];
+            foreach ($data as $gender => $value) {
+                if (stripos($gender, $masukan[11]['input']) === 0) {
+                    foreach ($value as $key => $v) {
+                        $gen[] = $v;
                     }
-                    // echo "{$gender} => {$v} ";
-                    var_dump($v);
+                }
+            }
+            $jun = [];
+            foreach ($data as $jundice => $value) {
+                if (stripos($jundice, $masukan[12]['input']) === 0) {
+                    foreach ($value as $key => $v) {
+                        $jun[] = $v;
+                    }
+                }
+            }
+            $AT = [];
+            foreach ($data as $autismT => $value) {
+                if (stripos($autismT, $masukan[13]['input']) === 0) {
+                    foreach ($value as $key => $v) {
+                        $AT[] = $v;
+                    }
                 }
             }
 
-            // $takeresult_normal = array();
-            // $takeresult_autis = array();
-            // if ($masukan[0]['input'] == 1) {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][0]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][0]);
-            // } else {
-            //     array_push($takeresult_normal, $data[0]['A_N_NORMAL'][0]);
-            //     array_push($takeresult_autis, $data[0]['A_N_AUTIS'][0]);
-            // }
-            // if ($masukan[1]['input'] == 1) {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][1]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][1]);
-            // } else {
-            //     array_push($takeresult_normal, $data[0]['A_N_NORMAL'][1]);
-            //     array_push($takeresult_autis, $data[0]['A_N_AUTIS'][1]);
-            // }
-            // if ($masukan[2]['input'] == 1) {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][2]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][2]);
-            // } else {
-            //     array_push($takeresult_normal, $data[0]['A_N_NORMAL'][2]);
-            //     array_push($takeresult_autis, $data[0]['A_N_AUTIS'][2]);
-            // }
-            // if ($masukan[3]['input'] == 1) {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][3]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][3]);
-            // } else {
-            //     array_push($takeresult_normal, $data[0]['A_N_NORMAL'][3]);
-            //     array_push($takeresult_autis, $data[0]['A_N_AUTIS'][3]);
-            // }
-            // if ($masukan[4]['input'] == 1) {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][4]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][4]);
-            // } else {
-            //     array_push($takeresult_normal, $data[0]['A_N_NORMAL'][4]);
-            //     array_push($takeresult_autis, $data[0]['A_N_AUTIS'][4]);
-            // }
-            // if ($masukan[5]['input'] == 1) {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][5]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][5]);
-            // } else {
-            //     array_push($takeresult_normal, $data[0]['A_N_NORMAL'][5]);
-            //     array_push($takeresult_autis, $data[0]['A_N_AUTIS'][5]);
-            // }
-            // if ($masukan[6]['input'] == 1) {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][6]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][6]);
-            // } else {
-            //     array_push($takeresult_normal, $data[0]['A_N_NORMAL'][6]);
-            //     array_push($takeresult_autis, $data[0]['A_N_AUTIS'][6]);
-            // }
-            // if ($masukan[7]['input'] == 1) {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][7]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][7]);
-            // } else {
-            //     array_push($takeresult_normal, $data[0]['A_N_NORMAL'][7]);
-            //     array_push($takeresult_autis, $data[0]['A_N_AUTIS'][7]);
-            // }
-            // if ($masukan[8]['input'] == 1) {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][8]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][8]);
-            // } else {
-            //     array_push($takeresult_normal, $data[0]['A_N_NORMAL'][8]);
-            //     array_push($takeresult_autis, $data[0]['A_N_AUTIS'][8]);
-            // }
-            // if ($masukan[9]['input'] == 1) {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][9]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][9]);
-            // } else {
-            //     array_push($takeresult_normal, $data[0]['A_N_NORMAL'][9]);
-            //     array_push($takeresult_autis, $data[0]['A_N_AUTIS'][9]);
-            // }
-            // if ($masukan[10]['input'] == 1) {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][9]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][9]);
-            // } else {
-            //     array_push($takeresult_normal, $data[0]['A_N_NORMAL'][9]);
-            //     array_push($takeresult_autis, $data[0]['A_N_AUTIS'][9]);
-            // }
-            // foreach ($data as $d => $value) {
-            //     if ($d == $masukan[10]['input']) {
-            //         array_push($takeresult_normal, $value['AGE_NORMAL']);
-            //         array_push($takeresult_normal, $value['AGE_AUTISM']);
-            //     }
-            // }
-            // if ($masukan[11]['input'] == 'm') {
-            //     array_push($takeresult_normal, $data[1]['M_NORMAL'][9]);
-            //     array_push($takeresult_autis, $data[1]['M_AUTIS'][9]);
-            // } else {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][9]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][9]);
-            // }
-            // if ($masukan[12]['input'] == 'yes') {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][9]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][9]);
-            // } else {
-            //     array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][9]);
-            //     array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][9]);
-            // }
+            // print_r($)
+            $takeresult_normal = array();
+            $takeresult_autis = array();
+            if ($masukan[0]['input'] == 1) {
+                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][0]);
+                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][0]);
+            } else {
+                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][0]);
+                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][0]);
+            }
+            if ($masukan[1]['input'] == 1) {
+                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][1]);
+                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][1]);
+            } else {
+                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][1]);
+                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][1]);
+            }
+            if ($masukan[2]['input'] == 1) {
+                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][2]);
+                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][2]);
+            } else {
+                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][2]);
+                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][2]);
+            }
+            if ($masukan[3]['input'] == 1) {
+                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][3]);
+                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][3]);
+            } else {
+                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][3]);
+                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][3]);
+            }
+            if ($masukan[4]['input'] == 1) {
+                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][4]);
+                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][4]);
+            } else {
+                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][4]);
+                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][4]);
+            }
+            if ($masukan[5]['input'] == 1) {
+                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][5]);
+                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][5]);
+            } else {
+                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][5]);
+                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][5]);
+            }
+            if ($masukan[6]['input'] == 1) {
+                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][6]);
+                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][6]);
+            } else {
+                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][6]);
+                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][6]);
+            }
+            if ($masukan[7]['input'] == 1) {
+                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][7]);
+                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][7]);
+            } else {
+                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][7]);
+                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][7]);
+            }
+            if ($masukan[8]['input'] == 1) {
+                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][8]);
+                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][8]);
+            } else {
+                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][8]);
+                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][8]);
+            }
+            if ($masukan[9]['input'] == 1) {
+                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][9]);
+                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][9]);
+            } else {
+                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][9]);
+                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][9]);
+            }
 
-            // print_r($takeresult_normal);
-            // print_r($takeresult_autis);
+            foreach ($data as $d => $value) {
+                if ($d == $this->input->post('age', true)) {
+                    array_push($takeresult_normal, $value['AGE_NORMAL']);
+                    array_push($takeresult_normal, $value['AGE_AUTISM']);
+                }
+            }
+            if ($gen[0] != null) {
+                array_push($takeresult_normal, $gen[0]);
+            }
+            if ($gen[1] != null) {
+                array_push($takeresult_autis, $gen[1]);
+            }
+            if ($jun[0] != null) {
+                array_push($takeresult_normal, $jun[0]);
+            }
+            if ($jun[1] != null) {
+                array_push($takeresult_autis, $jun[1]);
+            }
+            if ($AT[0] != null) {
+                array_push($takeresult_normal, $AT[0]);
+            }
+            if ($AT[1] != null) {
+                array_push($takeresult_autis, $AT[1]);
+            }
 
-            // echo array_product($takeresult_normal);
-            // echo '<br>';
-            // echo array_product($takeresult_autis);
+            $totnormal = array_product($takeresult_normal) * $row_normal;
+            $totautis = array_product($takeresult_autis) * $row_autism;
+
+            echo $totnormal . ' | Normal <br>';
+            echo $totautis . ' | Autis <br>';
+            echo '<hr>';
+            if ($totnormal > $totautis) {
+                echo 'Normal';
+                $this->db->set('Class', 'NO');
+                $this->db->insert('data_uji', $datainput);
+                $insert_id = $this->db->insert_id();
+
+                $this->db->set('id_uji',  $insert_id);
+                $this->db->set('status_normal', $totnormal);
+                $this->db->set('status_autis', $totautis);
+                $this->db->set('hasil_status', 'Normal');
+                $this->db->set('time', 'NOW()', false);
+                $this->db->insert('hasil_uji');
+            } else {
+                echo 'Autism';
+                $this->db->set('Class', 'YES');
+                $this->db->insert('data_uji', $datainput);
+                $insert_id = $this->db->insert_id();
+
+                $this->db->set('id_uji',  $insert_id);
+                $this->db->set('status_normal', $totnormal);
+                $this->db->set('status_autis', $totautis);
+                $this->db->set('hasil_status', 'ASD');
+                $this->db->set('time', 'NOW()', false);
+                $this->db->insert('hasil_uji');
+            }
         }
     }
 }

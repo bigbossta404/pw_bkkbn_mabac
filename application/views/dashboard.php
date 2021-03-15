@@ -84,6 +84,7 @@
                                             <td>gender</td>
                                             <td>jundice</td>
                                             <td>autism</td>
+                                            <td>class</td>
                                         </tr>
                                     </thead>
                                     <tbody>

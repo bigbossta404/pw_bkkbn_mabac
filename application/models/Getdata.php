@@ -5,14 +5,13 @@ class Getdata extends CI_Model
     function check_Age()
     {
         $query = $this->db->query("SELECT count(age) age FROM data_latih
-        WHERE autism = 'no'
-        AND age = 0");
+        WHERE age = 0");
         return $query->row_array();
     }
     function avg_Age()
     {
-        $query = $this->db->query("SELECT AVG(age) rerata_no FROM data_latih
-        WHERE autism = 'no'");
+        $query = $this->db->query("SELECT (SELECT AVG(age) FROM data_latih WHERE Class = 'YES') rerata_YES,
+        (SELECT AVG(age) FROM data_latih WHERE Class = 'NO') rerata_NO");
         return $query->row_array();
     }
 
@@ -24,8 +23,8 @@ class Getdata extends CI_Model
         return $query->row_array();
     }
 
-    var $column_order = array(null, 'id_latih', 'A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score', 'A6_Score', 'A7_Score', 'A8_Score', 'A9_Score', 'A10_Score', 'age', 'gender', 'jundice', 'autism'); //set column field database for datatable orderable
-    var $column_search = array('A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score', 'A6_Score', 'A7_Score', 'A8_Score', 'A9_Score', 'A10_Score', 'age', 'gender', 'jundice', 'autism'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $column_order = array(null, 'id_latih', 'A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score', 'A6_Score', 'A7_Score', 'A8_Score', 'A9_Score', 'A10_Score', 'age', 'gender', 'jundice', 'autism', 'Class'); //set column field database for datatable orderable
+    var $column_search = array('id_latih', 'A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score', 'A6_Score', 'A7_Score', 'A8_Score', 'A9_Score', 'A10_Score', 'age', 'gender', 'jundice', 'autism', 'Class'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $order = ['id_latih' => 'desc']; // default
 
     private function _get_datatables()
@@ -45,7 +44,8 @@ class Getdata extends CI_Model
         age,
         gender,
         jundice,
-        autism
+        autism,
+        Class
         ');
         $this->db->from('data_latih');
 
@@ -111,7 +111,7 @@ class Getdata extends CI_Model
     }
     public function countatrib()
     {
-        $this->db->select('COUNT(*)-1 jml_atrib');
+        $this->db->select('COUNT(*)-7 jml_atrib');
         $this->db->from('information_schema.columns');
         $this->db->where('table_name', 'data_latih');
         $query = $this->db->get();
@@ -120,8 +120,8 @@ class Getdata extends CI_Model
 
 
     //================= DATA UJI
-    var $coluji_order = array(null, 'id_uji', 'A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score', 'A6_Score', 'A7_Score', 'A8_Score', 'A9_Score', 'A10_Score'); //set column field database for datatable orderable
-    var $coluji_search = array('id_uji', 'A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score', 'A6_Score', 'A7_Score', 'A8_Score', 'A9_Score', 'A10_Score', 'age', 'gender', 'jundice', 'autism'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $coluji_order = array(null, 'id_uji', 'A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score', 'A6_Score', 'A7_Score', 'A8_Score', 'A9_Score', 'A10_Score', 'age', 'gender', 'jundice', 'autism', 'Class'); //set column field database for datatable orderable
+    var $coluji_search = array('id_uji', 'A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score', 'A6_Score', 'A7_Score', 'A8_Score', 'A9_Score', 'A10_Score', 'age', 'gender', 'jundice', 'autism', 'Class'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $orderuji = ['id_uji' => 'asc']; // default
 
     private function _get_datatables_uji()
