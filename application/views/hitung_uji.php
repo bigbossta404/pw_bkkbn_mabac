@@ -39,26 +39,28 @@
                             <div class="card col p-10 shadow card_res">
                                 <a href="#" class="close_res"><i class="fas fa-times"></i></a>
                                 <div class="res_box text">
-                                    <table class="table res_uji_tab">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">A1</th>
-                                                <th scope="col">Res_A1</th>
-                                                <th scope="col">Res_A2</th>
-                                                <th scope="col">Res_A3</th>
-                                                <th scope="col">Res_A4</th>
-                                                <th scope="col">Res_A5</th>
-                                                <th scope="col">Res_A6</th>
-                                                <th scope="col">Res_A7</th>
-                                                <th scope="col">Res_A8</th>
-                                                <th scope="col">Res_A9</th>
-                                                <th scope="col">Res_A10</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id='tbodyres'>
+                                    <div class="table-responsive">
+                                        <table class="table res_uji_tab">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">A1</th>
+                                                    <th scope="col">Res_A1</th>
+                                                    <th scope="col">Res_A2</th>
+                                                    <th scope="col">Res_A3</th>
+                                                    <th scope="col">Res_A4</th>
+                                                    <th scope="col">Res_A5</th>
+                                                    <th scope="col">Res_A6</th>
+                                                    <th scope="col">Res_A7</th>
+                                                    <th scope="col">Res_A8</th>
+                                                    <th scope="col">Res_A9</th>
+                                                    <th scope="col">Res_A10</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id='tbodyres'>
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
