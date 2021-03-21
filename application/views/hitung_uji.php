@@ -19,12 +19,119 @@
                                             </div>
                                             <!-- <div class="h5 mb-0 font-weight-bold text-gray-800"></div> -->
                                         </div>
+                                        <div class="col-md-2 mr-2">
+                                            <a type="button" class="btn-primary font-weight-bold text-white shadow  py-2 btnhitung" id="cektesting">
+                                                <div class="d-flex justify-content-center align-items-center"><span class="mr-3">Hasil Latih</span><i class="fas fa-expand-arrows-alt"></i></div>
+                                            </a>
+                                        </div>
                                         <div class="col-md-2">
                                             <button type="submit" class="card bg-success font-weight-bold text-white shadow  py-2 btnhitung" form="hitung">
                                                 Proses
                                             </button>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4 resuji" style="visibility:hidden; display:none">
+                        <div class="col-xl m-10">
+                            <div class="card col p-10 shadow card_res">
+                                <a href="#" class="close_res"><i class="fas fa-times"></i></a>
+                                <div class="res_box text">
+                                    <table class="table res_uji_tab">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">A1</th>
+                                                <th scope="col">Res_A1</th>
+                                                <th scope="col">Res_A2</th>
+                                                <th scope="col">Res_A3</th>
+                                                <th scope="col">Res_A4</th>
+                                                <th scope="col">Res_A5</th>
+                                                <th scope="col">Res_A6</th>
+                                                <th scope="col">Res_A7</th>
+                                                <th scope="col">Res_A8</th>
+                                                <th scope="col">Res_A9</th>
+                                                <th scope="col">Res_A10</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id='tbodyres'>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row resuji" style="visibility:hidden; display:none">
+                        <div class="col-xl mb-4">
+                            <div class="card p-10 shadow card_gen">
+                                <table class="table res_gen_tab">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Gender</th>
+                                            <th scope="col">Res_Gender</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id='tbodyresgen'>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-xl mb-4">
+                            <div class="card p-10 shadow card_gen">
+                                <table class="table res_gen_tab">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Jundice</th>
+                                            <th scope="col">Res_Jundice</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id='tbodyresjun'>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-xl mb-4">
+                            <div class="card p-10 shadow card_gen">
+                                <table class="table res_autis_tab">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Autism</th>
+                                            <th scope="col">Res_Autis_Tree</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id='tbodyresautis'>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row resuji" style="visibility:hidden; display:none">
+                        <div class="col-xl col-md-6 mb-4">
+                            <div class="card p-10 shadow card_gen">
+                                <div class="table-responsive">
+                                    <table class="table res_age_tab">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Age</th>
+                                                <th scope="col">Res_4</th>
+                                                <th scope="col">Res_5</th>
+                                                <th scope="col">Res_6</th>
+                                                <th scope="col">Res_7</th>
+                                                <th scope="col">Res_8</th>
+                                                <th scope="col">Res_9</th>
+                                                <th scope="col">Res_10</th>
+                                                <th scope="col">Res_11</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id='tbodyresage'>
+
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

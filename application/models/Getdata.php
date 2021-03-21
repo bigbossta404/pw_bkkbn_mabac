@@ -300,73 +300,73 @@ class Getdata extends CI_Model
     function getA_score()
     {
         $query = $this->db->query("
-            SELECT (SELECT COUNT(A1_Score) FROM dataset WHERE A1_Score = 1 AND CLASS = 'no') A1_YES_NORMAL, 
-            (SELECT COUNT(A1_Score) FROM dataset WHERE A1_Score = 0 AND CLASS = 'no' ) A1_NO_NORMAL, 
-            (SELECT COUNT(A1_Score) FROM dataset WHERE A1_Score = 1 AND CLASS = 'yes') A1_YES_AUTIS, 
-            (SELECT COUNT(A1_Score) FROM dataset WHERE A1_Score = 0 AND CLASS = 'yes' ) A1_NO_AUTIS, 
+            SELECT (SELECT COUNT(A1_Score) FROM data_latih WHERE A1_Score = 1 AND CLASS = 'no') A1_YES_NORMAL, 
+            (SELECT COUNT(A1_Score) FROM data_latih WHERE A1_Score = 0 AND CLASS = 'no' ) A1_NO_NORMAL, 
+            (SELECT COUNT(A1_Score) FROM data_latih WHERE A1_Score = 1 AND CLASS = 'yes') A1_YES_AUTIS, 
+            (SELECT COUNT(A1_Score) FROM data_latih WHERE A1_Score = 0 AND CLASS = 'yes' ) A1_NO_AUTIS, 
 
-            (SELECT COUNT(A2_Score) FROM dataset WHERE A2_Score = 1 AND CLASS = 'no' ) A2_YES_NORMAL, 
-            (SELECT COUNT(A2_Score) FROM dataset WHERE A2_Score =0 AND CLASS = 'no') A2_NO_NORMAL,
-            (SELECT COUNT(A2_Score) FROM dataset WHERE A2_Score = 1 AND CLASS = 'yes' ) A2_YES_AUTIS, 
-            (SELECT COUNT(A2_Score) FROM dataset WHERE A2_Score =0 AND CLASS = 'yes') A2_NO_AUTIS,
+            (SELECT COUNT(A2_Score) FROM data_latih WHERE A2_Score = 1 AND CLASS = 'no' ) A2_YES_NORMAL, 
+            (SELECT COUNT(A2_Score) FROM data_latih WHERE A2_Score =0 AND CLASS = 'no') A2_NO_NORMAL,
+            (SELECT COUNT(A2_Score) FROM data_latih WHERE A2_Score = 1 AND CLASS = 'yes' ) A2_YES_AUTIS, 
+            (SELECT COUNT(A2_Score) FROM data_latih WHERE A2_Score =0 AND CLASS = 'yes') A2_NO_AUTIS,
 
-            (SELECT COUNT(A3_Score) FROM dataset WHERE A3_Score = 1 AND CLASS = 'no' ) A3_YES_NORMAL, 
-            (SELECT COUNT(A3_Score) FROM dataset WHERE A3_Score =0 AND CLASS = 'no' ) A3_NO_NORMAL,
-            (SELECT COUNT(A3_Score) FROM dataset WHERE A3_Score = 1 AND CLASS = 'yes') A3_YES_AUTIS, 
-            (SELECT COUNT(A3_Score) FROM dataset WHERE A3_Score =0 AND CLASS = 'yes') A3_NO_AUTIS,
+            (SELECT COUNT(A3_Score) FROM data_latih WHERE A3_Score = 1 AND CLASS = 'no' ) A3_YES_NORMAL, 
+            (SELECT COUNT(A3_Score) FROM data_latih WHERE A3_Score =0 AND CLASS = 'no' ) A3_NO_NORMAL,
+            (SELECT COUNT(A3_Score) FROM data_latih WHERE A3_Score = 1 AND CLASS = 'yes') A3_YES_AUTIS, 
+            (SELECT COUNT(A3_Score) FROM data_latih WHERE A3_Score =0 AND CLASS = 'yes') A3_NO_AUTIS,
 
-            (SELECT COUNT(A4_Score) FROM dataset WHERE A4_Score = 1 AND CLASS = 'no' ) A4_YES_NORMAL, 
-            (SELECT COUNT(A4_Score) FROM dataset WHERE A4_Score =0 AND CLASS = 'no' ) A4_NO_NORMAL,
-            (SELECT COUNT(A4_Score) FROM dataset WHERE A4_Score = 1 AND CLASS = 'yes') A4_YES_AUTIS, 
-            (SELECT COUNT(A4_Score) FROM dataset WHERE A4_Score =0 AND CLASS = 'yes') A4_NO_AUTIS,
-
-
-            (SELECT COUNT(A5_Score) FROM dataset WHERE A5_Score = 1 AND CLASS = 'no') A5_YES_NORMAL,
-            (SELECT COUNT(A5_Score) FROM dataset WHERE A5_Score =0  AND CLASS = 'no') A5_NO_NORMAL,
-            (SELECT COUNT(A5_Score) FROM dataset WHERE A5_Score = 1 AND CLASS = 'yes') A5_YES_AUTIS,
-            (SELECT COUNT(A5_Score) FROM dataset WHERE A5_Score =0 AND CLASS = 'yes') A5_NO_AUTIS,
-
-            (SELECT COUNT(A6_Score) FROM dataset WHERE A6_Score = 1 AND CLASS = 'no' ) A6_YES_NORMAL, 
-            (SELECT COUNT(A6_Score) FROM dataset WHERE A6_Score =0 AND CLASS = 'no') A6_NO_NORMAL,
-            (SELECT COUNT(A6_Score) FROM dataset WHERE A6_Score = 1 AND CLASS = 'yes') A6_YES_AUTIS, 
-            (SELECT COUNT(A6_Score) FROM dataset WHERE A6_Score =0 AND CLASS = 'yes') A6_NO_AUTIS,
+            (SELECT COUNT(A4_Score) FROM data_latih WHERE A4_Score = 1 AND CLASS = 'no' ) A4_YES_NORMAL, 
+            (SELECT COUNT(A4_Score) FROM data_latih WHERE A4_Score =0 AND CLASS = 'no' ) A4_NO_NORMAL,
+            (SELECT COUNT(A4_Score) FROM data_latih WHERE A4_Score = 1 AND CLASS = 'yes') A4_YES_AUTIS, 
+            (SELECT COUNT(A4_Score) FROM data_latih WHERE A4_Score =0 AND CLASS = 'yes') A4_NO_AUTIS,
 
 
-            (SELECT COUNT(A7_Score) FROM dataset WHERE A7_Score = 1 AND CLASS = 'no') A7_YES_NORMAL, 
-            (SELECT COUNT(A7_Score) FROM dataset WHERE A7_Score =0 AND CLASS = 'no') A7_NO_NORMAL,
-            (SELECT COUNT(A7_Score) FROM dataset WHERE A7_Score = 1 AND CLASS = 'yes') A7_YES_AUTIS, 
-            (SELECT COUNT(A7_Score) FROM dataset WHERE A7_Score =0 AND CLASS = 'yes') A7_NO_AUTIS,
+            (SELECT COUNT(A5_Score) FROM data_latih WHERE A5_Score = 1 AND CLASS = 'no') A5_YES_NORMAL,
+            (SELECT COUNT(A5_Score) FROM data_latih WHERE A5_Score =0  AND CLASS = 'no') A5_NO_NORMAL,
+            (SELECT COUNT(A5_Score) FROM data_latih WHERE A5_Score = 1 AND CLASS = 'yes') A5_YES_AUTIS,
+            (SELECT COUNT(A5_Score) FROM data_latih WHERE A5_Score =0 AND CLASS = 'yes') A5_NO_AUTIS,
 
-            (SELECT COUNT(A8_Score) FROM dataset WHERE A8_Score = 1 AND CLASS = 'no' ) A8_YES_NORMAL, 
-            (SELECT COUNT(A8_Score) FROM dataset WHERE A8_Score =0 AND CLASS = 'no') A8_NO_NORMAL,
-            (SELECT COUNT(A8_Score) FROM dataset WHERE A8_Score = 1 AND CLASS = 'yes') A8_YES_AUTIS, 
-            (SELECT COUNT(A8_Score) FROM dataset WHERE A8_Score =0 AND CLASS = 'yes') A8_NO_AUTIS,
+            (SELECT COUNT(A6_Score) FROM data_latih WHERE A6_Score = 1 AND CLASS = 'no' ) A6_YES_NORMAL, 
+            (SELECT COUNT(A6_Score) FROM data_latih WHERE A6_Score =0 AND CLASS = 'no') A6_NO_NORMAL,
+            (SELECT COUNT(A6_Score) FROM data_latih WHERE A6_Score = 1 AND CLASS = 'yes') A6_YES_AUTIS, 
+            (SELECT COUNT(A6_Score) FROM data_latih WHERE A6_Score =0 AND CLASS = 'yes') A6_NO_AUTIS,
 
-            (SELECT COUNT(A9_Score) FROM dataset WHERE A9_Score = 1 AND CLASS = 'no') A9_YES_NORMAL, 
-            (SELECT COUNT(A9_Score) FROM dataset WHERE A9_Score =0 AND CLASS = 'no') A9_NO_NORMAL,
-            (SELECT COUNT(A9_Score) FROM dataset WHERE A9_Score = 1 AND CLASS = 'yes' ) A9_YES_AUTIS, 
-            (SELECT COUNT(A9_Score) FROM dataset WHERE A9_Score =0 AND CLASS = 'yes') A9_NO_AUTIS,
 
-            (SELECT COUNT(A10_Score) FROM dataset WHERE A10_Score = 1 AND CLASS = 'no') A10_YES_NORMAL, 
-            (SELECT COUNT(A10_Score) FROM dataset WHERE A10_Score =0 AND CLASS = 'no') A10_NO_NORMAL,
-            (SELECT COUNT(A10_Score) FROM dataset WHERE A10_Score = 1 AND CLASS = 'yes') A10_YES_AUTIS, 
-            (SELECT COUNT(A10_Score) FROM dataset WHERE A10_Score =0 AND CLASS = 'yes') A10_NO_AUTIS
+            (SELECT COUNT(A7_Score) FROM data_latih WHERE A7_Score = 1 AND CLASS = 'no') A7_YES_NORMAL, 
+            (SELECT COUNT(A7_Score) FROM data_latih WHERE A7_Score =0 AND CLASS = 'no') A7_NO_NORMAL,
+            (SELECT COUNT(A7_Score) FROM data_latih WHERE A7_Score = 1 AND CLASS = 'yes') A7_YES_AUTIS, 
+            (SELECT COUNT(A7_Score) FROM data_latih WHERE A7_Score =0 AND CLASS = 'yes') A7_NO_AUTIS,
+
+            (SELECT COUNT(A8_Score) FROM data_latih WHERE A8_Score = 1 AND CLASS = 'no' ) A8_YES_NORMAL, 
+            (SELECT COUNT(A8_Score) FROM data_latih WHERE A8_Score =0 AND CLASS = 'no') A8_NO_NORMAL,
+            (SELECT COUNT(A8_Score) FROM data_latih WHERE A8_Score = 1 AND CLASS = 'yes') A8_YES_AUTIS, 
+            (SELECT COUNT(A8_Score) FROM data_latih WHERE A8_Score =0 AND CLASS = 'yes') A8_NO_AUTIS,
+
+            (SELECT COUNT(A9_Score) FROM data_latih WHERE A9_Score = 1 AND CLASS = 'no') A9_YES_NORMAL, 
+            (SELECT COUNT(A9_Score) FROM data_latih WHERE A9_Score =0 AND CLASS = 'no') A9_NO_NORMAL,
+            (SELECT COUNT(A9_Score) FROM data_latih WHERE A9_Score = 1 AND CLASS = 'yes' ) A9_YES_AUTIS, 
+            (SELECT COUNT(A9_Score) FROM data_latih WHERE A9_Score =0 AND CLASS = 'yes') A9_NO_AUTIS,
+
+            (SELECT COUNT(A10_Score) FROM data_latih WHERE A10_Score = 1 AND CLASS = 'no') A10_YES_NORMAL, 
+            (SELECT COUNT(A10_Score) FROM data_latih WHERE A10_Score =0 AND CLASS = 'no') A10_NO_NORMAL,
+            (SELECT COUNT(A10_Score) FROM data_latih WHERE A10_Score = 1 AND CLASS = 'yes') A10_YES_AUTIS, 
+            (SELECT COUNT(A10_Score) FROM data_latih WHERE A10_Score =0 AND CLASS = 'yes') A10_NO_AUTIS
         ");
         return $query->result_array();
     }
 
     function getAutism()
     {
-        $query = $this->db->query("SELECT (SELECT COUNT(CLASS) FROM dataset WHERE CLASS = 'yes') Autism, (SELECT COUNT(CLASS) FROM data_latih WHERE CLASS = 'no') Normal");
+        $query = $this->db->query("SELECT (SELECT COUNT(CLASS) FROM data_latih WHERE CLASS = 'yes') Autism, (SELECT COUNT(CLASS) FROM data_latih WHERE CLASS = 'no') Normal");
         return $query->row_array();
     }
 
     function getGender()
     {
-        $query = $this->db->query("SELECT (SELECT COUNT(gender) FROM dataset WHERE gender = 'm' AND CLASS = 'yes') M_AUTIS,
-        (SELECT COUNT(gender) FROM dataset WHERE gender = 'f' AND CLASS = 'yes') F_AUTIS,
-        (SELECT COUNT(gender) FROM dataset WHERE gender = 'm' AND CLASS = 'no') M_NORMAL,
-        (SELECT COUNT(gender) FROM dataset WHERE gender = 'f' AND CLASS = 'no') F_NORMAL");
+        $query = $this->db->query("SELECT (SELECT COUNT(gender) FROM data_latih WHERE gender = 'm' AND CLASS = 'yes') M_AUTIS,
+        (SELECT COUNT(gender) FROM data_latih WHERE gender = 'f' AND CLASS = 'yes') F_AUTIS,
+        (SELECT COUNT(gender) FROM data_latih WHERE gender = 'm' AND CLASS = 'no') M_NORMAL,
+        (SELECT COUNT(gender) FROM data_latih WHERE gender = 'f' AND CLASS = 'no') F_NORMAL");
         return $query->result_array();
     }
 
@@ -374,12 +374,12 @@ class Getdata extends CI_Model
     {
         $query = $this->db->query("SELECT p.age age, normal, autis
         FROM   (SELECT COUNT(age) AS normal, age
-            FROM dataset
+            FROM data_latih
                 WHERE age NOT IN (0)
                 AND CLASS = 'no'
                 GROUP BY age) p
         JOIN   (SELECT COUNT(age) AS autis, age
-                FROM dataset
+                FROM data_latih
                 WHERE age NOT IN (0)
                 AND CLASS = 'yes'
                  GROUP BY age) s ON p.age = s.age");
@@ -387,20 +387,20 @@ class Getdata extends CI_Model
     }
     function getJundice()
     {
-        $query = $this->db->query("SELECT (SELECT COUNT(jundice) FROM dataset WHERE jundice = 'yes' AND CLASS = 'no')  Y_normal,
-        (SELECT COUNT(jundice) FROM dataset WHERE jundice = 'yes' AND CLASS = 'yes') Y_autism,
+        $query = $this->db->query("SELECT (SELECT COUNT(jundice) FROM data_latih WHERE jundice = 'yes' AND CLASS = 'no')  Y_normal,
+        (SELECT COUNT(jundice) FROM data_latih WHERE jundice = 'yes' AND CLASS = 'yes') Y_autism,
         
-        (SELECT COUNT(jundice) FROM dataset WHERE jundice = 'no' AND CLASS = 'no') N_normal,
-        (SELECT COUNT(jundice) FROM dataset WHERE jundice = 'no' AND CLASS = 'yes') N_autism");
+        (SELECT COUNT(jundice) FROM data_latih WHERE jundice = 'no' AND CLASS = 'no') N_normal,
+        (SELECT COUNT(jundice) FROM data_latih WHERE jundice = 'no' AND CLASS = 'yes') N_autism");
         return $query->result_array();
     }
     function getAutisTree()
     {
-        $query = $this->db->query("SELECT (SELECT COUNT(autism) FROM dataset WHERE autism = 'yes' AND CLASS = 'no')  Y_normal,
-        (SELECT COUNT(autism) FROM dataset WHERE autism = 'yes' AND CLASS = 'yes') Y_autism,
+        $query = $this->db->query("SELECT (SELECT COUNT(autism) FROM data_latih WHERE autism = 'yes' AND CLASS = 'no')  Y_normal,
+        (SELECT COUNT(autism) FROM data_latih WHERE autism = 'yes' AND CLASS = 'yes') Y_autism,
         
-        (SELECT COUNT(autism) FROM dataset WHERE autism = 'no' AND CLASS = 'no') N_normal,
-        (SELECT COUNT(autism) FROM dataset WHERE autism = 'no' AND CLASS = 'yes') N_autism");
+        (SELECT COUNT(autism) FROM data_latih WHERE autism = 'no' AND CLASS = 'no') N_normal,
+        (SELECT COUNT(autism) FROM data_latih WHERE autism = 'no' AND CLASS = 'yes') N_autism");
         return $query->result_array();
     }
 }
