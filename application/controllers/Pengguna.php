@@ -12,8 +12,10 @@ class Pengguna extends CI_Controller
     }
     public function index()
     {
+
         $data['datalatih'] = $this->getdata->countrow();
         $data['atribut'] = $this->getdata->countatrib();
+
         $this->load->view('layout/header');
         $this->load->view('dashboard', $data);
         $this->load->view('layout/footer');
@@ -29,12 +31,12 @@ class Pengguna extends CI_Controller
             $this->db->set('age', floor($get_before_proces['rerata_NO']));
             $this->db->where('age', 0);
             $this->db->where('Class', 'NO');
-            $this->db->update('data_latih');
+            $this->db->update('dataset');
 
             $this->db->set('age', floor($get_before_proces['rerata_YES']));
             $this->db->where('age', 0);
             $this->db->where('Class', 'YES');
-            $this->db->update('data_latih');
+            $this->db->update('dataset');
             goto start;
         } else {
             $list = $this->getdata->get_datatables();
@@ -42,8 +44,8 @@ class Pengguna extends CI_Controller
             foreach ($list as $ds) {
                 $row = array();
 
-                $row[] = "<input type='checkbox' id='id_latih' name='id_latih' value='$ds->id_latih'>";
-                $row[] = $ds->id_latih;
+                $row[] = "<input type='checkbox' id='id_latih' name='id_latih' value='$ds->id_dataset'>";
+                $row[] = $ds->id_dataset;
                 $row[] = ($ds->A1_Score == 1) ? 'yes' : 'no';
                 $row[] = ($ds->A2_Score == 1) ? 'yes' : 'no';
                 $row[] = ($ds->A3_Score == 1) ? 'yes' : 'no';
@@ -75,7 +77,35 @@ class Pengguna extends CI_Controller
 
     public function index_datauji()
     {
-        // $data['datalatih'] = $this->getdata->countrow();
+
+        $totdl = $this->getdata->countDataUji();
+        $getDataN = $this->getdata->getDataNo();
+        $getDataY = $this->getdata->getDataYes();
+        if (count($totdl) == 0) {
+            $data = [];
+            foreach ($getDataN as $n) {
+                unset($n['cnt'], $n['rn'], $n['ethnicity'], $n['contry_of_res'], $n['result'], $n['relation'], $n['used_app_before'], $n['age_desc']);
+                array_push($data, $n);
+            }
+            foreach ($getDataY as $y) {
+                unset($y['cnt'], $y['rn'], $y['ethnicity'], $y['contry_of_res'], $y['result'], $y['relation'], $y['used_app_before'], $y['age_desc']);
+                array_push($data, $y);
+            }
+            if (count($data) != 0) {
+                foreach ($data as $d) {
+                    $d['id_uji'] = $d['id_dataset'];
+                    unset($d['id_dataset']);
+                    $this->db->insert('data_uji', $d);
+                }
+                $notInUji = $this->getdata->notInDataUji();
+                foreach ($notInUji as $notIn) {
+                    $notIn['id_latih'] = $notIn['id_dataset'];
+                    unset($notIn['id_dataset'], $notIn['ethnicity'], $notIn['contry_of_res'], $notIn['result'], $notIn['relation'], $notIn['used_app_before'], $notIn['age_desc']);
+                    $this->db->insert('data_latih', $notIn);
+                }
+            }
+        }
+
         $data['atribut'] = $this->getdata->countatrib_uji();
         $data['class'] = $this->getdata->getClass();
         $this->load->view('layout/header');
@@ -114,6 +144,42 @@ class Pengguna extends CI_Controller
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->getdata->count_all_uji(),
             "recordsFiltered" => $this->getdata->count_filtered_uji(),
+            "data" => $data,
+        );
+
+        echo json_encode($output);
+    }
+    public function getDatalatih()
+    {
+        // $list = $this->tagihan->_get_datatables($idkamar);
+        $list = $this->getdata->get_datatables_latih();
+        $data = array();
+        foreach ($list as $ds) {
+            $row = array();
+            $row[] = "<input type='checkbox' id='id_latih' name='id_latih' value='$ds->id_latih'>";
+            $row[] = $ds->id_latih;
+            $row[] = ($ds->A1_Score == 1) ? 'yes' : 'no';
+            $row[] = ($ds->A2_Score == 1) ? 'yes' : 'no';
+            $row[] = ($ds->A3_Score == 1) ? 'yes' : 'no';
+            $row[] = ($ds->A4_Score == 1) ? 'yes' : 'no';
+            $row[] = ($ds->A5_Score == 1) ? 'yes' : 'no';
+            $row[] = ($ds->A6_Score == 1) ? 'yes' : 'no';
+            $row[] = ($ds->A7_Score == 1) ? 'yes' : 'no';
+            $row[] = ($ds->A8_Score == 1) ? 'yes' : 'no';
+            $row[] = ($ds->A9_Score == 1) ? 'yes' : 'no';
+            $row[] = ($ds->A10_Score == 1) ? 'yes' : 'no';
+            $row[] = $ds->age;
+            $row[] = $ds->gender;
+            $row[] = $ds->jundice;
+            $row[] = $ds->autism;
+            $row[] = ($ds->Class == 'NO') ? 'Normal' : 'ASD';
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->getdata->count_all_latih(),
+            "recordsFiltered" => $this->getdata->count_filtered_latih(),
             "data" => $data,
         );
 
@@ -624,5 +690,32 @@ class Pengguna extends CI_Controller
                 $this->db->insert('hasil_uji');
             }
         }
+    }
+
+    public function Test()
+    {
+        // var_dump($uji);
+
+        // $totdl = $this->getdata->countDataUji();
+        // $getDataN = $this->getdata->getDataNo();
+        // $getDataY = $this->getdata->getDataYes();
+        // if ($totdl['totdatauji'] == 0) {
+        //     $data = [];
+        //     foreach ($getDataN as $n) {
+        //         unset($n['cnt'], $n['rn'], $n['ethnicity'], $n['contry_of_res'], $n['result'], $n['relation'], $n['used_app_before'], $n['age_desc']);
+        //         array_push($data, $n);
+        //     }
+        //     foreach ($getDataY as $y) {
+        //         unset($y['cnt'], $y['rn'], $y['ethnicity'], $y['contry_of_res'], $y['result'], $y['relation'], $y['used_app_before'], $y['age_desc']);
+        //         array_push($data, $y);
+        //     }
+        //     if (count($data) != 0) {
+        //         foreach ($data as $d) {
+        //             $this->db->insert('data_uji_cb', $d);
+        //         }
+        //     }
+        // } else {
+        //     echo 'ada isiny';
+        // }
     }
 }

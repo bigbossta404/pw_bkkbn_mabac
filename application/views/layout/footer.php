@@ -39,6 +39,35 @@
              <!-- Page level plugins -->
 
              <script>
+                 var tabelset;
+                 $(document).ready(function() {
+
+                     //datatables
+                     tabelset = $('#dataset').DataTable({
+                         "language": {
+                             "emptyTable": "Tidak Ada Data",
+                             "processing": "Memuat Data",
+                             "zeroRecords": "Data Tidak Ditemukan"
+                         },
+                         "scrollX": true,
+                         "processing": true, //Feature control the processing indicator.
+                         "serverSide": true, //Feature control DataTables' server-side processing mode.
+                         "order": [],
+                         ajax: {
+                             url: "<?php echo site_url('pengguna/getDataset') ?>",
+                             type: "POST"
+                         },
+                         "columnDefs": [{
+                             "targets": [0],
+                             "className": "text-center",
+                             "orderable": false
+                         }]
+
+                     });
+
+                 });
+             </script>
+             <script>
                  var tablelatih;
                  $(document).ready(function() {
 
@@ -54,7 +83,7 @@
                          "serverSide": true, //Feature control DataTables' server-side processing mode.
                          "order": [],
                          ajax: {
-                             url: "<?php echo site_url('pengguna/getDataset') ?>",
+                             url: "<?php echo site_url('pengguna/getDatalatih') ?>",
                              type: "POST"
                          },
                          "columnDefs": [{
