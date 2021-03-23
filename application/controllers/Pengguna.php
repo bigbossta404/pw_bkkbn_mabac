@@ -188,6 +188,9 @@ class Pengguna extends CI_Controller
 
     public function index_hitung()
     {
+        $data['dataset'] = $this->getdata->countrow();
+        $data['datauji'] = count($this->getdata->countDataUji());
+        $data['datalatih'] = count($this->getdata->countDatalatih());
         $data['atribut'] = $this->getdata->countatrib_uji();
         $data['class'] = $this->getdata->getClass();
         $this->load->view('layout/header');
@@ -803,7 +806,7 @@ class Pengguna extends CI_Controller
 
         //================= CARI ASCORE =====================
         $dt_uji = $this->getdata->countDataUji();
-        echo '<pre>';
+        // echo '<pre>';
 
         $newYes = array();
         $newNo = array();
@@ -858,8 +861,23 @@ class Pengguna extends CI_Controller
         foreach ($store_autis as $sn) {
             $resA_Y[] = array_product($sn);
         }
-        var_dump($resA_Y);
+        $Autis = 0;
+        $Normal = 0;
+        foreach ($resA_Y as $k => $v) {
+            if (array_key_exists($k, $resA_N)) {
+                if ($v > $resA_N[$k]) {
+                    $Autis++  . ' | Autism <br>';
+                } else {
+                    $Normal++ . ' | Normal <br>';
+                }
+            }
+        }
 
+        $json = array(
+            'normal' => $Normal,
+            'autis' => $Autis,
+        );
+        echo json_encode($json);
         // if ($resA_N[4] > $resA_Y[4]) {
         //     echo 'Normal';
         // } else {

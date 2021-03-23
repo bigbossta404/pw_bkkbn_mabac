@@ -25,7 +25,7 @@
                                             </a>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="submit" class="card bg-success font-weight-bold text-white shadow  py-2 btnhitung" form="hitung">
+                                            <button type="submit" class="card bg-success font-weight-bold text-white shadow  py-2 btnhitung" id="cekakurasi">
                                                 Proses
                                             </button>
                                         </div>
@@ -140,208 +140,108 @@
                     </div>
                     <div class="row">
                         <div class="col-xl">
-                            <div class="card shadow tablehitung">
-                                <div class="card-body">
-                                    <?php echo form_open_multipart('pengguna/hitung', 'id="hitung"'); ?>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-md-6.5 mr-3">
-                                            <div class="row mb-4">
-                                                <!-- <div class="col-xl-5"> -->
-                                                <div class="form-group mr-5">
-                                                    <label for="">A1 Score</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih1" id="flexRadioDefault" value="1">
-                                                        <label class="form-check-label" for="flexRadioDefault">
-                                                            Yes
-                                                        </label>
+                            <div class="row mb-4">
+                                <div class="col-xl">
+                                    <div class="card shadow">
+                                        <div class="card-body">
+                                            <div class="col-xl text-white d-flex justify-content-center align-items-center akurasi-content">
+                                                <div class="col-xl-2 mr-4 d-flex justify-content-center boxtot">
+                                                    <h1><?= $dataset['jml_data_latih']; ?></h1>
+                                                </div>
+                                                <div class="col-xl">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" placeholder="88" value="<?= $datalatih ?>">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text  w-40 pl-2" id="basic-addon1">Data Latih</span>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih1" id="flexRadioDefault" value="0" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault">
-                                                            No
-                                                        </label>
+                                                    <div class="input-group mb-0">
+                                                        <input type="text" class="form-control" placeholder="88" value="<?= $datauji ?>">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text w-40 pl-4" id="basic-addon1">Data Uji</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group mr-5">
-                                                    <label for="">A2 Score</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih2" value="1" id="flexRadioDefault">
-                                                        <label class="form-check-label" for="flexRadioDefault">
-                                                            Yes
-                                                        </label>
+                                                <div class="col-md">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" placeholder="88" id="normal" value="0" aria-describedby="basic-addon1">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">NOR</span>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih2" value="0" id="flexRadioDefault" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault">
-                                                            No
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mr-5">
-                                                    <label for="">A3 Score</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih3" value="1" id="flexRadioDefault">
-                                                        <label class="form-check-label" for="flexRadioDefault">
-                                                            Yes
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih3" value="0" id="flexRadioDefault" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault">
-                                                            No
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mr-5">
-                                                    <label for="">A4 Score</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih4" value="1" id="flexRadioDefault">
-                                                        <label class="form-check-label" for="flexRadioDefault">
-                                                            Yes
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih4" value="0" id="flexRadioDefault" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault">
-                                                            No
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="">A5 Score</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih5" value="1" id="flexRadioDefault">
-                                                        <label class="form-check-label" for="flexRadioDefault">
-                                                            Yes
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih5" value="0" id="flexRadioDefault" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault">
-                                                            No
-                                                        </label>
+                                                    <div class="input-group mb-0">
+                                                        <input type="text" class="form-control" placeholder="99" id="autis" value="0" aria-describedby="basic-addon1">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">ASD</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="form-group mr-5">
-                                                    <label for="">A6 Score</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih6" value="1" id="flexRadioDefault1">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            Yes
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih6" value="0" id="flexRadioDefault2" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault2">
-                                                            No
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mr-5">
-                                                    <label for="">A7 Score</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih7" value="1" id="flexRadioDefault1">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            Yes
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih7" value="0" id="flexRadioDefault2" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault2">
-                                                            No
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mr-5">
-                                                    <label for="">A8 Score</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih8" value="1" id="flexRadioDefault1">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            Yes
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih8" value="0" id="flexRadioDefault2" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault2">
-                                                            No
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mr-5">
-                                                    <label for="">A9 Score</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih9" value="1" id="flexRadioDefault1">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            Yes
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih9" value="0" id="flexRadioDefault2" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault2">
-                                                            No
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mr-5">
-                                                    <label for="">A10 Score</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih10" value="1" id="flexRadioDefault1">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            Yes
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="pilih10" value="0" id="flexRadioDefault2" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault2">
-                                                            No
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <select type="number" class="form-control border-dark" name="age" placeholder="Age">
-                                                    <option value="">-- Age --</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <select class="form-control border-dark" name="gender" id="">
-                                                    <option value="">-- Gender --</option>
-                                                    <option value="m">Laki-laki</option>
-                                                    <option value="f">Perempuan</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <select class="form-control border-dark" name="jundice" id="">
-                                                    <option value="">-- Jundice --</option>
-                                                    <option value="yes">Yes</option>
-                                                    <option value="no">No</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <select class="form-control border-dark" name="autism" id="">
-                                                    <option value="">-- Autism --</option>
-                                                    <option value="yes">Yes</option>
-                                                    <option value="no">No</option>
-                                                </select>
-                                            </div>
-
                                         </div>
                                     </div>
-                                    <?php form_close(); ?>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl">
+                                    <!-- Project Card Example -->
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Not Match</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <h4 class="small font-weight-bold">Normal <span class="float-right">20%</span></h4>
+                                            <div class="progress mb-4">
+                                                <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <h4 class="small font-weight-bold">ASD <span class="float-right">40%</span></h4>
+                                            <div class="progress mb-4">
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Akurasi</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2" tyle="width: 100px; height: 100px; float: left; position: relative;">
+                                        <div style="width: 100%; position: absolute; top: 50%; left: 0; margin-top: -10px; line-height:19px; text-align: center; z-index: 999999999999999">
+                                            <h1>99 %</h1>
+                                        </div>
+                                        <canvas id="myPieChart"></canvas>
+                                    </div>
+                                    <div class="pt-5 text-center small">
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-primary"></i> Normal
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> ASD
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
+
+
                 </div>

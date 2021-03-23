@@ -110,6 +110,7 @@ $(document).on('click', '#cektesting', function(e) {
     // }
 });
 
+
 $(document).on('click', '.close_res', function(e) {
     $(".resuji").animate({ opacity: 0.0 }, 200, function() {
         $('.resuji').css({ 'visibility': 'hidden', 'display': 'none' });

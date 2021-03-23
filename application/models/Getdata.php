@@ -12,6 +12,11 @@ class Getdata extends CI_Model
         $query = $this->db->query("SELECT * FROM data_uji");
         return $query->result_array();
     }
+    function countDatalatih()
+    {
+        $query = $this->db->query("SELECT * FROM data_latih");
+        return $query->result_array();
+    }
 
     function getDataNo()
     {

@@ -31,7 +31,8 @@
              <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.23/b-1.6.5/cr-1.5.3/fc-3.3.2/fh-3.1.8/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sc-2.0.3/sb-1.0.1/sp-1.2.2/sl-1.3.1/datatables.min.js"></script>
              <!-- Core plugin JavaScript-->
              <script src="<?= base_url('asset/vendor/jquery-easing/jquery.easing.min.js') ?>"></script>
-
+             <script src="<?= base_url('asset/vendor/chart.js/Chart.min.js') ?>"></script>
+             <script src="<?= base_url('asset/js/demo/chart-pie-demo.js') ?>"></script>
              <!-- Custom scripts for all pages-->
              <script src="<?= base_url('asset/js/sb-admin-2.min.js') ?>"></script>
              <script src="<?= base_url('asset/js/hitung.js') ?>"></script>
