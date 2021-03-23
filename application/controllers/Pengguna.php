@@ -830,24 +830,43 @@ class Pengguna extends CI_Controller
             array_push($newYes, $y);
             array_push($newNo, $n);
         }
+
         $arrayTemp = array();
         foreach ($newYes as $key => $value) {
             $arrayTemp[] = (object)array_merge((array)$newNo[$key], (array)$value);
         }
+        $store_normal = [];
+        $store_autis = [];
 
-        // var_dump($arrayTemp);
-        $total_normal = 0;
         foreach ($arrayTemp as $at) {
+            $s_normal = array();
+            $s_autis = array();
             foreach ($at as $key1 => $v2) {
-                foreach ($v2 as $key2 => $v3) {
-                    if ($key2 == 0) {
-                        echo $v3 . '<br>';
-                    }
-                }
+
+                $s_normal[] = $v2[0];
+                $s_autis[] = $v2[1];
             }
-            echo '<hr>';
+            array_push($store_normal, $s_normal);
+            array_push($store_autis, $s_autis);
         }
-        echo $total_normal;
+
+        $resA_N = [];
+        $resA_Y = [];
+        foreach ($store_normal as $sn) {
+            $resA_N[] = array_product($sn);
+        }
+        foreach ($store_autis as $sn) {
+            $resA_Y[] = array_product($sn);
+        }
+        var_dump($resA_Y);
+
+        // if ($resA_N[4] > $resA_Y[4]) {
+        //     echo 'Normal';
+        // } else {
+        //     echo 'Autis';
+        // }
+        // echo $total;
+        // echo $total_normal;
         // foreach ($newYes as $ny => $num) {
         //     foreach ($num as $k => $v2) {
         //         // $idx = -1;
@@ -874,7 +893,7 @@ class Pengguna extends CI_Controller
         //     // echo '<hr>';
         // }
         // $merge = array_merge($newYes, $newNo);
-        // var_dump($newYes);
+        // var_dump($arrayTemp);
         //==================================================
 
 
