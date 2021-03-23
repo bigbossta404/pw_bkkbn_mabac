@@ -775,92 +775,187 @@ class Pengguna extends CI_Controller
         }
 
         foreach ($get_row_age as $age) {
-            $rowAge['AGE_AUTISM'] = number_format($age['autis'] / $row_autism, 6);
+            $rowAge['AGE_AUTIS'] = number_format($age['autis'] / $row_autism, 6);
             $rowAge['AGE_NORMAL'] =  number_format($age['normal'] / $row_normal, 6);
 
             $data[$age['age']] =  $rowAge;
         }
         foreach ($get_row_jundice as $jun) {
             $rowJunY['J_Y_NORMAL'] = number_format($jun['Y_normal'] / $row_normal, 6);
-            $rowJunY['J_Y_AUTISM'] =  number_format($jun['Y_autism'] / $row_autism, 6);
+            $rowJunY['J_Y_AUTIS'] =  number_format($jun['Y_autism'] / $row_autism, 6);
             $rowJunN['J_N_NORMAL'] = number_format($jun['N_normal'] / $row_normal, 6);
-            $rowJunN['J_N_AUTISM'] =  number_format($jun['N_autism'] / $row_autism, 6);
+            $rowJunN['J_N_AUTIS'] =  number_format($jun['N_autism'] / $row_autism, 6);
 
-            $data['yes'] =  $rowJunY;
-            $data['no'] =  $rowJunN;
+            $data['JUN_YES'] =  $rowJunY;
+            $data['JUN_NO'] =  $rowJunN;
         }
         foreach ($get_row_autis_tree as $AT) {
             $rowATY['AT_Y_NORMAL'] = number_format($AT['Y_normal'] / $row_normal, 6);
-            $rowATY['AT_Y_AUTISM'] =  number_format($AT['Y_autism'] / $row_autism, 6);
+            $rowATY['AT_Y_AUTIS'] =  number_format($AT['Y_autism'] / $row_autism, 6);
             $rowATN['AT_N_NORMAL'] = number_format($AT['N_normal'] / $row_normal, 6);
-            $rowATN['AT_N_AUTISM'] =  number_format($AT['N_autism'] / $row_autism, 6);
+            $rowATN['AT_N_AUTIS'] =  number_format($AT['N_autism'] / $row_autism, 6);
 
             $data['yes'] =  $rowATY;
             $data['no'] =  $rowATN;
         }
         $resNormal = [];
         $resASD = [];
+
         //================= CARI ASCORE =====================
-        $uji = $this->getdata->countDataUji();
-        $skip = array('id_uji', 'age', 'gender', 'jundice', 'autism', 'Class');
+        $dt_uji = $this->getdata->countDataUji();
         echo '<pre>';
 
-        $newuji = [];
-        $i = 0;
-        foreach ($uji as $k => $v) {
-            $num = -1;
-            foreach ($v as $v2 => $k2) {
-                if (in_array($v2, $skip)) {
-                    continue;
-                } else {
-                    $v2 = $num++;
-                    unset($v2);
-                    $newuji[][$num] = $k2;
+        $newYes = array();
+        $newNo = array();
+        foreach ($dt_uji as $row) {
+            $idx = -1;
+            $n = [];
+            $y = [];
+            foreach ($row as $k => $v) {
+                if ($idx < 10 && $idx >= -1) {
+
+                    if ($v == 1) {
+                        if (array_key_exists($v, $data)) {
+                            $y[$k] = array($data[1]['A_Y_NORMAL'][$idx], $data[1]['A_Y_AUTIS'][$idx]);
+                        }
+                    }
+                    if ($v == 0) {
+                        if (array_key_exists($v, $data)) {
+                            $n[$k] = array($data[0]['A_N_NORMAL'][$idx], $data[0]['A_N_AUTIS'][$idx]);
+                        }
+                    }
+                }
+                $idx++;
+            }
+            array_push($newYes, $y);
+            array_push($newNo, $n);
+        }
+        $arrayTemp = array();
+        foreach ($newYes as $key => $value) {
+            $arrayTemp[] = (object)array_merge((array)$newNo[$key], (array)$value);
+        }
+
+        // var_dump($arrayTemp);
+        $total_normal = 0;
+        foreach ($arrayTemp as $at) {
+            foreach ($at as $key1 => $v2) {
+                foreach ($v2 as $key2 => $v3) {
+                    if ($key2 == 0) {
+                        echo $v3 . '<br>';
+                    }
                 }
             }
+            echo '<hr>';
         }
+        echo $total_normal;
+        // foreach ($newYes as $ny => $num) {
+        //     foreach ($num as $k => $v2) {
+        //         // $idx = -1;
+        //         foreach ($v2 as $vk => $v3) {
+
+        //             if (array_key_exists($ny, $newNo)) {
+        //                 // print_r($newNo[$ny][]);
+        //                 foreach($newNo as $nn)
+        //                 // print_r($newNo[$ny]);
+        //                 // if (array_key_exists($k, $newNo[$ny][$k])) {
+        //                 //     echo 'ada';
+        //                 // } else {
+        //                 //     echo 'gk ada';
+        //                 // }
+        //             } else {
+        //                 continue;
+        //             }
+        //             break;
+        //         }
+        //         break;
+        //         // $idx++;
+        //     }
+
+        //     // echo '<hr>';
+        // }
+        // $merge = array_merge($newYes, $newNo);
+        // var_dump($newYes);
         //==================================================
 
 
         //================= PUSH MATCH RESULT ASCORE =====================
 
-        foreach ($newuji as $nu => $key) {
-            foreach ($key as $k => $v) {
-                if ($v == 1) {
-                    if (array_key_exists($k, $data[1]['A_Y_NORMAL'])) {
-                        array_push($resNormal, $data[1]['A_Y_NORMAL'][$k]);
-                    }
-                    if (array_key_exists($k, $data[1]['A_Y_AUTIS'])) {
-                        array_push($resNormal, $data[1]['A_Y_AUTIS'][$k]);
-                    }
-                }
-                if ($v == 0) {
-                    if (array_key_exists($k, $data[0]['A_N_NORMAL'])) {
-                        array_push($resASD, $data[0]['A_N_NORMAL'][$k]);
-                    }
-                    if (array_key_exists($k, $data[0]['A_N_AUTIS'])) {
-                        array_push($resASD, $data[0]['A_N_AUTIS'][$k]);
-                    }
-                }
-            }
-        }
+        // foreach ($newuji as $nu => $key) {
+
+        //     foreach ($key as $k => $v) {
+        //         // if($v == 'YES'){
+
+        //         // }
+        //         if ($v == 1) {
+
+
+
+        //             if (array_key_exists($v, $data)) {
+        //                 echo $k . ' | ' . $data[1]['A_Y_NORMAL'][$k] . '<br>';
+        //                 echo $k . ' | ' . $data[1]['A_Y_AUTIS'][$k] . '<br>';
+
+        //                 // echo $k . '<br>';
+        //                 // $resNormal[]['test'] =   $data[1]['A_Y_NORMAL'][$k];
+        //                 // array_push($resNormal, $data[1]['A_Y_NORMAL'][$k]);
+        //                 //     // $resNormal[]['test'][] = $data[1]['A_Y_AUTIS'][$k];
+        //                 //     // array_push($resNormal, $data[1]['A_Y_AUTIS'][$k]);
+        //             }
+        //         }
+
+        //         // if ($v == 0) {
+        //         //     if (array_key_exists($k, $data[0]['A_N_NORMAL'])) {
+        //         //         // echo $k . ' | ' . $data[0]['A_N_NORMAL'];
+        //         //         // $resASD[]['test'] = $data[0]['A_N_NORMAL'][$k];
+        //         //     }
+        //         //     if (array_key_exists($k, $data[0]['A_N_AUTIS'])) {
+        //         //         // echo $k . ' | ' . $data[0]['A_N_AUTIS'];
+        //         //         // $resASD[]['test']  = $data[0]['A_N_AUTIS'][$k];
+        //         //     }
+        //         // }
+        //     }
+        //     echo '------<br>';
+        // }
         //==============================================================
-        // var_dump($uji);
-        foreach ($uji as $uk => $uv) {
-            // foreach ($uk as $uk2) {
-            if ($uv['Class'] == 'YES') {
-                // if ($uv['gender'] == 'm') {
-                if (array_key_exists($uv['gender'], $data)) {
-                    array_push($resASD, $data[$uv['gender']][]);
-                    echo  $uv['id_uji'] . ' | ' . $uv['gender'] . '<br>';
-                }
-                // }
-            }
-            if ($uv['Class'] == 'NO') {
-            }
-        }
+        // var_dump($data);
+        // foreach ($uji as $uk => $uv) {
+        //     // foreach ($uk as $uk2) {
+        //     if ($uv['Class'] == 'YES') {
+        //         if (array_key_exists($uv['gender'], $data)) {
+        //             array_push($resASD, $data[$uv['gender']][strtoupper($uv['gender']) . '_AUTIS']);
+        //         }
+
+        //         if (array_key_exists('JUN_' . strtoupper($uv['jundice']), $data)) {
+        //             if ($uv['jundice'] == 'yes') {
+        //                 array_push($resASD, $data['JUN_YES']['J_Y_AUTIS']);
+        //             } else {
+        //                 array_push($resASD, $data['JUN_NO']['J_N_AUTIS']);
+        //             }
+
+        //             // echo $uv['id_uji'] . ' | ' . $data['JUN_' . strtoupper($uv['jundice'])]['J_N_AUTIS'] . '<br>';
+        //         }
+        //     }
+        //     if ($uv['Class'] == 'NO') {
+        //         if (array_key_exists($uv['gender'], $data)) {
+        //             array_push($resNormal, $data[$uv['gender']][strtoupper($uv['gender']) . '_NORMAL']);
+        //         }
+        //         if (array_key_exists('JUN_' . strtoupper($uv['jundice']), $data)) {
+        //             if ($uv['jundice'] == 'yes') {
+        //                 array_push($resNormal, $data['JUN_YES']['J_Y_NORMAL']);
+        //             } else {
+        //                 array_push($resNormal, $data['JUN_NO']['J_N_NORMAL']);
+        //             }
+        //         }
+        //     }
+        // }
+        // foreach ($uji as $last => $k1) {
+        //     foreach ($k1 as $last2 => $k2) {
+        //         echo $k2 . '<br>';
+        //     }
+        // }
+        // var_dump($newuji);
     }
 }
+
 // echo $uk2;
 // if (array_key_exists($uv2, $data)) {
 //     // array_push($resNormal, $data['m'])
