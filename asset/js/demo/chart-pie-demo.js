@@ -5,59 +5,64 @@ Chart.defaults.global.defaultFontColor = '#858796';
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
 $(document).on('click', '#cekakurasi', function() {
-    $.ajax({
-        url: 'pengguna/Test',
-        type: 'POST',
-        dataType: 'JSON',
-        success: function(data) {
-            var akurasi_n = data.akurasi_n;
-            var akurasi_y = data.akurasi_y;
-            var akurasi;
-            if (data.akurasi_benar > data.akurasi_salah) {
-                akurasi = data.akurasi_benar;
-            } else {
-                akurasi = data.akurasi_salah;
-            }
-            $('input[id="normal"]').val(data.normal);
-            $('input[id="autis"]').val(data.autis);
-            $('#persen').text(akurasi + ' %');
-            $.each(data["dt_salah"], function(key, value) {
-                // console.log(value['id']);
-                $('#notmatch').append(
-                    '<tr>' +
-                    '<td>' + value['id'] + '</td><td>' + value['class'] + '</td><td>' + value['prediksi'] + '</td></tr>'
-                );
+    var r = $("#notmatch").find("td").length;
+    if (r == 0) {
+        $.ajax({
+            url: 'pengguna/Test',
+            type: 'POST',
+            dataType: 'JSON',
+            success: function(data) {
+                var akurasi_n = data.akurasi_n;
+                var akurasi_y = data.akurasi_y;
+                var akurasi;
+                if (data.akurasi_benar > data.akurasi_salah) {
+                    akurasi = data.akurasi_benar;
+                } else {
+                    akurasi = data.akurasi_salah;
+                }
+                $('input[id="normal"]').val(data.normal);
+                $('input[id="autis"]').val(data.autis);
+                $('#persen').text(akurasi + ' %');
+                $.each(data["dt_salah"], function(key, value) {
+                    // console.log(value['id']);
+                    $('#notmatch').append(
+                        '<tr>' +
+                        '<td>' + value['id'] + '</td><td>' + value['class'] + '</td><td>' + value['prediksi'] + '</td></tr>'
+                    );
 
-            });
-            var myPieChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ["Tepat", "Tidak Tepat"],
-                    datasets: [{
-                        data: [data.akurasi_benar, data.akurasi_salah],
-                        backgroundColor: ['#4e73df', '#1cc88a'],
-                        hoverBackgroundColor: ['#2e59d9', '#17a673'],
-                        hoverBorderColor: "rgba(234, 236, 244, 1)",
-                    }],
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    tooltips: {
-                        backgroundColor: "rgb(255,255,255)",
-                        bodyFontColor: "#858796",
-                        borderColor: '#dddfeb',
-                        borderWidth: 1,
-                        xPadding: 15,
-                        yPadding: 15,
-                        displayColors: false,
-                        caretPadding: 10,
+                });
+                var myPieChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ["Tepat", "Tidak Tepat"],
+                        datasets: [{
+                            data: [data.akurasi_benar, data.akurasi_salah],
+                            backgroundColor: ['#4e73df', '#1cc88a'],
+                            hoverBackgroundColor: ['#2e59d9', '#17a673'],
+                            hoverBorderColor: "rgba(234, 236, 244, 1)",
+                        }],
                     },
-                    legend: {
-                        display: false
+                    options: {
+                        maintainAspectRatio: false,
+                        tooltips: {
+                            backgroundColor: "rgb(255,255,255)",
+                            bodyFontColor: "#858796",
+                            borderColor: '#dddfeb',
+                            borderWidth: 1,
+                            xPadding: 15,
+                            yPadding: 15,
+                            displayColors: false,
+                            caretPadding: 10,
+                        },
+                        legend: {
+                            display: false
+                        },
+                        cutoutPercentage: 80,
                     },
-                    cutoutPercentage: 80,
-                },
-            });
-        }
-    })
+                });
+            }
+        })
+    } else {
+        $(this).unbind("click");
+    }
 });
