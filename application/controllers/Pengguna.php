@@ -810,10 +810,16 @@ class Pengguna extends CI_Controller
 
         $newYes = array();
         $newNo = array();
+        $newAge = array();
+        $newGen = array();
+        $newJun = array();
         foreach ($dt_uji as $row) {
             $idx = -1;
             $n = [];
             $y = [];
+            $age = [];
+            $gen = [];
+            $jun = [];
             foreach ($row as $k => $v) {
                 if ($idx < 10 && $idx >= -1) {
 
@@ -828,11 +834,37 @@ class Pengguna extends CI_Controller
                         }
                     }
                 }
+                if ($idx >= 10 && $idx <= 10) {
+                    if (array_key_exists($v, $data)) {
+                        $age[$v] = array($data[$v]['AGE_NORMAL'], $data[$v]['AGE_AUTIS']);
+                    }
+                }
+                if ($idx >= 11 && $idx <= 11) {
+                    if (array_key_exists($v, $data)) {
+                        $gen[$v] = array($data[$v][strtoupper($v) . '_NORMAL'], $data[$v][strtoupper($v) . '_AUTIS']);
+                    }
+                }
+                if ($idx >= 12 && $idx <= 12) {
+                    if (array_key_exists('JUN_' . strtoupper($v), $data)) {
+                        $jun[$v] = array($data['JUN_' . strtoupper($v)]['J_' . strtoupper(substr($v, 0, 1)) . '_NORMAL'], $data['JUN_' . strtoupper($v)]['J_' . strtoupper(substr($v, 0, 1)) . '_AUTIS']);
+                    }
+                }
+                // if ($idx >= 13 && $idx <= 13) {
+                //     echo $k;
+                //     // if (array_key_exists($v, $data)) {
+                //     //     $age[$v] = array($data[$v]['AGE_NORMAL'], $data[$v]['AGE_AUTIS']);
+                //     // }
+                // }
                 $idx++;
             }
             array_push($newYes, $y);
             array_push($newNo, $n);
+            array_push($newAge, $age);
+            array_push($newGen, $gen);
+            array_push($newJun, $jun);
         }
+        echo '<pre>';
+        var_dump($newJun);
 
         $arrayTemp = array();
         foreach ($newYes as $key => $value) {
@@ -863,21 +895,41 @@ class Pengguna extends CI_Controller
         }
         $Autis = 0;
         $Normal = 0;
+        $forClass = array();
         foreach ($resA_Y as $k => $v) {
             if (array_key_exists($k, $resA_N)) {
-                if ($v > $resA_N[$k]) {
-                    $Autis++  . ' | Autism <br>';
+                // echo $v / ($v + $resA_N[$k]) + $resA_N[$k] / ($v + $resA_N[$k]) . '<br>';
+                if ($v / ($v + $resA_N[$k]) > $resA_N[$k] / ($v + $resA_N[$k])) {
+                    $forClass[] = 'YES';
+                    $Autis++;
                 } else {
-                    $Normal++ . ' | Normal <br>';
+                    $forClass[] = 'NO';
+                    $Normal++;
                 }
             }
         }
 
-        $json = array(
-            'normal' => $Normal,
-            'autis' => $Autis,
-        );
-        echo json_encode($json);
+        $cocok = 0;
+        $takcocok = 0;
+        foreach ($forClass as $k => $v) {
+            if (isset($k, $dt_uji)) {
+                if ($v == $dt_uji[$k]['Class']) {
+                    $cocok++;
+                } else {
+                    $takcocok++;
+                }
+            }
+        }
+
+
+        // echo '<pre>';
+        // var_dump($forClass);
+        // echo $cocok . ' | ' . $takcocok;
+        // $json = array(
+        //     'normal' => $Normal,
+        //     'autis' => $Autis,
+        // );
+        // echo json_encode($json);
         // if ($resA_N[4] > $resA_Y[4]) {
         //     echo 'Normal';
         // } else {

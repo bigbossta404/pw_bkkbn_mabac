@@ -10,12 +10,12 @@
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-xl mb-4">
-                            <div class="card border-left-warning shadow">
+                            <div class="card border-left-primary shadow">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                                Isi question dibawah dengan format yang sesuai
+                                                Nilai akurasi hasil pengolahan data uji
                                             </div>
                                             <!-- <div class="h5 mb-0 font-weight-bold text-gray-800"></div> -->
                                         </div>
@@ -146,7 +146,7 @@
                                         <div class="card-body">
                                             <div class="col-xl text-white d-flex justify-content-center align-items-center akurasi-content">
                                                 <div class="col-xl-2 mr-4 d-flex justify-content-center boxtot">
-                                                    <h1><?= $dataset['jml_data_latih']; ?></h1>
+                                                    <h1 class="mb-0"><?= $dataset['jml_data_latih']; ?></h1>
                                                 </div>
                                                 <div class="col-xl">
                                                     <div class="input-group mb-3">
@@ -225,7 +225,7 @@
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2" tyle="width: 100px; height: 100px; float: left; position: relative;">
                                         <div style="width: 100%; position: absolute; top: 50%; left: 0; margin-top: -10px; line-height:19px; text-align: center; z-index: 999999999999999">
-                                            <h1>99 %</h1>
+                                            <h1>0 %</h1>
                                         </div>
                                         <canvas id="myPieChart"></canvas>
                                     </div>
