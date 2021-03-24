@@ -702,13 +702,13 @@ class Pengguna extends CI_Controller
         $get_row_age = $this->getdata->getAge();
         $get_row_jundice = $this->getdata->getJundice();
         $get_row_autis_tree = $this->getdata->getAutisTree();
-        $get_row = $this->getdata->countrow();
+        // $get_row = $this->getdata->countrow();
 
         $row_autism = $get_row_class['Autism'];
         $row_normal = $get_row_class['Normal'];
 
-        $res_autism = number_format($row_autism / $get_row['jml_data_latih'], 6);
-        $res_normal = number_format($row_normal / $get_row['jml_data_latih'], 6);
+        // $res_autism = number_format($row_autism / $get_row['jml_data_latih'], 6);
+        // $res_normal = number_format($row_normal / $get_row['jml_data_latih'], 6);
 
         $A_Score = $this->getdata->getA_score();
         $data = [];
@@ -767,7 +767,7 @@ class Pengguna extends CI_Controller
             $data['0'] = $row0;
         }
         foreach ($get_row_gender as $gender) {
-            // echo $gender['M_AUTIS'];
+
             $rowM['M_NORMAL'] = number_format($gender['M_NORMAL'] / $row_normal, 6);
             $rowM['M_AUTIS'] = number_format($gender['M_AUTIS']  / $row_autism, 6);
             $rowF['F_NORMAL'] = number_format($gender['F_NORMAL'] / $row_normal, 6);
@@ -801,18 +801,17 @@ class Pengguna extends CI_Controller
             $data['yes'] =  $rowATY;
             $data['no'] =  $rowATN;
         }
-        $resNormal = [];
-        $resASD = [];
 
-        //================= CARI ASCORE =====================
+        //================= Pengambilan Data Prediksi =====================
+
         $dt_uji = $this->getdata->countDataUji();
-        // echo '<pre>';
 
         $newYes = array();
         $newNo = array();
         $newAge = array();
         $newGen = array();
         $newJun = array();
+        $newAutism = array();
         foreach ($dt_uji as $row) {
             $idx = -1;
             $n = [];
@@ -820,6 +819,7 @@ class Pengguna extends CI_Controller
             $age = [];
             $gen = [];
             $jun = [];
+            $au = [];
             foreach ($row as $k => $v) {
                 if ($idx < 10 && $idx >= -1) {
 
@@ -836,7 +836,7 @@ class Pengguna extends CI_Controller
                 }
                 if ($idx >= 10 && $idx <= 10) {
                     if (array_key_exists($v, $data)) {
-                        $age[$v] = array($data[$v]['AGE_NORMAL'], $data[$v]['AGE_AUTIS']);
+                        $age[strval($v)] = array($data[$v]['AGE_NORMAL'], $data[$v]['AGE_AUTIS']);
                     }
                 }
                 if ($idx >= 11 && $idx <= 11) {
@@ -846,15 +846,14 @@ class Pengguna extends CI_Controller
                 }
                 if ($idx >= 12 && $idx <= 12) {
                     if (array_key_exists('JUN_' . strtoupper($v), $data)) {
-                        $jun[$v] = array($data['JUN_' . strtoupper($v)]['J_' . strtoupper(substr($v, 0, 1)) . '_NORMAL'], $data['JUN_' . strtoupper($v)]['J_' . strtoupper(substr($v, 0, 1)) . '_AUTIS']);
+                        $jun[key((array)$data['JUN_' . strtoupper($v)])] = array($data['JUN_' . strtoupper($v)]['J_' . strtoupper(substr($v, 0, 1)) . '_NORMAL'], $data['JUN_' . strtoupper($v)]['J_' . strtoupper(substr($v, 0, 1)) . '_AUTIS']);
                     }
                 }
-                // if ($idx >= 13 && $idx <= 13) {
-                //     echo $k;
-                //     // if (array_key_exists($v, $data)) {
-                //     //     $age[$v] = array($data[$v]['AGE_NORMAL'], $data[$v]['AGE_AUTIS']);
-                //     // }
-                // }
+                if ($idx >= 13 && $idx <= 13) {
+                    if (array_key_exists($v, $data)) {
+                        $au[$v] = array($data[$v]['AT_' . strtoupper(substr($v, 0, 1)) . '_NORMAL'], $data[$v]['AT_' . strtoupper(substr($v, 0, 1)) . '_AUTIS']);
+                    }
+                }
                 $idx++;
             }
             array_push($newYes, $y);
@@ -862,18 +861,34 @@ class Pengguna extends CI_Controller
             array_push($newAge, $age);
             array_push($newGen, $gen);
             array_push($newJun, $jun);
+            array_push($newAutism, $au);
         }
-        echo '<pre>';
-        var_dump($newJun);
 
         $arrayTemp = array();
+        $arrayTemp2 = array();
+        $arrayTemp3 = array();
+        $arrayTemp4 = array();
+        $arrayTemp5 = array();
         foreach ($newYes as $key => $value) {
             $arrayTemp[] = (object)array_merge((array)$newNo[$key], (array)$value);
         }
+        foreach ($arrayTemp as $key => $value) {
+            $arrayTemp2[] = (object)array_merge((array)$newAge[$key], (array)$value);
+        }
+        foreach ($arrayTemp2 as $key => $value) {
+            $arrayTemp3[] = (object)array_merge((array)$newGen[$key], (array)$value);
+        }
+        foreach ($arrayTemp3 as $key => $value) {
+            $arrayTemp4[] = (object)array_merge((array)$newJun[$key], (array)$value);
+        }
+        foreach ($arrayTemp4 as $key => $value) {
+            $arrayTemp5[] = (object)array_merge((array)$newAutism[$key], (array)$value);
+        }
+
         $store_normal = [];
         $store_autis = [];
 
-        foreach ($arrayTemp as $at) {
+        foreach ($arrayTemp5 as $at) {
             $s_normal = array();
             $s_autis = array();
             foreach ($at as $key1 => $v2) {
@@ -885,21 +900,24 @@ class Pengguna extends CI_Controller
             array_push($store_autis, $s_autis);
         }
 
-        $resA_N = [];
-        $resA_Y = [];
+        $res_N = [];
+        $res_Y = [];
         foreach ($store_normal as $sn) {
-            $resA_N[] = array_product($sn);
+            $res_N[] = array_product($sn);
         }
         foreach ($store_autis as $sn) {
-            $resA_Y[] = array_product($sn);
+            $res_Y[] = array_product($sn);
         }
+
+        //=============== Memprediksi Class Baru =============
+
         $Autis = 0;
         $Normal = 0;
         $forClass = array();
-        foreach ($resA_Y as $k => $v) {
-            if (array_key_exists($k, $resA_N)) {
+        foreach ($res_Y as $k => $v) {
+            if (array_key_exists($k, $res_N)) {
                 // echo $v / ($v + $resA_N[$k]) + $resA_N[$k] / ($v + $resA_N[$k]) . '<br>';
-                if ($v / ($v + $resA_N[$k]) > $resA_N[$k] / ($v + $resA_N[$k])) {
+                if ($v / ($v + $res_N[$k]) > $res_N[$k] / ($v + $res_N[$k])) {
                     $forClass[] = 'YES';
                     $Autis++;
                 } else {
@@ -909,143 +927,42 @@ class Pengguna extends CI_Controller
             }
         }
 
+        //============= Pencocokan Hasil Prediksi Class Baru ====================
+
         $cocok = 0;
-        $takcocok = 0;
+        $salah = 0;
+        $dt_salah = array();
         foreach ($forClass as $k => $v) {
             if (isset($k, $dt_uji)) {
                 if ($v == $dt_uji[$k]['Class']) {
                     $cocok++;
                 } else {
-                    $takcocok++;
+                    $dt_salah[] = array('id' => $dt_uji[$k]['id_uji'], 'class' => $dt_uji[$k]['Class'], 'prediksi' => $v);
+                    $salah++;
                 }
             }
         }
 
-
         // echo '<pre>';
-        // var_dump($forClass);
-        // echo $cocok . ' | ' . $takcocok;
-        // $json = array(
-        //     'normal' => $Normal,
-        //     'autis' => $Autis,
-        // );
-        // echo json_encode($json);
-        // if ($resA_N[4] > $resA_Y[4]) {
-        //     echo 'Normal';
-        // } else {
-        //     echo 'Autis';
-        // }
-        // echo $total;
-        // echo $total_normal;
-        // foreach ($newYes as $ny => $num) {
-        //     foreach ($num as $k => $v2) {
-        //         // $idx = -1;
-        //         foreach ($v2 as $vk => $v3) {
+        // var_dump($dt_salah);
+        //============= Perhitungan Persentase Akurasi ====================
 
-        //             if (array_key_exists($ny, $newNo)) {
-        //                 // print_r($newNo[$ny][]);
-        //                 foreach($newNo as $nn)
-        //                 // print_r($newNo[$ny]);
-        //                 // if (array_key_exists($k, $newNo[$ny][$k])) {
-        //                 //     echo 'ada';
-        //                 // } else {
-        //                 //     echo 'gk ada';
-        //                 // }
-        //             } else {
-        //                 continue;
-        //             }
-        //             break;
-        //         }
-        //         break;
-        //         // $idx++;
-        //     }
+        $akurasi_normal = number_format(($Normal / ($Normal + $Autis)) * 100, 1);
+        $akurasi_autis = number_format($Autis / ($Normal + $Autis) * 100, 1);
+        $akurasi_benar = number_format($cocok / ($Normal + $Autis) * 100, 1);
+        $akurasi_salah = number_format($salah / ($Normal + $Autis) * 100, 1);
 
-        //     // echo '<hr>';
-        // }
-        // $merge = array_merge($newYes, $newNo);
-        // var_dump($arrayTemp);
-        //==================================================
-
-
-        //================= PUSH MATCH RESULT ASCORE =====================
-
-        // foreach ($newuji as $nu => $key) {
-
-        //     foreach ($key as $k => $v) {
-        //         // if($v == 'YES'){
-
-        //         // }
-        //         if ($v == 1) {
-
-
-
-        //             if (array_key_exists($v, $data)) {
-        //                 echo $k . ' | ' . $data[1]['A_Y_NORMAL'][$k] . '<br>';
-        //                 echo $k . ' | ' . $data[1]['A_Y_AUTIS'][$k] . '<br>';
-
-        //                 // echo $k . '<br>';
-        //                 // $resNormal[]['test'] =   $data[1]['A_Y_NORMAL'][$k];
-        //                 // array_push($resNormal, $data[1]['A_Y_NORMAL'][$k]);
-        //                 //     // $resNormal[]['test'][] = $data[1]['A_Y_AUTIS'][$k];
-        //                 //     // array_push($resNormal, $data[1]['A_Y_AUTIS'][$k]);
-        //             }
-        //         }
-
-        //         // if ($v == 0) {
-        //         //     if (array_key_exists($k, $data[0]['A_N_NORMAL'])) {
-        //         //         // echo $k . ' | ' . $data[0]['A_N_NORMAL'];
-        //         //         // $resASD[]['test'] = $data[0]['A_N_NORMAL'][$k];
-        //         //     }
-        //         //     if (array_key_exists($k, $data[0]['A_N_AUTIS'])) {
-        //         //         // echo $k . ' | ' . $data[0]['A_N_AUTIS'];
-        //         //         // $resASD[]['test']  = $data[0]['A_N_AUTIS'][$k];
-        //         //     }
-        //         // }
-        //     }
-        //     echo '------<br>';
-        // }
-        //==============================================================
-        // var_dump($data);
-        // foreach ($uji as $uk => $uv) {
-        //     // foreach ($uk as $uk2) {
-        //     if ($uv['Class'] == 'YES') {
-        //         if (array_key_exists($uv['gender'], $data)) {
-        //             array_push($resASD, $data[$uv['gender']][strtoupper($uv['gender']) . '_AUTIS']);
-        //         }
-
-        //         if (array_key_exists('JUN_' . strtoupper($uv['jundice']), $data)) {
-        //             if ($uv['jundice'] == 'yes') {
-        //                 array_push($resASD, $data['JUN_YES']['J_Y_AUTIS']);
-        //             } else {
-        //                 array_push($resASD, $data['JUN_NO']['J_N_AUTIS']);
-        //             }
-
-        //             // echo $uv['id_uji'] . ' | ' . $data['JUN_' . strtoupper($uv['jundice'])]['J_N_AUTIS'] . '<br>';
-        //         }
-        //     }
-        //     if ($uv['Class'] == 'NO') {
-        //         if (array_key_exists($uv['gender'], $data)) {
-        //             array_push($resNormal, $data[$uv['gender']][strtoupper($uv['gender']) . '_NORMAL']);
-        //         }
-        //         if (array_key_exists('JUN_' . strtoupper($uv['jundice']), $data)) {
-        //             if ($uv['jundice'] == 'yes') {
-        //                 array_push($resNormal, $data['JUN_YES']['J_Y_NORMAL']);
-        //             } else {
-        //                 array_push($resNormal, $data['JUN_NO']['J_N_NORMAL']);
-        //             }
-        //         }
-        //     }
-        // }
-        // foreach ($uji as $last => $k1) {
-        //     foreach ($k1 as $last2 => $k2) {
-        //         echo $k2 . '<br>';
-        //     }
-        // }
-        // var_dump($newuji);
+        $json  =  array(
+            'normal' => $Normal,
+            'autis' => $Autis,
+            'cocok' => $cocok,
+            'takcocok' => $salah,
+            'akurasi_n' =>  $akurasi_normal,
+            'akurasi_y' =>  $akurasi_autis,
+            'akurasi_benar' =>  $akurasi_benar,
+            'akurasi_salah' =>  $akurasi_salah,
+            'dt_salah' => $dt_salah
+        );
+        echo json_encode($json);
     }
 }
-
-// echo $uk2;
-// if (array_key_exists($uv2, $data)) {
-//     // array_push($resNormal, $data['m'])
-// }

@@ -3,7 +3,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Data Uji</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Hitung Akurasi</h1>
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Ekspor Dataset</a> -->
                     </div>
 
@@ -25,9 +25,9 @@
                                             </a>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="submit" class="card bg-success font-weight-bold text-white shadow  py-2 btnhitung" id="cekakurasi">
+                                            <a type="submit" class="card bg-success font-weight-bold text-white shadow  py-2 btnhitung" id="cekakurasi">
                                                 Proses
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -186,16 +186,20 @@
                                     <!-- Project Card Example -->
                                     <div class="card shadow mb-4">
                                         <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Not Match</h6>
+                                            <h6 class="m-0 font-weight-bold text-primary">Tidak Tepat</h6>
                                         </div>
                                         <div class="card-body">
-                                            <h4 class="small font-weight-bold">Normal <span class="float-right">20%</span></h4>
-                                            <div class="progress mb-4">
-                                                <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <h4 class="small font-weight-bold">ASD <span class="float-right">40%</span></h4>
-                                            <div class="progress mb-4">
-                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <td>Id_uji</td>
+                                                        <td>Class</td>
+                                                        <td>Prediksi</td>
+                                                    </thead>
+                                                    <tbody id='notmatch'>
+
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -225,16 +229,16 @@
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2" tyle="width: 100px; height: 100px; float: left; position: relative;">
                                         <div style="width: 100%; position: absolute; top: 50%; left: 0; margin-top: -10px; line-height:19px; text-align: center; z-index: 999999999999999">
-                                            <h1>0 %</h1>
+                                            <h1 id="persen">0 %</h1>
                                         </div>
                                         <canvas id="myPieChart"></canvas>
                                     </div>
                                     <div class="pt-5 text-center small">
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Normal
+                                            <i class="fas fa-circle text-primary"></i> Tepat
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> ASD
+                                            <i class="fas fa-circle text-success"></i> Tidak Tepat
                                         </span>
                                     </div>
                                 </div>

@@ -10,14 +10,31 @@ $(document).on('click', '#cekakurasi', function() {
         type: 'POST',
         dataType: 'JSON',
         success: function(data) {
+            var akurasi_n = data.akurasi_n;
+            var akurasi_y = data.akurasi_y;
+            var akurasi;
+            if (data.akurasi_benar > data.akurasi_salah) {
+                akurasi = data.akurasi_benar;
+            } else {
+                akurasi = data.akurasi_salah;
+            }
             $('input[id="normal"]').val(data.normal);
             $('input[id="autis"]').val(data.autis);
+            $('#persen').text(akurasi + ' %');
+            $.each(data["dt_salah"], function(key, value) {
+                // console.log(value['id']);
+                $('#notmatch').append(
+                    '<tr>' +
+                    '<td>' + value['id'] + '</td><td>' + value['class'] + '</td><td>' + value['prediksi'] + '</td></tr>'
+                );
+
+            });
             var myPieChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ["Normal", "ASD"],
+                    labels: ["Tepat", "Tidak Tepat"],
                     datasets: [{
-                        data: [95, 5],
+                        data: [data.akurasi_benar, data.akurasi_salah],
                         backgroundColor: ['#4e73df', '#1cc88a'],
                         hoverBackgroundColor: ['#2e59d9', '#17a673'],
                         hoverBorderColor: "rgba(234, 236, 244, 1)",
