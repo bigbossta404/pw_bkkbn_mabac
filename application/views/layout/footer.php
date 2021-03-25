@@ -55,7 +55,7 @@
                          "serverSide": true, //Feature control DataTables' server-side processing mode.
                          "order": [],
                          ajax: {
-                             url: "<?php echo site_url('pengguna/getDataset') ?>",
+                             url: "<?php echo site_url('admin/getDataset') ?>",
                              type: "POST"
                          },
                          "columnDefs": [{
@@ -84,7 +84,7 @@
                          "serverSide": true, //Feature control DataTables' server-side processing mode.
                          "order": [],
                          ajax: {
-                             url: "<?php echo site_url('pengguna/getDatalatih') ?>",
+                             url: "<?php echo site_url('admin/getDatalatih') ?>",
                              type: "POST"
                          },
                          "columnDefs": [{
@@ -113,7 +113,7 @@
                          "serverSide": true, //Feature control DataTables' server-side processing mode.
                          "order": [],
                          ajax: {
-                             url: "<?php echo site_url('pengguna/getDatauji') ?>",
+                             url: "<?php echo site_url('admin/getDatauji') ?>",
                              type: "POST"
                          },
                          "columnDefs": [{

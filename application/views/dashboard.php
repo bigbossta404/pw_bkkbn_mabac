@@ -1,109 +1,157 @@
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+<!DOCTYPE html>
+<html>
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dataset Autism</h1>
-                        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Ekspor Dataset</a> -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Vanilla Bootstrap v4.2.1 Theme</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link rel="stylesheet" href="<?= base_url('asset/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('asset/vendor/fontawesome-free/css/fontawesome.min.css')  ?>">
+    <link rel="stylesheet" href="<?= base_url('asset/css/hero-slider.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('asset/css/templatemo-main.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('asset/css/owl-carousel.csss') ?>">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+    <script src="<?= base_url('asset/vendor/modernizr-2.8.3-respond-1.4.2.min.js') ?>"></script>
+</head>
+<!--
+Vanilla Template
+https://templatemo.com/tm-526-vanilla
+-->
+
+<body>
+
+    <div class="fixed-side-navbar">
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#home"><span>Intro</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#services"><span>Info</span></a></li>
+            <!-- <li class="nav-item"><a class="nav-link" href="#portfolio"><span>Portfolio</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#our-story"><span>Our Story</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact-us"><span>Contact Us</span></a></li> -->
+        </ul>
+    </div>
+
+    <div class="parallax-content baner-content d-flex justify-content-center align-items-center" id="home">
+        <div class="container">
+            <div class="first-content">
+                <h1>Autism Spectrum Disorder</h1>
+                <span><em>Deteksi</em> autis anak usia 4 - 11</span>
+                <div class="primary-button">
+                    <a href="#services">Deteksi Sekarang!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="service-content" id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="left-text text-black">
+                        <h4>More About Vanilla</h4>
+                        <div class="line-dec"></div>
+                        <p>Vanilla is free HTML CSS template with Bootstrap v4.2.1 and you can apply this theme for your sites.
+                            Please share our <a rel="nofollow" href="https://templatemo.com">website</a> to your friends or collegues. Thank you.</p>
+                        <ul>
+                            <li>- Praesent porta urna id eros</li>
+                            <li>- Curabitur consectetur malesuada</li>
+                            <li>- Nam pretium imperdiet enim</li>
+                            <li>- Sed viverra arcu non nisi efficitur</li>
+                        </ul>
+                        <div class="primary-button">
+                            <a href="#portfolio">Learn More About Us</a>
+                        </div>
                     </div>
-
-                    <!-- Content Row -->
+                </div>
+                <div class="col-md-8">
                     <div class="row">
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                                Dataset</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $datalatih['jml_data_latih'] ?> Data</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-database fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="col-md-6">
+                            <div class="service-item">
+                                <h4>Classic Modern Design</h4>
+                                <div class="line-dec"></div>
+                                <p>Sed lacinia ligula est, at venenatis ex iaculis quis. Morbi sollicitudin nulla eget odio pellentesque.</p>
                             </div>
                         </div>
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                                Total Atribut</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $atribut['jml_atrib'] ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-table fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="col-md-6">
+                            <div class="service-item">
+                                <h4>Unique &amp; Creative Ideas</h4>
+                                <div class="line-dec"></div>
+                                <p>Sed lacinia ligula est, at venenatis ex iaculis quis. Morbi sollicitudin nulla eget odio pellentesque.</p>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-6 mb-4 ml-auto ">
-                            <div class="card h-100 w-100 boxbtn">
-                                <a href="<?= base_url('data_uji') ?>" class="card bg-primary font-weight-bold text-white shadow w-100 h-75 py-2 btnhitung btnatas" id="cekdata">
-                                    Data Latih & Uji
-                                </a>
-                                <div class="row h-50">
-                                    <div class="col btn-area">
-                                        <a href="#" class="card bg-success font-weight-bold text-white shadow  py-2 btnhitung">
-                                            <i class="fas fa-plus-circle"></i>
-                                        </a>
-                                        <a href="#" class="card bg-danger font-weight-bold text-white shadow  py-2 btnhitung">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
+                        <div class="col-md-6">
+                            <div class="service-item">
+                                <h4>Effective Team Work</h4>
+                                <div class="line-dec"></div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia ligula est, at venenatis ex iaculis quis.</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl">
-                            <div class="card shadow tablecard">
-                                <table id="dataset" class="table table-striped table-bordered display nowrap" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <td>#</td>
-                                            <td>ID</td>
-                                            <td>A1</td>
-                                            <td>A2</td>
-                                            <td>A3</td>
-                                            <td>A4</td>
-                                            <td>A5</td>
-                                            <td>A6</td>
-                                            <td>A7</td>
-                                            <td>A8</td>
-                                            <td>A9</td>
-                                            <td>A10</td>
-                                            <td>age</td>
-                                            <td>gender</td>
-                                            <td>jundice</td>
-                                            <td>autism</td>
-                                            <td>class</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                        <div class="col-md-6">
+                            <div class="service-item">
+                                <h4>Fast Support 24/7</h4>
+                                <div class="line-dec"></div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia ligula est, at venenatis ex iaculis quis.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <!-- <span>Copyright &copy; Fanny Vega Variant 2021</span> -->
-                        </div>
-                    </div>
-                </footer>
 
-                </div>
 
-                </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="<?= base_url('asset/js/jquery-3.5.1.min') ?>"><\/script>')
+    </script>
+    <script src="<?= base_url('asset/js/bootstrap.min.js') ?>"></script>
+    <script src="<?= base_url('asset/js/plugins.js') ?>"></script>
+    <script src="<?= base_url('asset/js/main.js') ?>"></script>
+    <script>
+        function openCity(cityName) {
+            var i;
+            var x = document.getElementsByClassName("city");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(cityName).style.display = "block";
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Add smooth scrolling to all links
+            $(".fixed-side-navbar a, .primary-button a").on('click', function(event) {
+
+                // Make sure this.hash has a value before overriding default behavior
+                if (this.hash !== "") {
+                    // Prevent default anchor click behavior
+                    event.preventDefault();
+
+                    // Store hash
+                    var hash = this.hash;
+
+                    // Using jQuery's animate() method to add smooth page scroll
+                    // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function() {
+
+                        // Add hash (#) to URL when done scrolling (default click behavior)
+                        window.location.hash = hash;
+                    });
+                } // End if
+            });
+        });
+    </script>
+
+</body>
+
+</html>

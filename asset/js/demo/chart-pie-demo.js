@@ -8,7 +8,7 @@ $(document).on('click', '#cekakurasi', function() {
     var r = $("#notmatch").find("td").length;
     if (r == 0) {
         $.ajax({
-            url: 'pengguna/Test',
+            url: 'admin/Test',
             type: 'POST',
             dataType: 'JSON',
             success: function(data) {

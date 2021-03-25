@@ -35,7 +35,7 @@ $(document).ready(function() {
 
 $(document).on('click', '#cekdata', function(e) {
     $.ajax({
-        url: "pengguna/CekDataLatihUji",
+        url: "admin/CekDataLatihUji",
         type: "POST",
         dataType: "JSON",
 
@@ -47,7 +47,7 @@ $(document).on('click', '#cektesting', function(e) {
 
     if (r == 0) {
         $.ajax({
-            url: "pengguna/getCounting",
+            url: "admin/getCounting",
             type: "GET",
             dataType: "JSON",
             success: function(data) {

@@ -16,175 +16,11 @@ class Pengguna extends CI_Controller
         $data['datalatih'] = $this->getdata->countrow();
         $data['atribut'] = $this->getdata->countatrib();
 
-        $this->load->view('layout/header');
+        // $this->load->view('layout/header');
         $this->load->view('dashboard', $data);
-        $this->load->view('layout/footer');
+        // $this->load->view('layout/footer');
     }
 
-    public function getDataset()
-    {
-        //preprocessing Age = 0
-        start:
-        $checkAge = $this->getdata->check_Age();
-        $get_before_proces = $this->getdata->avg_Age();
-        if ($checkAge['age'] >= 1) {
-            $this->db->set('age', floor($get_before_proces['rerata_NO']));
-            $this->db->where('age', 0);
-            $this->db->where('Class', 'NO');
-            $this->db->update('dataset');
-
-            $this->db->set('age', floor($get_before_proces['rerata_YES']));
-            $this->db->where('age', 0);
-            $this->db->where('Class', 'YES');
-            $this->db->update('dataset');
-            goto start;
-        } else {
-            $list = $this->getdata->get_datatables();
-            $data = array();
-            foreach ($list as $ds) {
-                $row = array();
-
-                $row[] = "<input type='checkbox' id='id_latih' name='id_latih' value='$ds->id_dataset'>";
-                $row[] = $ds->id_dataset;
-                $row[] = ($ds->A1_Score == 1) ? 'yes' : 'no';
-                $row[] = ($ds->A2_Score == 1) ? 'yes' : 'no';
-                $row[] = ($ds->A3_Score == 1) ? 'yes' : 'no';
-                $row[] = ($ds->A4_Score == 1) ? 'yes' : 'no';
-                $row[] = ($ds->A5_Score == 1) ? 'yes' : 'no';
-                $row[] = ($ds->A6_Score == 1) ? 'yes' : 'no';
-                $row[] = ($ds->A7_Score == 1) ? 'yes' : 'no';
-                $row[] = ($ds->A8_Score == 1) ? 'yes' : 'no';
-                $row[] = ($ds->A9_Score == 1) ? 'yes' : 'no';
-                $row[] = ($ds->A10_Score == 1) ? 'yes' : 'no';
-                $row[] = $ds->age;
-                $row[] = $ds->gender;
-                $row[] = $ds->jundice;
-                $row[] = $ds->autism;
-                $row[] = ($ds->Class == 'NO') ? 'Normal' : 'ASD';
-                $data[] = $row;
-            }
-
-            $output = array(
-                "draw" => $_POST['draw'],
-                "recordsTotal" => $this->getdata->count_all(),
-                "recordsFiltered" => $this->getdata->count_filtered(),
-                "data" => $data,
-            );
-
-            echo json_encode($output);
-        }
-    }
-
-    public function index_datauji()
-    {
-
-        $totdl = $this->getdata->countDataUji();
-        $getDataN = $this->getdata->getDataNo();
-        $getDataY = $this->getdata->getDataYes();
-        if (count($totdl) == 0) {
-            $data = [];
-            foreach ($getDataN as $n) {
-                unset($n['cnt'], $n['rn'], $n['ethnicity'], $n['contry_of_res'], $n['result'], $n['relation'], $n['used_app_before'], $n['age_desc']);
-                array_push($data, $n);
-            }
-            foreach ($getDataY as $y) {
-                unset($y['cnt'], $y['rn'], $y['ethnicity'], $y['contry_of_res'], $y['result'], $y['relation'], $y['used_app_before'], $y['age_desc']);
-                array_push($data, $y);
-            }
-            if (count($data) != 0) {
-                foreach ($data as $d) {
-                    $d['id_uji'] = $d['id_dataset'];
-                    unset($d['id_dataset']);
-                    $this->db->insert('data_uji', $d);
-                }
-                $notInUji = $this->getdata->notInDataUji();
-                foreach ($notInUji as $notIn) {
-                    $notIn['id_latih'] = $notIn['id_dataset'];
-                    unset($notIn['id_dataset'], $notIn['ethnicity'], $notIn['contry_of_res'], $notIn['result'], $notIn['relation'], $notIn['used_app_before'], $notIn['age_desc']);
-                    $this->db->insert('data_latih', $notIn);
-                }
-            }
-        }
-
-        $data['atribut'] = $this->getdata->countatrib_uji();
-        $data['class'] = $this->getdata->getClass();
-        $this->load->view('layout/header');
-        $this->load->view('data_uji', $data);
-        $this->load->view('layout/footer');
-    }
-
-    public function getDatauji()
-    {
-        // $list = $this->tagihan->_get_datatables($idkamar);
-        $list = $this->getdata->get_datatables_uji();
-        $data = array();
-        foreach ($list as $ds) {
-            $row = array();
-            $row[] = "<input type='checkbox' id='id_latih' name='id_latih' value='$ds->id_uji'>";
-            $row[] = $ds->id_uji;
-            $row[] = ($ds->A1_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A2_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A3_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A4_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A5_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A6_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A7_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A8_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A9_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A10_Score == 1) ? 'yes' : 'no';
-            $row[] = $ds->age;
-            $row[] = $ds->gender;
-            $row[] = $ds->jundice;
-            $row[] = $ds->autism;
-            $row[] = ($ds->Class == 'NO') ? 'Normal' : 'ASD';
-            $data[] = $row;
-        }
-
-        $output = array(
-            "draw" => $_POST['draw'],
-            "recordsTotal" => $this->getdata->count_all_uji(),
-            "recordsFiltered" => $this->getdata->count_filtered_uji(),
-            "data" => $data,
-        );
-
-        echo json_encode($output);
-    }
-    public function getDatalatih()
-    {
-        // $list = $this->tagihan->_get_datatables($idkamar);
-        $list = $this->getdata->get_datatables_latih();
-        $data = array();
-        foreach ($list as $ds) {
-            $row = array();
-            $row[] = "<input type='checkbox' id='id_latih' name='id_latih' value='$ds->id_latih'>";
-            $row[] = $ds->id_latih;
-            $row[] = ($ds->A1_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A2_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A3_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A4_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A5_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A6_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A7_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A8_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A9_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A10_Score == 1) ? 'yes' : 'no';
-            $row[] = $ds->age;
-            $row[] = $ds->gender;
-            $row[] = $ds->jundice;
-            $row[] = $ds->autism;
-            $row[] = ($ds->Class == 'NO') ? 'Normal' : 'ASD';
-            $data[] = $row;
-        }
-
-        $output = array(
-            "draw" => $_POST['draw'],
-            "recordsTotal" => $this->getdata->count_all_latih(),
-            "recordsFiltered" => $this->getdata->count_filtered_latih(),
-            "data" => $data,
-        );
-
-        echo json_encode($output);
-    }
 
     public function index_hitung()
     {
@@ -196,123 +32,6 @@ class Pengguna extends CI_Controller
         $this->load->view('layout/header');
         $this->load->view('hitung_uji', $data);
         $this->load->view('layout/footer');
-    }
-
-    public function getCounting()
-    {
-        $get_row_class = $this->getdata->getAutism();
-        $get_row_gender = $this->getdata->getGender();
-        $get_row_age = $this->getdata->getAge();
-        $get_row_jundice = $this->getdata->getJundice();
-        $get_row_autis_tree = $this->getdata->getAutisTree();
-        $get_row = $this->getdata->countrow();
-
-        $row_autism = $get_row_class['Autism'];
-        $row_normal = $get_row_class['Normal'];
-
-        $res_autism = number_format($row_autism / $get_row['jml_data_latih'], 6);
-        $res_normal = number_format($row_normal / $get_row['jml_data_latih'], 6);
-
-        $A_Score = $this->getdata->getA_score();
-        $data = [];
-        foreach ($A_Score as $as) {
-            $row['A_Y_NORMAL'] = number_format($as['A1_YES_NORMAL'] / $row_normal, 6);
-            $row['A_Y_AUTIS'] = number_format($as['A1_YES_AUTIS']  / $row_autism, 6);
-            $row['A_N_NORMAL'] = number_format($as['A1_NO_NORMAL']  / $row_normal, 6);
-            $row['A_N_AUTIS'] = number_format($as['A1_NO_AUTIS']  / $row_autism, 6);
-
-            $row2['A_Y_NORMAL'] = number_format($as['A2_YES_NORMAL'] / $row_normal, 6);
-            $row2['A_Y_AUTIS'] = number_format($as['A2_YES_AUTIS'] / $row_autism, 6);
-            $row2['A_N_NORMAL'] = number_format($as['A2_NO_NORMAL'] / $row_normal, 6);
-            $row2['A_N_AUTIS'] = number_format($as['A2_NO_AUTIS'] / $row_autism, 6);
-
-            $row3['A_Y_NORMAL'] = number_format($as['A3_YES_NORMAL'] / $row_normal, 6);
-            $row3['A_Y_AUTIS'] = number_format($as['A3_YES_AUTIS'] / $row_autism, 6);
-            $row3['A_N_NORMAL'] = number_format($as['A3_NO_NORMAL'] / $row_normal, 6);
-            $row3['A_N_AUTIS'] = number_format($as['A3_NO_AUTIS'] / $row_autism, 6);
-
-            $row4['A_Y_NORMAL'] =  number_format($as['A4_YES_NORMAL'] / $row_normal, 6);
-            $row4['A_Y_AUTIS'] =  number_format($as['A4_YES_AUTIS'] / $row_autism, 6);
-            $row4['A_N_NORMAL'] =  number_format($as['A4_NO_NORMAL'] / $row_normal, 6);
-            $row4['A_N_AUTIS'] =  number_format($as['A4_NO_AUTIS'] / $row_autism, 6);
-
-            $row5['A_Y_NORMAL'] =  number_format($as['A5_YES_NORMAL'] / $row_normal, 6);
-            $row5['A_Y_AUTIS'] =  number_format($as['A5_YES_AUTIS'] / $row_autism, 6);
-            $row5['A_N_NORMAL'] =  number_format($as['A5_NO_NORMAL'] / $row_normal, 6);
-            $row5['A_N_AUTIS'] =  number_format($as['A5_NO_AUTIS'] / $row_autism, 6);
-
-            $row6['A_Y_NORMAL'] =  number_format($as['A6_YES_NORMAL'] / $row_normal, 6);
-            $row6['A_Y_AUTIS'] =  number_format($as['A6_YES_AUTIS'] / $row_autism, 6);
-            $row6['A_N_NORMAL'] =  number_format($as['A6_NO_NORMAL'] / $row_normal, 6);
-            $row6['A_N_AUTIS'] =  number_format($as['A6_NO_AUTIS'] / $row_autism, 6);
-
-            $row7['A_Y_NORMAL'] =  number_format($as['A7_YES_NORMAL'] / $row_normal, 6);
-            $row7['A_Y_AUTIS'] =  number_format($as['A7_YES_AUTIS'] / $row_autism, 6);
-            $row7['A_N_NORMAL'] =  number_format($as['A7_NO_NORMAL'] / $row_normal, 6);
-            $row7['A_N_AUTIS'] =  number_format($as['A7_NO_AUTIS'] / $row_autism, 6);
-
-            $row8['A_Y_NORMAL'] =  number_format($as['A8_YES_NORMAL'] / $row_normal, 6);
-            $row8['A_Y_AUTIS'] =  number_format($as['A8_YES_AUTIS'] / $row_autism, 6);
-            $row8['A_N_NORMAL'] =  number_format($as['A8_NO_NORMAL'] / $row_normal, 6);
-            $row8['A_N_AUTIS'] =  number_format($as['A8_NO_AUTIS'] / $row_autism, 6);
-
-            $row9['A_Y_NORMAL'] =  number_format($as['A9_YES_NORMAL'] / $row_normal, 6);
-            $row9['A_Y_AUTIS'] =  number_format($as['A9_YES_AUTIS'] / $row_autism, 6);
-            $row9['A_N_NORMAL'] =  number_format($as['A9_NO_NORMAL'] / $row_normal, 6);
-            $row9['A_N_AUTIS'] =  number_format($as['A9_NO_AUTIS'] / $row_autism, 6);
-
-            $row10['A_Y_NORMAL'] = number_format($as['A10_YES_NORMAL'] / $row_normal, 6);
-            $row10['A_Y_AUTIS'] = number_format($as['A10_YES_AUTIS'] / $row_autism, 6);
-            $row10['A_N_NORMAL'] = number_format($as['A10_NO_NORMAL'] / $row_normal, 6);
-            $row10['A_N_AUTIS'] = number_format($as['A10_NO_AUTIS'] / $row_autism, 6);
-
-            $data['A1_score'] = $row;
-            $data['A2_score'] = $row2;
-            $data['A3_score'] = $row3;
-            $data['A4_score'] = $row4;
-            $data['A5_score'] = $row5;
-            $data['A6_score'] = $row6;
-            $data['A7_score'] = $row7;
-            $data['A8_score'] = $row8;
-            $data['A9_score'] = $row9;
-            $data['A10_score'] = $row10;
-        }
-
-        foreach ($get_row_gender as $gender) {
-            // echo $gender['M_AUTIS'];
-            $rowGen['M_NORMAL'] = number_format($gender['M_NORMAL'] / $row_normal, 6);
-            $rowGen['M_AUTIS'] = number_format($gender['M_AUTIS']  / $row_autism, 6);
-            $rowGen['F_NORMAL'] = number_format($gender['F_NORMAL'] / $row_normal, 6);
-            $rowGen['F_AUTIS'] = number_format($gender['F_AUTIS'] / $row_autism, 6);
-
-            $data['jk'] = $rowGen;
-        }
-
-        foreach ($get_row_age as $age) {
-            $rowAge['AGE_AUTISM'] = number_format($age['autis'] / $row_autism, 6);
-            $rowAge['AGE_NORMAL'] =  number_format($age['normal'] / $row_normal, 6);
-
-            $data[$age['age']] =  $rowAge;
-        }
-        foreach ($get_row_jundice as $jun) {
-            $rowJun['J_Y_NORMAL'] = number_format($jun['Y_normal'] / $row_normal, 6);
-            $rowJun['J_Y_AUTISM'] =  number_format($jun['Y_autism'] / $row_autism, 6);
-            $rowJun['J_N_NORMAL'] = number_format($jun['N_normal'] / $row_normal, 6);
-            $rowJun['J_N_AUTISM'] =  number_format($jun['N_autism'] / $row_autism, 6);
-
-            $data['jundice'] =  $rowJun;
-        }
-        foreach ($get_row_autis_tree as $AT) {
-            $rowAT['AT_Y_NORMAL'] = number_format($AT['Y_normal'] / $row_normal, 6);
-            $rowAT['AT_Y_AUTISM'] =  number_format($AT['Y_autism'] / $row_autism, 6);
-            $rowAT['AT_N_NORMAL'] = number_format($AT['N_normal'] / $row_normal, 6);
-            $rowAT['AT_N_AUTISM'] =  number_format($AT['N_autism'] / $row_autism, 6);
-
-            $data['autis_tree'] =  $rowAT;
-        }
-
-
-        echo json_encode($data);
     }
 
     public function hitung()
@@ -702,13 +421,13 @@ class Pengguna extends CI_Controller
         $get_row_age = $this->getdata->getAge();
         $get_row_jundice = $this->getdata->getJundice();
         $get_row_autis_tree = $this->getdata->getAutisTree();
-        // $get_row = $this->getdata->countrow();
+        $get_row = $this->getdata->countrow();
 
         $row_autism = $get_row_class['Autism'];
         $row_normal = $get_row_class['Normal'];
 
-        // $res_autism = number_format($row_autism / $get_row['jml_data_latih'], 6);
-        // $res_normal = number_format($row_normal / $get_row['jml_data_latih'], 6);
+        $res_autism = number_format($row_autism / $get_row['jml_data_latih'], 6);
+        $res_normal = number_format($row_normal / $get_row['jml_data_latih'], 6);
 
         $A_Score = $this->getdata->getA_score();
         $data = [];
@@ -903,11 +622,12 @@ class Pengguna extends CI_Controller
         $res_N = [];
         $res_Y = [];
         foreach ($store_normal as $sn) {
-            $res_N[] = array_product($sn);
+            $res_N[] = array_product($sn) * $res_normal;
         }
         foreach ($store_autis as $sn) {
-            $res_Y[] = array_product($sn);
+            $res_Y[] = array_product($sn) * $res_autism;
         }
+
 
         //=============== Memprediksi Class Baru =============
 
@@ -944,7 +664,7 @@ class Pengguna extends CI_Controller
         }
 
         // echo '<pre>';
-        // var_dump($dt_salah);
+        // var_dump($res_N);
         //============= Perhitungan Persentase Akurasi ====================
 
         $akurasi_normal = number_format(($Normal / ($Normal + $Autis)) * 100, 1);
