@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Vanilla Bootstrap v4.2.1 Theme</title>
+    <title><?= $title ?></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <link rel="stylesheet" href="<?= base_url('asset/css/bootstrap.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('asset/vendor/fontawesome-free/css/fontawesome.min.css')  ?>">
+    <link href="<?= base_url('asset/vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="<?= base_url('asset/css/hero-slider.css') ?>">
     <link rel="stylesheet" href="<?= base_url('asset/css/templatemo-main.css') ?>">
     <link rel="stylesheet" href="<?= base_url('asset/css/owl-carousel.csss') ?>">
@@ -42,7 +42,7 @@ https://templatemo.com/tm-526-vanilla
                 <h1>Autism Spectrum Disorder</h1>
                 <span><em>Deteksi</em> autis anak usia 4 - 11</span>
                 <div class="primary-button">
-                    <a href="#services">Deteksi Sekarang!</a>
+                    <a href="<?= base_url('cek-asd') ?>">Deteksi Sekarang!</a>
                 </div>
             </div>
         </div>

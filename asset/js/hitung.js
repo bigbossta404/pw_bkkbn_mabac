@@ -1,3 +1,29 @@
+var visibleQ = 0;
+
+function showQ() {
+    $(".myquestion").hide()
+    $(".myquestion:eq(" + visibleQ + ")").show();
+}
+showQ();
+
+$(document).on('click', '.qnext', function() {
+    if (visibleQ == 10) {
+        console.log('mantap');
+    } else {
+        visibleQ++;
+    }
+    showQ();
+});
+$(document).on('click', '.qback', function() {
+    if (visibleQ == 0) {
+        console.log('mantap');
+    } else {
+        visibleQ--;
+    }
+    showQ();
+});
+
+
 $(document).ready(function() {
     $(document).on('click', '#datalatih', function() {
         if ($(".tabeldatalatih").is(':visible')) {

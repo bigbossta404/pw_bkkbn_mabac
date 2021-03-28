@@ -15,6 +15,7 @@ class Pengguna extends CI_Controller
 
         $data['datalatih'] = $this->getdata->countrow();
         $data['atribut'] = $this->getdata->countatrib();
+        $data['title'] = 'ASD Site';
 
         // $this->load->view('layout/header');
         $this->load->view('dashboard', $data);
@@ -29,9 +30,9 @@ class Pengguna extends CI_Controller
         $data['datalatih'] = count($this->getdata->countDatalatih());
         $data['atribut'] = $this->getdata->countatrib_uji();
         $data['class'] = $this->getdata->getClass();
-        $this->load->view('layout/header');
-        $this->load->view('hitung_uji', $data);
-        $this->load->view('layout/footer');
+        $data['title'] = 'Deteksi ASD';
+
+        $this->load->view('user_hitung', $data);
     }
 
     public function hitung()
