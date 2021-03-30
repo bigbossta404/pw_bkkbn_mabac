@@ -13,7 +13,6 @@
     <link href="<?= base_url('asset/vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="<?= base_url('asset/css/hero-slider.css') ?>">
     <link rel="stylesheet" href="<?= base_url('asset/css/templatemo-main.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('asset/css/owl-carousel.csss') ?>">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
@@ -54,18 +53,18 @@ https://templatemo.com/tm-526-vanilla
             <div class="row">
                 <div class="col-md-4">
                     <div class="left-text text-black">
-                        <h4>More About Vanilla</h4>
+                        <h4>Tentang Desitis</h4>
                         <div class="line-dec"></div>
-                        <p>Vanilla is free HTML CSS template with Bootstrap v4.2.1 and you can apply this theme for your sites.
-                            Please share our <a rel="nofollow" href="https://templatemo.com">website</a> to your friends or collegues. Thank you.</p>
+                        <p>Desitis adalah website pendeteksi autisme anak usia 4 - 11 tahun dengan pendekatan metode Naive Bayes,
+                            website ini dibangun oleh <a rel="nofollow" href="https://www.instagram.com/fannyvegant_/">Fanny Vega Variant</a> dengan tujuan untuk penyelesaian proyek tugas akhir
+                            Implementasi Algoritma Clasifikasi Naive Bayes untuk Mendeteksi Gejala Autism Spektrum Disorder (ASD) Pada Anak Berbasis Website. Terima kasih.</p>
                         <ul>
-                            <li>- Praesent porta urna id eros</li>
-                            <li>- Curabitur consectetur malesuada</li>
-                            <li>- Nam pretium imperdiet enim</li>
-                            <li>- Sed viverra arcu non nisi efficitur</li>
+                            <li>- Mudah digunakan</li>
+                            <li>- Berbentuk input pertanyaan</li>
+                            <li>- Menggunakan Metode Naive Bayes</li>
                         </ul>
                         <div class="primary-button">
-                            <a href="#portfolio">Learn More About Us</a>
+                            <a href="#home">Coba Deteksi</a>
                         </div>
                     </div>
                 </div>

@@ -142,93 +142,112 @@ class Pengguna extends CI_Controller
             $data['no'] =  $rowATN;
         }
 
-        $this->form_validation->set_rules('pilih1', 'Pilih1', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
-            'numeric' => 'Tidak valid!',
-            'greater_than_equal_to' => 'Tidak valid!',
-            'less_than_equal_to' => 'Tidak valid!',
 
-        ]);
-        $this->form_validation->set_rules('pilih2', 'Pilih2', 'trim|required|numeric|greater_than[-1]|less_than[2]', [
-            'numeric' => 'Tidak valid!',
-            'greater_than' => 'Tidak valid!',
-            'less_than' => 'Tidak valid!',
 
-        ]);
-        $this->form_validation->set_rules('pilih3', 'Pilih3', 'trim|required|numeric|greater_than[-1]|less_than[2]', [
-            'numeric' => 'Tidak valid!',
-            'greater_than' => 'Tidak valid!',
-            'less_than' => 'Tidak valid!',
 
-        ]);
-        $this->form_validation->set_rules('pilih4', 'Pilih4', 'trim|required|numeric|greater_than[-1]|less_than[2]', [
-            'numeric' => 'Tidak valid!',
-            'greater_than' => 'Tidak valid!',
-            'less_than' => 'Tidak valid!',
 
-        ]);
-        $this->form_validation->set_rules('pilih5', 'Pilih5', 'trim|required|numeric|greater_than[-1]|less_than[2]', [
-            'numeric' => 'Tidak valid!',
-            'greater_than' => 'Tidak valid!',
-            'less_than' => 'Tidak valid!',
+        if ($this->input->post('visibleQ') == 0) {
+            $this->form_validation->set_rules('age', 'Age', 'trim|required|numeric|greater_than_equal_to[4]|less_than_equal_to[11]', [
+                'numeric' => 'Tidak valid!',
+                'greater_than_equal_to' => 'Tidak valid!',
+                'less_than_equal_to' => 'Tidak valid!',
 
-        ]);
-        $this->form_validation->set_rules('pilih6', 'Pilih6', 'trim|required|numeric|greater_than[-1]|less_than[2]', [
-            'numeric' => 'Tidak valid!',
-            'greater_than' => 'Tidak valid!',
-            'less_than' => 'Tidak valid!',
+            ]);
+            $this->form_validation->set_rules('gender', 'Gender', 'trim|required', [
+                'required' => 'Wajib isi!'
 
-        ]);
-        $this->form_validation->set_rules('pilih7', 'Pilih7', 'trim|required|numeric|greater_than[-1]|less_than[2]', [
-            'numeric' => 'Tidak valid!',
-            'greater_than' => 'Tidak valid!',
-            'less_than' => 'Tidak valid!',
+            ]);
+            $this->form_validation->set_rules('jundice', 'Jundice', 'trim|required', [
+                'required' => 'Wajib isi!'
+            ]);
+            $this->form_validation->set_rules('autism', 'Autism', 'trim|required', [
+                'required' => 'Wajib isi!'
 
-        ]);
-        $this->form_validation->set_rules('pilih8', 'Pilih8', 'trim|required|numeric|greater_than[-1]|less_than[2]', [
-            'numeric' => 'Tidak valid!',
-            'greater_than' => 'Tidak valid!',
-            'less_than' => 'Tidak valid!',
+            ]);
+        } elseif ($this->input->post('visibleQ') == 1) {
+            $this->form_validation->set_rules('pilih1', 'Pilih1', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
+                'numeric' => 'Tidak valid!',
+                'greater_than_equal_to' => 'Tidak valid!',
+                'less_than_equal_to' => 'Tidak valid!',
 
-        ]);
-        $this->form_validation->set_rules('pilih9', 'Pilih9', 'trim|required|numeric|greater_than[-1]|less_than[2]', [
-            'numeric' => 'Tidak valid!',
-            'greater_than' => 'Tidak valid!',
-            'less_than' => 'Tidak valid!',
+            ]);
+        } elseif ($this->input->post('visibleQ') == 2) {
+            $this->form_validation->set_rules('pilih2', 'Pilih3', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
+                'numeric' => 'Tidak valid!',
+                'greater_than_equal_to' => 'Tidak valid!',
+                'less_than_equal_to' => 'Tidak valid!',
 
-        ]);
-        $this->form_validation->set_rules('pilih10', 'Pilih10', 'trim|required|numeric|greater_than[-1]|less_than[2]', [
-            'numeric' => 'Tidak valid!',
-            'greater_than' => 'Tidak valid!',
-            'less_than' => 'Tidak valid!',
+            ]);
+        } elseif ($this->input->post('visibleQ') == 3) {
+            $this->form_validation->set_rules('pilih3', 'Pilih3', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
+                'numeric' => 'Tidak valid!',
+                'greater_than_equal_to' => 'Tidak valid!',
+                'less_than_equal_to' => 'Tidak valid!',
 
-        ]);
-        $this->form_validation->set_rules('age', 'Age', 'trim|required|numeric|greater_than_equal_to[4]|less_than_equal_to[11]', [
-            'numeric' => 'Tidak valid!',
-            'greater_than_equal_to' => 'Tidak valid!',
-            'less_than_equal_to' => 'Tidak valid!',
+            ]);
+        } elseif ($this->input->post('visibleQ') == 4) {
+            $this->form_validation->set_rules('pilih4', 'Pilih4', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
+                'numeric' => 'Tidak valid!',
+                'greater_than_equal_to' => 'Tidak valid!',
+                'less_than_equal_to' => 'Tidak valid!',
 
-        ]);
-        $this->form_validation->set_rules('gender', 'Gender', 'trim|required', [
-            'required' => 'Wajib isi!'
+            ]);
+        } elseif ($this->input->post('visibleQ') == 5) {
+            $this->form_validation->set_rules('pilih5', 'Pilih5', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
+                'numeric' => 'Tidak valid!',
+                'greater_than_equal_to' => 'Tidak valid!',
+                'less_than_equal_to' => 'Tidak valid!',
 
-        ]);
-        $this->form_validation->set_rules('jundice', 'Jundice', 'trim|required', [
-            'required' => 'Wajib isi!'
-        ]);
-        $this->form_validation->set_rules('autism', 'Autism', 'trim|required', [
-            'required' => 'Wajib isi!'
+            ]);
+        } elseif ($this->input->post('visibleQ') == 6) {
+            $this->form_validation->set_rules('pilih6', 'Pilih6', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
+                'numeric' => 'Tidak valid!',
+                'greater_than_equal_to' => 'Tidak valid!',
+                'less_than_equal_to' => 'Tidak valid!',
 
-        ]);
+            ]);
+        } elseif ($this->input->post('visibleQ') == 7) {
+            $this->form_validation->set_rules('pilih7', 'Pilih7', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
+                'numeric' => 'Tidak valid!',
+                'greater_than_equal_to' => 'Tidak valid!',
+                'less_than_equal_to' => 'Tidak valid!',
+
+            ]);
+        } elseif ($this->input->post('visibleQ') == 8) {
+            $this->form_validation->set_rules('pilih8', 'Pilih8', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
+                'numeric' => 'Tidak valid!',
+                'greater_than_equal_to' => 'Tidak valid!',
+                'less_than_equal_to' => 'Tidak valid!',
+
+            ]);
+        } elseif ($this->input->post('visibleQ') == 9) {
+            $this->form_validation->set_rules('pilih9', 'Pilih9', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
+                'numeric' => 'Tidak valid!',
+                'greater_than_equal_to' => 'Tidak valid!',
+                'less_than_equal_to' => 'Tidak valid!',
+
+            ]);
+        } elseif ($this->input->post('visibleQ') == 10) {
+            $this->form_validation->set_rules('pilih10', 'Pilih10', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
+                'numeric' => 'Tidak valid!',
+                'greater_than_equal_to' => 'Tidak valid!',
+                'less_than_equal_to' => 'Tidak valid!',
+
+            ]);
+        } else {
+            $this->form_validation->set_rules('visibleQ', 'visibleQ', 'trim|required|numeric|greater_than_equal_to[11]|less_than_equal_to[12]', [
+                'numeric' => 'Tidak valid!',
+                'greater_than_equal_to' => 'Tidak valid!',
+                'less_than_equal_to' => 'Tidak valid!',
+
+            ]);
+        }
+
         if ($this->form_validation->run() == false) {
             $alert = array(
                 'error' => true,
-                'age' => $this->input->post('age', true),
-                'gender' => $this->input->post('gender', true),
-                'jundice' => $this->input->post('jundice', true),
-                'autism' => $this->input->post('autism', true)
             );
-            echo '<pre>';
-            var_dump($alert);
+            echo json_encode($alert);
         } else {
 
             $datainput = [
@@ -247,170 +266,183 @@ class Pengguna extends CI_Controller
                 'jundice' => $this->input->post('jundice', true),
                 'autism' => $this->input->post('autism', true)
             ];
-            echo '<pre>';
-            // var_dump($data);
-            $masukan = [];
+            // echo $datainput['A10_Score'];
+            if ($this->input->post('visibleQ') == 11) {
+                $masukan = [];
 
-            foreach ($datainput as $da) {
-                $AS['input'] = $da[0];
-                $masukan[] = $AS;
-            }
+                foreach ($datainput as $da) {
+                    $AS['input'] = $da[0];
+                    $masukan[] = $AS;
+                }
 
-
-            $gen = [];
-            foreach ($data as $gender => $value) {
-                if (stripos($gender, $masukan[11]['input']) === 0) {
-                    foreach ($value as $key => $v) {
-                        $gen[] = $v;
+                $gen = [];
+                foreach ($data as $gender => $value) {
+                    if (stripos($gender, $masukan[11]['input']) === 0) {
+                        foreach ($value as $key => $v) {
+                            $gen[] = $v;
+                        }
                     }
                 }
-            }
-            $jun = [];
-            foreach ($data as $jundice => $value) {
-                if (stripos($jundice, $masukan[12]['input']) === 0) {
-                    foreach ($value as $key => $v) {
-                        $jun[] = $v;
+                $jun = [];
+                foreach ($data as $jundice => $value) {
+                    if (stripos($jundice, $masukan[12]['input']) === 0) {
+                        foreach ($value as $key => $v) {
+                            $jun[] = $v;
+                        }
                     }
                 }
-            }
-            $AT = [];
-            foreach ($data as $autismT => $value) {
-                if (stripos($autismT, $masukan[13]['input']) === 0) {
-                    foreach ($value as $key => $v) {
-                        $AT[] = $v;
+                $AT = [];
+                foreach ($data as $autismT => $value) {
+                    if (stripos($autismT, $masukan[13]['input']) === 0) {
+                        foreach ($value as $key => $v) {
+                            $AT[] = $v;
+                        }
                     }
                 }
-            }
 
-            // print_r($)
-            $takeresult_normal = array();
-            $takeresult_autis = array();
-            if ($masukan[0]['input'] == 1) {
-                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][0]);
-                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][0]);
-            } else {
-                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][0]);
-                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][0]);
-            }
-            if ($masukan[1]['input'] == 1) {
-                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][1]);
-                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][1]);
-            } else {
-                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][1]);
-                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][1]);
-            }
-            if ($masukan[2]['input'] == 1) {
-                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][2]);
-                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][2]);
-            } else {
-                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][2]);
-                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][2]);
-            }
-            if ($masukan[3]['input'] == 1) {
-                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][3]);
-                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][3]);
-            } else {
-                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][3]);
-                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][3]);
-            }
-            if ($masukan[4]['input'] == 1) {
-                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][4]);
-                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][4]);
-            } else {
-                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][4]);
-                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][4]);
-            }
-            if ($masukan[5]['input'] == 1) {
-                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][5]);
-                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][5]);
-            } else {
-                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][5]);
-                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][5]);
-            }
-            if ($masukan[6]['input'] == 1) {
-                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][6]);
-                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][6]);
-            } else {
-                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][6]);
-                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][6]);
-            }
-            if ($masukan[7]['input'] == 1) {
-                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][7]);
-                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][7]);
-            } else {
-                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][7]);
-                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][7]);
-            }
-            if ($masukan[8]['input'] == 1) {
-                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][8]);
-                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][8]);
-            } else {
-                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][8]);
-                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][8]);
-            }
-            if ($masukan[9]['input'] == 1) {
-                array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][9]);
-                array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][9]);
-            } else {
-                array_push($takeresult_normal, $data[0]['A_N_NORMAL'][9]);
-                array_push($takeresult_autis, $data[0]['A_N_AUTIS'][9]);
-            }
-
-            foreach ($data as $d => $value) {
-                if ($d == $this->input->post('age', true)) {
-                    array_push($takeresult_normal, $value['AGE_NORMAL']);
-                    array_push($takeresult_normal, $value['AGE_AUTISM']);
+                // print_r($)
+                $takeresult_normal = array();
+                $takeresult_autis = array();
+                if ($masukan[0]['input'] == 1) {
+                    array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][0]);
+                    array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][0]);
+                } else {
+                    array_push($takeresult_normal, $data[0]['A_N_NORMAL'][0]);
+                    array_push($takeresult_autis, $data[0]['A_N_AUTIS'][0]);
                 }
-            }
-            if ($gen[0] != null) {
-                array_push($takeresult_normal, $gen[0]);
-            }
-            if ($gen[1] != null) {
-                array_push($takeresult_autis, $gen[1]);
-            }
-            if ($jun[0] != null) {
-                array_push($takeresult_normal, $jun[0]);
-            }
-            if ($jun[1] != null) {
-                array_push($takeresult_autis, $jun[1]);
-            }
-            if ($AT[0] != null) {
-                array_push($takeresult_normal, $AT[0]);
-            }
-            if ($AT[1] != null) {
-                array_push($takeresult_autis, $AT[1]);
-            }
+                if ($masukan[1]['input'] == 1) {
+                    array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][1]);
+                    array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][1]);
+                } else {
+                    array_push($takeresult_normal, $data[0]['A_N_NORMAL'][1]);
+                    array_push($takeresult_autis, $data[0]['A_N_AUTIS'][1]);
+                }
+                if ($masukan[2]['input'] == 1) {
+                    array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][2]);
+                    array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][2]);
+                } else {
+                    array_push($takeresult_normal, $data[0]['A_N_NORMAL'][2]);
+                    array_push($takeresult_autis, $data[0]['A_N_AUTIS'][2]);
+                }
+                if ($masukan[3]['input'] == 1) {
+                    array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][3]);
+                    array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][3]);
+                } else {
+                    array_push($takeresult_normal, $data[0]['A_N_NORMAL'][3]);
+                    array_push($takeresult_autis, $data[0]['A_N_AUTIS'][3]);
+                }
+                if ($masukan[4]['input'] == 1) {
+                    array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][4]);
+                    array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][4]);
+                } else {
+                    array_push($takeresult_normal, $data[0]['A_N_NORMAL'][4]);
+                    array_push($takeresult_autis, $data[0]['A_N_AUTIS'][4]);
+                }
+                if ($masukan[5]['input'] == 1) {
+                    array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][5]);
+                    array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][5]);
+                } else {
+                    array_push($takeresult_normal, $data[0]['A_N_NORMAL'][5]);
+                    array_push($takeresult_autis, $data[0]['A_N_AUTIS'][5]);
+                }
+                if ($masukan[6]['input'] == 1) {
+                    array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][6]);
+                    array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][6]);
+                } else {
+                    array_push($takeresult_normal, $data[0]['A_N_NORMAL'][6]);
+                    array_push($takeresult_autis, $data[0]['A_N_AUTIS'][6]);
+                }
+                if ($masukan[7]['input'] == 1) {
+                    array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][7]);
+                    array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][7]);
+                } else {
+                    array_push($takeresult_normal, $data[0]['A_N_NORMAL'][7]);
+                    array_push($takeresult_autis, $data[0]['A_N_AUTIS'][7]);
+                }
+                if ($masukan[8]['input'] == 1) {
+                    array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][8]);
+                    array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][8]);
+                } else {
+                    array_push($takeresult_normal, $data[0]['A_N_NORMAL'][8]);
+                    array_push($takeresult_autis, $data[0]['A_N_AUTIS'][8]);
+                }
+                if ($masukan[9]['input'] == 1) {
+                    array_push($takeresult_normal, $data[1]['A_Y_NORMAL'][9]);
+                    array_push($takeresult_autis, $data[1]['A_Y_AUTIS'][9]);
+                } else {
+                    array_push($takeresult_normal, $data[0]['A_N_NORMAL'][9]);
+                    array_push($takeresult_autis, $data[0]['A_N_AUTIS'][9]);
+                }
 
-            $totnormal = array_product($takeresult_normal) * $row_normal;
-            $totautis = array_product($takeresult_autis) * $row_autism;
+                foreach ($data as $d => $value) {
+                    if ($d == $this->input->post('age', true)) {
+                        array_push($takeresult_normal, $value['AGE_NORMAL']);
+                        array_push($takeresult_normal, $value['AGE_AUTISM']);
+                    }
+                }
+                if ($gen[0] != null) {
+                    array_push($takeresult_normal, $gen[0]);
+                }
+                if ($gen[1] != null) {
+                    array_push($takeresult_autis, $gen[1]);
+                }
+                if ($jun[0] != null) {
+                    array_push($takeresult_normal, $jun[0]);
+                }
+                if ($jun[1] != null) {
+                    array_push($takeresult_autis, $jun[1]);
+                }
+                if ($AT[0] != null) {
+                    array_push($takeresult_normal, $AT[0]);
+                }
+                if ($AT[1] != null) {
+                    array_push($takeresult_autis, $AT[1]);
+                }
 
-            echo $totnormal . ' | Normal <br>';
-            echo $totautis . ' | Autis <br>';
-            echo '<hr>';
-            if ($totnormal > $totautis) {
-                echo 'Normal';
-                $this->db->set('Class', 'NO');
-                $this->db->insert('data_uji', $datainput);
-                $insert_id = $this->db->insert_id();
+                $totnormal = array_product($takeresult_normal) * $row_normal;
+                $totautis = array_product($takeresult_autis) * $row_autism;
 
-                $this->db->set('id_uji',  $insert_id);
-                $this->db->set('status_normal', $totnormal);
-                $this->db->set('status_autis', $totautis);
-                $this->db->set('hasil_status', 'Normal');
-                $this->db->set('time', 'NOW()', false);
-                $this->db->insert('hasil_uji');
+                if ($totnormal > $totautis) {
+                    $alert = array(
+                        'totnormal' => $totnormal,
+                        'totautis' => $totautis,
+                        'status' => 'Normal'
+                    );
+                    echo json_encode($alert);
+                    $this->db->set('Class', 'NO');
+                    $this->db->insert('data_uji_user', $datainput);
+                    $insert_id = $this->db->insert_id();
+
+                    $this->db->set('id_uji_user',  $insert_id);
+                    $this->db->set('status_normal', $totnormal);
+                    $this->db->set('status_autis', $totautis);
+                    $this->db->set('hasil_status', 'Normal');
+                    $this->db->set('time', 'NOW()', false);
+                    $this->db->insert('hasil_uji');
+                } else {
+                    $alert = array(
+                        'totnormal' => $totnormal,
+                        'totautis' => $totautis,
+                        'status' => 'Autisme'
+                    );
+                    echo json_encode($alert);
+                    $this->db->set('Class', 'YES');
+                    $this->db->insert('data_uji_user', $datainput);
+                    $insert_id = $this->db->insert_id();
+
+                    $this->db->set('id_uji_user',  $insert_id);
+                    $this->db->set('status_normal', $totnormal);
+                    $this->db->set('status_autis', $totautis);
+                    $this->db->set('hasil_status', 'ASD');
+                    $this->db->set('time', 'NOW()', false);
+                    $this->db->insert('hasil_uji');
+                }
             } else {
-                echo 'Autism';
-                $this->db->set('Class', 'YES');
-                $this->db->insert('data_uji', $datainput);
-                $insert_id = $this->db->insert_id();
-
-                $this->db->set('id_uji',  $insert_id);
-                $this->db->set('status_normal', $totnormal);
-                $this->db->set('status_autis', $totautis);
-                $this->db->set('hasil_status', 'ASD');
-                $this->db->set('time', 'NOW()', false);
-                $this->db->insert('hasil_uji');
+                $alert = array(
+                    'next' => true,
+                    'visible' => $this->input->post('visibleQ')
+                );
+                echo json_encode($alert);
             }
         }
     }

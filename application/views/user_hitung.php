@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="<?= base_url('asset/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('asset/css/styles.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('asset/css/sweetalert2.css') ?>">
     <link href="<?= base_url('asset/vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet" type="text/css">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
@@ -20,7 +21,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light nav-user">
         <div class="container-fluid content-nav">
-            <a class="navbar-brand text-white" href="<?= base_url('/') ?>"><i class="fas fa-brain"></i> ASD</a>
+            <a class="navbar-brand text-white" href="<?= base_url('/') ?>"><i class="fas fa-brain"></i> DESITIS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -48,7 +49,7 @@
                                             <div class="col-md-4 colone">
                                                 <div class="form-group mb-3">
                                                     <label class="mb-2" for="">Umur Adik</label>
-                                                    <select type="number" class="form-control border-primary" name="age" placeholder="Age">
+                                                    <select type="number" class="form-control border-primary" name="age" id='umurSet' placeholder="Age">
                                                         <option value="">-- Umur --</option>
                                                         <option value="4">4</option>
                                                         <option value="5">5</option>
@@ -62,7 +63,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="mb-2" for="">Jenis Kelamin</label>
-                                                    <select class="form-control border-primary" name="gender" id="">
+                                                    <select class="form-control border-primary" name="gender" id='genderSet'>
                                                         <option value="">-- Gender --</option>
                                                         <option value="m">Laki-laki</option>
                                                         <option value="f">Perempuan</option>
@@ -72,7 +73,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group mb-3">
                                                     <label class="mb-2" for="">Riwayat Penyakit Kuning</label>
-                                                    <select class="form-control border-primary" name="jundice" id="">
+                                                    <select class="form-control border-primary" name="jundice" id="jundiceSet">
                                                         <option value="">-- Jundice --</option>
                                                         <option value="yes">Ada</option>
                                                         <option value="no">Tidak Ada</option>
@@ -80,7 +81,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="mb-2" for="">Keluarga </label>
-                                                    <select class="form-control border-primary" name="autism" id="">
+                                                    <select class="form-control border-primary" name="autism" id="autismSet">
                                                         <option value="">-- Turunan --</option>
                                                         <option value="yes">Ada</option>
                                                         <option value="no">Tidak Ada</option>
@@ -260,6 +261,33 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="myquestion" style="text-align: center; margin-top:2em">
+                                        <h4 id="headtitle">Sudah yakin?</h4>
+                                        <p id="ptitle">Pastikan data yang diisi telah sesuai</p>
+                                    </div>
+                                </div>
+                                <div class="col-xl">
+                                    <table class="table align-middle table-bordered border-secondary tableresultSet" style="display:none">
+                                        <thead style="background-color:#e36f00;color:#ffffff">
+                                            <tr>
+                                                <th class="col-md-3">Aksi</th>
+                                                <th colspan='2'>Nilai ASD</th>
+                                                <th>Hasil</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td rowspan="2">Deteksi ASD</td>
+                                                <td>Normal</td>
+                                                <td>Autism</td>
+                                                <td rowspan="2" id="resultcell">0</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="normalcell">0,000</td>
+                                                <td id="autiscell">0,000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -268,8 +296,8 @@
                 </div>
             </div>
             <div class="btn-toogle d-flex justify-content-center">
-                <a href="#" class="btn btn-success qback">Kembali</a>
-                <a href="#" class="btn btn-success qnext">Lanjutkan</a>
+                <a class="btn btn-success qback">Kembali</a>
+                <a class="btn btn-success qnext">Lanjutkan</a>
             </div>
         </div>
     </div>
@@ -277,6 +305,7 @@
     <script src="<?= base_url('asset/js/jquery-3.5.1.min.js') ?>"></script>
     <script src="<?= base_url('asset/js/bootstrap.min.js') ?>"></script>
     <script src="<?= base_url('asset/js/hitung.js') ?>"></script>
+    <script src="<?= base_url('asset/js/sweetalert2.js') ?>"></script>
     <!-- <script src="<?= base_url('asset/vendor/fontawesome-free/js/fontawesome.min.js') ?>"></script> -->
 
 </body>

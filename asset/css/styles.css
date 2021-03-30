@@ -42,8 +42,13 @@ div.dataTables_wrapper {
 }
 
 .boxquestion {
-    padding: 40px;
+    padding: 70px;
     border: unset;
+}
+
+.tableresultSet {
+    text-align: center;
+    box-shadow: -1px 1px 7px 2px #0000001c;
 }
 
 .content-nav {

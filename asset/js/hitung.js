@@ -5,22 +5,91 @@ function showQ() {
     $(".myquestion:eq(" + visibleQ + ")").show();
 }
 showQ();
+$(document).ready(function() {
+    $(this).on('click', '.qnext', function() {
+        var age = $('#umurSet').val();
+        var gender = $('#genderSet').val();
+        var jundice = $('#jundiceSet').val();
+        var autism = $('#autismSet').val();
+        var pilih1 = $('input[name=pilih1]:checked').val();
+        var pilih2 = $('input[name=pilih2]:checked').val();
+        var pilih3 = $('input[name=pilih3]:checked').val();
+        var pilih4 = $('input[name=pilih4]:checked').val();
+        var pilih5 = $('input[name=pilih5]:checked').val();
+        var pilih6 = $('input[name=pilih6]:checked').val();
+        var pilih7 = $('input[name=pilih7]:checked').val();
+        var pilih8 = $('input[name=pilih8]:checked').val();
+        var pilih9 = $('input[name=pilih9]:checked').val();
+        var pilih10 = $('input[name=pilih10]:checked').val();
 
-$(document).on('click', '.qnext', function() {
-    if (visibleQ == 10) {
-        console.log('mantap');
-    } else {
-        visibleQ++;
-    }
-    showQ();
-});
+        if (visibleQ <= 11 && visibleQ >= 0) {
+            $.ajax({
+                url: 'pengguna/hitung',
+                type: 'POST',
+                data: {
+                    age: age,
+                    gender: gender,
+                    jundice: jundice,
+                    autism: autism,
+                    pilih1: pilih1,
+                    pilih2: pilih2,
+                    pilih3: pilih3,
+                    pilih4: pilih4,
+                    pilih5: pilih5,
+                    pilih6: pilih6,
+                    pilih7: pilih7,
+                    pilih8: pilih8,
+                    pilih9: pilih9,
+                    pilih10: pilih10,
+                    visibleQ: visibleQ
+                },
+                dataType: 'JSON',
+                success: function(data) {
+                    if (data.error) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'warning',
+                            title: 'Pastikan data terisi dengan benar!',
+                            showConfirmButton: false,
+                            timer: 2500
+                        })
+                    }
+                    if (data.next) {
+                        visibleQ++;
+                        showQ();
+                        if (visibleQ == 11) {
+                            $('.qnext').addClass('btn-primary').removeClass('btn-success').html('Submit');
+                        }
+                    }
+                    if (data.status) {
+                        $('#normalcell').html(data.totnormal);
+                        $('#autiscell').html(data.totautis);
+                        $('#resultcell').html(data.status);
+                        $('.tableresultSet').show();
+                        $('#headtitle').html('Hasil Deteksi');
+                        $('#ptitle').html('<small>note: hasil berikut tidak bisa menjadi acuan utama, periksa ke dokter adalah langkah terbaik</small>');
+                        $('.qnext').hide();
+                        $('.qback').removeClass('qback').addClass('reloadback').css({ 'margin-right': '0' }).attr('href', 'cek-asd');
+                    }
+                }
+            })
+
+
+        }
+
+    });
+})
 $(document).on('click', '.qback', function() {
     if (visibleQ == 0) {
         console.log('mantap');
     } else {
         visibleQ--;
+        showQ();
+        if (visibleQ < 11) {
+            $('.qnext').addClass('btn-success').removeClass('btn-primary').html('Lanjutkan');
+        }
     }
-    showQ();
+
 });
 
 
@@ -143,12 +212,12 @@ $(document).on('click', '.close_res', function(e) {
     });
 });
 
-$(document).on('click', 'input:radio', function() {
-    // alert($("input:radio").val());
-    $('input:radio').change(function() {
-        console.log($('input[name=pilih1]').val());
-    });
-    // if ($("input:radio").is(":checked")) {
+// $(document).on('click', 'input:radio', function() {
+//     // alert($("input:radio").val());
+//     $('input:radio').change(function() {
+//         console.log($('input[name=pilih1]').val());
+//     });
+//     // if ($("input:radio").is(":checked")) {
 
-    // }
-});
+//     // }
+// });
