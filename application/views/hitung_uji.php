@@ -150,13 +150,13 @@
                                                 </div>
                                                 <div class="col-xl">
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="88" value="<?= $datalatih ?>">
+                                                        <input type="text" class="form-control bg-white" placeholder="88" value="<?= $datalatih ?>" readonly>
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text  w-40 pl-2" id="basic-addon1">Data Latih</span>
                                                         </div>
                                                     </div>
                                                     <div class="input-group mb-0">
-                                                        <input type="text" class="form-control" placeholder="88" value="<?= $datauji ?>">
+                                                        <input type="text" class="form-control bg-white" placeholder="88" value="<?= $datauji ?>" readonly>
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text w-40 pl-4" id="basic-addon1">Data Uji</span>
                                                         </div>
@@ -164,13 +164,13 @@
                                                 </div>
                                                 <div class="col-md">
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="88" id="normal" value="0" aria-describedby="basic-addon1">
+                                                        <input type="text" class="form-control bg-white" placeholder="88" id="normal" value="0" aria-describedby="basic-addon1" readonly>
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1">NOR</span>
                                                         </div>
                                                     </div>
                                                     <div class="input-group mb-0">
-                                                        <input type="text" class="form-control" placeholder="99" id="autis" value="0" aria-describedby="basic-addon1">
+                                                        <input type="text" class="form-control bg-white" placeholder="99" id="autis" value="0" aria-describedby="basic-addon1" readonly>
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1">ASD</span>
                                                         </div>

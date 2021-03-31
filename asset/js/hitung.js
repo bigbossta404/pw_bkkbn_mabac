@@ -97,7 +97,7 @@ $(document).ready(function() {
     $(document).on('click', '#datalatih', function() {
         if ($(".tabeldatalatih").is(':visible')) {
             $(".tabeldatalatih").css({ 'visibility': 'hidden', 'display': 'none', 'opacity': '1.0' }).animate({ opacity: 0.0 }, 400);
-            $(this).addClass('btn-primary').removeClass('btn-secondary').html('Data Latih');
+            $(this).addClass('btn-success').removeClass('btn-secondary').html('Data Latih');
         } else if ($(".tabeldatauji").is(':visible')) {
             $(".tabeldatauji").css({ 'visibility': 'hidden', 'display': 'none', 'opacity': '1.0' }).animate({ opacity: 0.0 }, 400);
             $("#datauji").addClass('btn-success').removeClass('btn-secondary').html('Data Uji');
@@ -105,7 +105,7 @@ $(document).ready(function() {
             $(this).addClass('btn-secondary').removeClass('btn-success').html('<i class="fas fa-eye-slash"></i>');
         } else {
             $(".tabeldatalatih").css({ 'visibility': 'unset', 'display': 'inherit', 'opacity': '0.0' }).animate({ opacity: 1.0 }, 200);
-            $(this).addClass('btn-secondary').removeClass('btn-primary').html('<i class="fas fa-eye-slash"></i>');
+            $(this).addClass('btn-secondary').removeClass('btn-success').html('<i class="fas fa-eye-slash"></i>');
         }
 
     });
@@ -117,7 +117,7 @@ $(document).ready(function() {
             $(this).addClass('btn-success').removeClass('btn-secondary').html('Data Uji');
         } else if ($(".tabeldatalatih").is(":visible")) {
             $(".tabeldatalatih").css({ 'visibility': 'hidden', 'display': 'none', 'opacity': '1.0' }).animate({ opacity: 0.0 }, 400);
-            $("#datalatih").addClass('btn-primary').removeClass('btn-secondary').html('Data Latih');
+            $("#datalatih").addClass('btn-success').removeClass('btn-secondary').html('Data Latih');
             $(".tabeldatauji").css({ 'visibility': 'unset', 'display': 'inherit', 'opacity': '0.0' }).animate({ opacity: 1.0 }, 200);
             $(this).addClass('btn-secondary').removeClass('btn-success').html('<i class="fas fa-eye-slash"></i>');
         } else {

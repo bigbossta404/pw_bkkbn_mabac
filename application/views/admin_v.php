@@ -43,23 +43,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-6 mb-4 ml-auto ">
-                            <div class="card h-100 w-100 boxbtn">
-                                <a href="<?= base_url('data_uji') ?>" class="card bg-primary font-weight-bold text-white shadow w-100 h-75 py-2 btnhitung btnatas" id="cekdata">
-                                    Data Latih & Uji
-                                </a>
-                                <div class="row h-50">
-                                    <div class="col btn-area">
-                                        <a href="#" class="card bg-success font-weight-bold text-white shadow  py-2 btnhitung">
-                                            <i class="fas fa-plus-circle"></i>
-                                        </a>
-                                        <a href="#" class="card bg-danger font-weight-bold text-white shadow  py-2 btnhitung">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                        <div class="col-xl-3 col-md-6 mb-4 ml-auto d-flex align-items-center">
+                            <!-- <div class="card w-100 boxbtn"> -->
+                            <a href="<?= base_url('data_uji') ?>" class="card bg-primary font-weight-bold text-white shadow w-100 h-75 py-2 btnhitung btnatas" id="cekdata">
+                                Data Latih & Uji
+                            </a>
 
-                            </div>
+                            <!-- </div> -->
                         </div>
                     </div>
                     <div class="row">
