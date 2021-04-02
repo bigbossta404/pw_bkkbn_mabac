@@ -92,7 +92,7 @@
                                     </div>
                                     <!-- <div class="col-xl-5"> -->
                                     <div class="form-group mr-5 myquestion" style="display: none; ">
-                                        <label for="">Apakah si Adik sering memperhatikan suara-suara kecil sementara anak-anak pada umumnya tidak?</label>
+                                        <label for="">1. Apakah si Adik sering memperhatikan suara-suara kecil sementara anak-anak pada umumnya tidak?</label>
                                         <div class="form-group">
                                             <div class="form-check mt-3">
                                                 <input class="form-check-input" type="radio" name="pilih1" id="flexRadioDefault" value="1">
@@ -109,7 +109,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group mr-5 myquestion" style="display: none; ">
-                                        <label for="">dia biasanya lebih berkonsentrasi pada keseluruhan gambar, daripada detail-detail kecil</label>
+                                        <label for="">2. dia biasanya lebih berkonsentrasi pada keseluruhan gambar, daripada detail-detail kecil</label>
                                         <div class="form-group mt-3">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih2" value="1" id="flexRadioDefault">
@@ -126,7 +126,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group mr-5 myquestion" style="display: none; ">
-                                        <label for="">dalam kelompok sosial, dia dapat dengan mudah melacak percakapan beberapa orang yang berbeda</label>
+                                        <label for="">3. dalam kelompok sosial, dia dapat dengan mudah melacak percakapan beberapa orang yang berbeda</label>
                                         <div class="form-grup mt-3">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih3" value="1" id="flexRadioDefault">
@@ -143,7 +143,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group mr-5 myquestion" style="display: none; ">
-                                        <label for="">dia merasa mudah untuk bolak-balik di antara aktivitas yang berbeda</label>
+                                        <label for="">4. dia merasa mudah untuk bolak-balik di antara aktivitas yang berbeda</label>
                                         <div class="form-grup mt-3">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih4" value="1" id="flexRadioDefault">
@@ -160,7 +160,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group mr-5 myquestion" style="display: none; ">
-                                        <label for="">dia tidak tahu bagaimana menjaga percakapan tetap berjalan dengan teman-temannya</label>
+                                        <label for="">5. dia tidak tahu bagaimana menjaga percakapan tetap berjalan dengan teman-temannya</label>
                                         <div class="form-grup mt-3">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih5" value="1" id="flexRadioDefault">
@@ -177,7 +177,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group mr-5 myquestion" style="display: none; ">
-                                        <label for="">Si kecil pandai mengobrol?</label>
+                                        <label for="">6. Si kecil pandai mengobrol?</label>
                                         <div class="form-grup mt-3">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih6" value="1" id="flexRadioDefault1">
@@ -194,7 +194,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group mr-5 myquestion" style="display: none; ">
-                                        <label for="">ketika dia membaca sebuah cerita, dia merasa sulit untuk mengetahui maksud atau perasaan karakter tersebut</label>
+                                        <label for="">7. ketika dia membaca sebuah cerita, dia merasa sulit untuk mengetahui maksud atau perasaan karakter tersebut</label>
                                         <div class="form-grup mt-3">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih7" value="1" id="flexRadioDefault1">
@@ -211,7 +211,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group mr-5 myquestion" style="display: none; ">
-                                        <label for="">Ketika dia masih di prasekolah, dia biasa menikmati permainan yang melibatkan berpura-pura dengan anak-anak lain</label>
+                                        <label for="">8. Ketika dia masih di prasekolah, dia biasa menikmati permainan yang melibatkan berpura-pura dengan anak-anak lain</label>
                                         <div class="form-grup mt-3">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih8" value="1" id="flexRadioDefault1">
@@ -228,7 +228,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group mr-5 myquestion" style="display: none; ">
-                                        <label for="">dia merasa mudah untuk mengetahui apa yang dipikirkan atau dirasakan seseorang hanya dengan melihat wajah mereka</label>
+                                        <label for="">9. dia merasa mudah untuk mengetahui apa yang dipikirkan atau dirasakan seseorang hanya dengan melihat wajah mereka</label>
                                         <div class="form-grup mt-3">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih9" value="1" id="flexRadioDefault1">
@@ -245,7 +245,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group mr-5 myquestion" style="display: none; ">
-                                        <label for="">dia merasa sulit untuk mendapatkan teman baru</label>
+                                        <label for="">10. dia merasa sulit untuk mendapatkan teman baru</label>
                                         <div class="form-grup mt-3">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih10" value="1" id="flexRadioDefault1">
