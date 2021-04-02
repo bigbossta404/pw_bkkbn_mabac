@@ -390,8 +390,8 @@ class Pengguna extends CI_Controller
                             $insert_id = $this->db->insert_id();
 
                             $this->db->set('id_uji_user',  $insert_id);
-                            $this->db->set('status_normal', $totnormal);
-                            $this->db->set('status_autis', $totautis);
+                            $this->db->set('status_normal', $finish_n);
+                            $this->db->set('status_autis', $finish_y);
                             $this->db->set('hasil_status', 'ASD');
                             $this->db->set('time', 'NOW()', false);
                             $this->db->insert('hasil_uji');
@@ -402,8 +402,8 @@ class Pengguna extends CI_Controller
                             $insert_id = $this->db->insert_id();
 
                             $this->db->set('id_uji_user',  $insert_id);
-                            $this->db->set('status_normal', $totnormal);
-                            $this->db->set('status_autis', $totautis);
+                            $this->db->set('status_normal', $finish_n);
+                            $this->db->set('status_autis', $finish_y);
                             $this->db->set('hasil_status', 'Normal');
                             $this->db->set('time', 'NOW()', false);
                             $this->db->insert('hasil_uji');
