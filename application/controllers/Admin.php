@@ -12,13 +12,16 @@ class Admin extends CI_Controller
     }
     public function index()
     {
-
-        $data['datalatih'] = $this->getdata->countrow();
-        $data['atribut'] = $this->getdata->countatrib();
-
-        $this->load->view('layout/header');
-        $this->load->view('admin_v', $data);
-        $this->load->view('layout/footer');
+        if ($this->session->userdata('akses') == '1') {
+            $data['datalatih'] = $this->getdata->countrow();
+            $data['atribut'] = $this->getdata->countatrib();
+            $data['user'] = $this->session->userdata();
+            $this->load->view('layout/header', $data);
+            $this->load->view('admin_v', $data);
+            $this->load->view('layout/footer');
+        } else {
+            redirect('login');
+        }
     }
 
     public function getDataset()
@@ -77,40 +80,44 @@ class Admin extends CI_Controller
 
     public function index_datauji()
     {
+        if ($this->session->userdata('akses') == '1') {
+            $totdl = $this->getdata->countDataUji();
+            $getDataN = $this->getdata->getDataNo();
+            $getDataY = $this->getdata->getDataYes();
+            if (count($totdl) == 0) {
+                $data = [];
+                foreach ($getDataN as $n) {
+                    unset($n['cnt'], $n['rn'], $n['ethnicity'], $n['contry_of_res'], $n['result'], $n['relation'], $n['used_app_before'], $n['age_desc']);
+                    array_push($data, $n);
+                }
+                foreach ($getDataY as $y) {
+                    unset($y['cnt'], $y['rn'], $y['ethnicity'], $y['contry_of_res'], $y['result'], $y['relation'], $y['used_app_before'], $y['age_desc']);
+                    array_push($data, $y);
+                }
+                if (count($data) != 0) {
+                    foreach ($data as $d) {
+                        $d['id_uji'] = $d['id_dataset'];
+                        unset($d['id_dataset']);
+                        $this->db->insert('data_uji', $d);
+                    }
+                    $notInUji = $this->getdata->notInDataUji();
+                    foreach ($notInUji as $notIn) {
+                        $notIn['id_latih'] = $notIn['id_dataset'];
+                        unset($notIn['id_dataset'], $notIn['ethnicity'], $notIn['contry_of_res'], $notIn['result'], $notIn['relation'], $notIn['used_app_before'], $notIn['age_desc']);
+                        $this->db->insert('data_latih', $notIn);
+                    }
+                }
+            }
 
-        $totdl = $this->getdata->countDataUji();
-        $getDataN = $this->getdata->getDataNo();
-        $getDataY = $this->getdata->getDataYes();
-        if (count($totdl) == 0) {
-            $data = [];
-            foreach ($getDataN as $n) {
-                unset($n['cnt'], $n['rn'], $n['ethnicity'], $n['contry_of_res'], $n['result'], $n['relation'], $n['used_app_before'], $n['age_desc']);
-                array_push($data, $n);
-            }
-            foreach ($getDataY as $y) {
-                unset($y['cnt'], $y['rn'], $y['ethnicity'], $y['contry_of_res'], $y['result'], $y['relation'], $y['used_app_before'], $y['age_desc']);
-                array_push($data, $y);
-            }
-            if (count($data) != 0) {
-                foreach ($data as $d) {
-                    $d['id_uji'] = $d['id_dataset'];
-                    unset($d['id_dataset']);
-                    $this->db->insert('data_uji', $d);
-                }
-                $notInUji = $this->getdata->notInDataUji();
-                foreach ($notInUji as $notIn) {
-                    $notIn['id_latih'] = $notIn['id_dataset'];
-                    unset($notIn['id_dataset'], $notIn['ethnicity'], $notIn['contry_of_res'], $notIn['result'], $notIn['relation'], $notIn['used_app_before'], $notIn['age_desc']);
-                    $this->db->insert('data_latih', $notIn);
-                }
-            }
+            $data['atribut'] = $this->getdata->countatrib_uji();
+            $data['class'] = $this->getdata->getClass();
+            $data['user'] = $this->session->userdata();
+            $this->load->view('layout/header', $data);
+            $this->load->view('data_uji', $data);
+            $this->load->view('layout/footer');
+        } else {
+            redirect('login');
         }
-
-        $data['atribut'] = $this->getdata->countatrib_uji();
-        $data['class'] = $this->getdata->getClass();
-        $this->load->view('layout/header');
-        $this->load->view('data_uji', $data);
-        $this->load->view('layout/footer');
     }
 
     public function getDatauji()
@@ -188,14 +195,19 @@ class Admin extends CI_Controller
 
     public function index_hitung()
     {
-        $data['dataset'] = $this->getdata->countrow();
-        $data['datauji'] = count($this->getdata->countDataUji());
-        $data['datalatih'] = count($this->getdata->countDatalatih());
-        $data['atribut'] = $this->getdata->countatrib_uji();
-        $data['class'] = $this->getdata->getClass();
-        $this->load->view('layout/header');
-        $this->load->view('hitung_uji', $data);
-        $this->load->view('layout/footer');
+        if ($this->session->userdata('akses') == '1') {
+            $data['dataset'] = $this->getdata->countrow();
+            $data['datauji'] = count($this->getdata->countDataUji());
+            $data['datalatih'] = count($this->getdata->countDatalatih());
+            $data['atribut'] = $this->getdata->countatrib_uji();
+            $data['class'] = $this->getdata->getClass();
+            $data['user'] = $this->session->userdata();
+            $this->load->view('layout/header', $data);
+            $this->load->view('hitung_uji', $data);
+            $this->load->view('layout/footer');
+        } else {
+            redirect('login');
+        }
     }
 
     public function getCounting()

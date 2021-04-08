@@ -166,63 +166,54 @@ class Pengguna extends CI_Controller
                 'less_than_equal_to' => 'Tidak valid!',
 
             ]);
-        } elseif ($this->input->post('visibleQ') == 2) {
             $this->form_validation->set_rules('pilih2', 'Pilih3', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
                 'numeric' => 'Tidak valid!',
                 'greater_than_equal_to' => 'Tidak valid!',
                 'less_than_equal_to' => 'Tidak valid!',
 
             ]);
-        } elseif ($this->input->post('visibleQ') == 3) {
             $this->form_validation->set_rules('pilih3', 'Pilih3', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
                 'numeric' => 'Tidak valid!',
                 'greater_than_equal_to' => 'Tidak valid!',
                 'less_than_equal_to' => 'Tidak valid!',
 
             ]);
-        } elseif ($this->input->post('visibleQ') == 4) {
             $this->form_validation->set_rules('pilih4', 'Pilih4', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
                 'numeric' => 'Tidak valid!',
                 'greater_than_equal_to' => 'Tidak valid!',
                 'less_than_equal_to' => 'Tidak valid!',
 
             ]);
-        } elseif ($this->input->post('visibleQ') == 5) {
             $this->form_validation->set_rules('pilih5', 'Pilih5', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
                 'numeric' => 'Tidak valid!',
                 'greater_than_equal_to' => 'Tidak valid!',
                 'less_than_equal_to' => 'Tidak valid!',
 
             ]);
-        } elseif ($this->input->post('visibleQ') == 6) {
             $this->form_validation->set_rules('pilih6', 'Pilih6', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
                 'numeric' => 'Tidak valid!',
                 'greater_than_equal_to' => 'Tidak valid!',
                 'less_than_equal_to' => 'Tidak valid!',
 
             ]);
-        } elseif ($this->input->post('visibleQ') == 7) {
             $this->form_validation->set_rules('pilih7', 'Pilih7', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
                 'numeric' => 'Tidak valid!',
                 'greater_than_equal_to' => 'Tidak valid!',
                 'less_than_equal_to' => 'Tidak valid!',
 
             ]);
-        } elseif ($this->input->post('visibleQ') == 8) {
             $this->form_validation->set_rules('pilih8', 'Pilih8', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
                 'numeric' => 'Tidak valid!',
                 'greater_than_equal_to' => 'Tidak valid!',
                 'less_than_equal_to' => 'Tidak valid!',
 
             ]);
-        } elseif ($this->input->post('visibleQ') == 9) {
             $this->form_validation->set_rules('pilih9', 'Pilih9', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
                 'numeric' => 'Tidak valid!',
                 'greater_than_equal_to' => 'Tidak valid!',
                 'less_than_equal_to' => 'Tidak valid!',
 
             ]);
-        } elseif ($this->input->post('visibleQ') == 10) {
             $this->form_validation->set_rules('pilih10', 'Pilih10', 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[1]', [
                 'numeric' => 'Tidak valid!',
                 'greater_than_equal_to' => 'Tidak valid!',
@@ -230,7 +221,7 @@ class Pengguna extends CI_Controller
 
             ]);
         } else {
-            $this->form_validation->set_rules('visibleQ', 'visibleQ', 'trim|required|numeric|greater_than_equal_to[11]|less_than_equal_to[12]', [
+            $this->form_validation->set_rules('visibleQ', 'visibleQ', 'trim|required|numeric|greater_than_equal_to[2]|less_than_equal_to[3]', [
                 'numeric' => 'Tidak valid!',
                 'greater_than_equal_to' => 'Tidak valid!',
                 'less_than_equal_to' => 'Tidak valid!',
@@ -261,7 +252,7 @@ class Pengguna extends CI_Controller
                 'jundice' => $this->input->post('jundice', true),
                 'autism' => $this->input->post('autism', true)
             ];
-            if ($this->input->post('visibleQ') == 11) {
+            if ($this->input->post('visibleQ') == 2) {
                 $newYes = array();
                 $newNo = array();
                 $newAge = array();

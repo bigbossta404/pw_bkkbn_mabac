@@ -43,14 +43,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-6 mb-4 ml-auto d-flex align-items-center">
-                            <!-- <div class="card w-100 boxbtn"> -->
+                        <!-- <div class="col-xl-3 col-md-6 mb-4 ml-auto d-flex align-items-center">
                             <a href="<?= base_url('data_uji') ?>" class="card bg-primary font-weight-bold text-white shadow w-100 h-75 py-2 btnhitung btnatas" id="cekdata">
                                 Data Latih & Uji
                             </a>
-
-                            <!-- </div> -->
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row">
                         <div class="col-xl">

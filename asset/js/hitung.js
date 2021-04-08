@@ -5,6 +5,13 @@ function showQ() {
     $(".myquestion:eq(" + visibleQ + ")").show();
 }
 showQ();
+
+$(document).ready(function() {
+    if (visibleQ == 0) {
+        $('.qback').hide()
+
+    }
+})
 $(document).ready(function() {
     $(this).on('click', '.qnext', function() {
         var age = $('#umurSet').val();
@@ -22,7 +29,7 @@ $(document).ready(function() {
         var pilih9 = $('input[name=pilih9]:checked').val();
         var pilih10 = $('input[name=pilih10]:checked').val();
 
-        if (visibleQ <= 11 && visibleQ >= 0) {
+        if (visibleQ <= 2 && visibleQ >= 0) {
             $.ajax({
                 url: 'pengguna/hitung',
                 type: 'POST',
@@ -57,7 +64,8 @@ $(document).ready(function() {
                     if (data.next) {
                         visibleQ++;
                         showQ();
-                        if (visibleQ == 11) {
+                        $('.qback').show();
+                        if (visibleQ == 2) {
                             $('.qnext').addClass('btn-primary').removeClass('btn-success').html('Submit');
                         }
                     }
@@ -69,7 +77,7 @@ $(document).ready(function() {
                         $('#headtitle').html('Hasil Deteksi');
                         $('#ptitle').html('<small>note: hasil berikut tidak bisa menjadi acuan utama, periksa ke dokter adalah langkah terbaik</small>');
                         $('.qnext').hide();
-                        $('.qback').removeClass('qback').addClass('reloadback').css({ 'margin-right': '0' }).attr('href', 'cek-asd');
+                        $('.qback').css({ 'margin-right': '0' });
                     }
                 }
             })
@@ -85,8 +93,13 @@ $(document).on('click', '.qback', function() {
     } else {
         visibleQ--;
         showQ();
-        if (visibleQ < 11) {
-            $('.qnext').addClass('btn-success').removeClass('btn-primary').html('Lanjutkan');
+        if (visibleQ == 1) {
+            $('.tableresultSet').hide();
+            $('.qnext').addClass('btn-success').removeClass('btn-primary').html('Lanjutkan').show();
+            $('.qback').css({ 'margin-right': '1em' }).show()
+        }
+        if (visibleQ < 1) {
+            $('.qback').hide()
         }
     }
 
