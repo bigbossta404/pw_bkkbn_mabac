@@ -956,14 +956,32 @@ class Admin extends CI_Controller
             }
         }
 
-        // echo '<pre>';
-        // var_dump($res_N);
+        $jum_predict_asd = 0;
+        $jum_predict_normal = 0;
+        if (isset($dt_salah)) {
+            foreach ($dt_salah as $ds) {
+                if ($ds['class'] == 'NO') {
+                    $jum_predict_normal++;
+                } elseif ($ds['class'] == 'YES') {
+                    $jum_predict_asd++;
+                }
+            }
+        }
         //============= Perhitungan Persentase Akurasi ====================
 
         $akurasi_normal = number_format(($Normal / ($Normal + $Autis)) * 100, 1);
         $akurasi_autis = number_format($Autis / ($Normal + $Autis) * 100, 1);
         $akurasi_benar = number_format($cocok / ($Normal + $Autis) * 100, 1);
         $akurasi_salah = number_format($salah / ($Normal + $Autis) * 100, 1);
+        $akurasi_total = number_format(($Autis + $Normal) / ($Autis + $jum_predict_asd + $jum_predict_normal + $Normal) * 100, 1);
+        $precision = $Autis / ($Autis + $jum_predict_asd);
+        $precision_p = number_format($Autis / ($Autis + $jum_predict_asd) * 100, 1);
+        $recall = $Autis / ($Autis + $jum_predict_normal);
+        $recall_p = number_format($Autis / ($Autis + $jum_predict_normal) * 100, 1);
+        $f1score = number_format((2 * $precision * $recall) / ($recall + $precision) * 100, 1);
+
+        // echo $akurasi_total . ' | ' . $precision_p . ' | ' . $recall_p . ' | ' . $f1score;
+
 
         $json  =  array(
             'normal' => $Normal,
@@ -974,7 +992,11 @@ class Admin extends CI_Controller
             'akurasi_y' =>  $akurasi_autis,
             'akurasi_benar' =>  $akurasi_benar,
             'akurasi_salah' =>  $akurasi_salah,
-            'dt_salah' => $dt_salah
+            'dt_salah' => $dt_salah,
+            'precision' => $akurasi_total,
+            'totakurasi' => $precision_p,
+            'recall' => $recall_p,
+            'f1score' => $f1score
         );
         echo json_encode($json);
     }
