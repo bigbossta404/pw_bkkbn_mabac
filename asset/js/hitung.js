@@ -108,16 +108,16 @@ $(document).on('click', '.qback', function() {
 
 $(document).ready(function() {
     $(document).on('click', '#datalatih', function() {
-        if ($(".tabeldatalatih").is(':visible')) {
-            $(".tabeldatalatih").css({ 'visibility': 'hidden', 'display': 'none', 'opacity': '1.0' }).animate({ opacity: 0.0 }, 400);
-            $(this).addClass('btn-success').removeClass('btn-secondary').html('Data Latih');
-        } else if ($(".tabeldatauji").is(':visible')) {
+        if ($(".tabeldatauji").is(':visible')) {
             $(".tabeldatauji").css({ 'visibility': 'hidden', 'display': 'none', 'opacity': '1.0' }).animate({ opacity: 0.0 }, 400);
+            $(this).addClass('btn-success').removeClass('btn-secondary').html('Data Latih');
+        } else if ($(".tabeldatalatih").is(':visible')) {
+            $(".tabeldatalatih").css({ 'visibility': 'hidden', 'display': 'none', 'opacity': '1.0' }).animate({ opacity: 0.0 }, 400);
             $("#datauji").addClass('btn-success').removeClass('btn-secondary').html('Data Uji');
-            $(".tabeldatalatih").css({ 'visibility': 'unset', 'display': 'inherit', 'opacity': '0.0' }).animate({ opacity: 1.0 }, 200);
+            $(".tabeldatauji").css({ 'visibility': 'unset', 'display': 'inherit', 'opacity': '0.0' }).animate({ opacity: 1.0 }, 200);
             $(this).addClass('btn-secondary').removeClass('btn-success').html('<i class="fas fa-eye-slash"></i>');
         } else {
-            $(".tabeldatalatih").css({ 'visibility': 'unset', 'display': 'inherit', 'opacity': '0.0' }).animate({ opacity: 1.0 }, 200);
+            $(".tabeldatauji").css({ 'visibility': 'unset', 'display': 'inherit', 'opacity': '0.0' }).animate({ opacity: 1.0 }, 200);
             $(this).addClass('btn-secondary').removeClass('btn-success').html('<i class="fas fa-eye-slash"></i>');
         }
 
@@ -125,16 +125,16 @@ $(document).ready(function() {
 });
 $(document).ready(function() {
     $(document).on('click', '#datauji', function() {
-        if ($(".tabeldatauji").is(':visible')) {
-            $(".tabeldatauji").css({ 'visibility': 'hidden', 'display': 'none', 'opacity': '1.0' }).animate({ opacity: 0.0 }, 400);
-            $(this).addClass('btn-success').removeClass('btn-secondary').html('Data Uji');
-        } else if ($(".tabeldatalatih").is(":visible")) {
+        if ($(".tabeldatalatih").is(':visible')) {
             $(".tabeldatalatih").css({ 'visibility': 'hidden', 'display': 'none', 'opacity': '1.0' }).animate({ opacity: 0.0 }, 400);
+            $(this).addClass('btn-success').removeClass('btn-secondary').html('Data Uji');
+        } else if ($(".tabeldatauji").is(":visible")) {
+            $(".tabeldatauji").css({ 'visibility': 'hidden', 'display': 'none', 'opacity': '1.0' }).animate({ opacity: 0.0 }, 400);
             $("#datalatih").addClass('btn-success').removeClass('btn-secondary').html('Data Latih');
-            $(".tabeldatauji").css({ 'visibility': 'unset', 'display': 'inherit', 'opacity': '0.0' }).animate({ opacity: 1.0 }, 200);
+            $(".tabeldatalatih").css({ 'visibility': 'unset', 'display': 'inherit', 'opacity': '0.0' }).animate({ opacity: 1.0 }, 200);
             $(this).addClass('btn-secondary').removeClass('btn-success').html('<i class="fas fa-eye-slash"></i>');
         } else {
-            $(".tabeldatauji").css({ 'visibility': 'unset', 'display': 'inherit', 'opacity': '0.0' }).animate({ opacity: 1.0 }, 200);
+            $(".tabeldatalatih").css({ 'visibility': 'unset', 'display': 'inherit', 'opacity': '0.0' }).animate({ opacity: 1.0 }, 200);
             $(this).addClass('btn-secondary').removeClass('btn-success').html('<i class="fas fa-eye-slash"></i>');
         }
 
@@ -232,7 +232,8 @@ $(document).on('click', '#resetlog', function() {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Ya, hapus semua!'
+        confirmButtonText: 'Ya, hapus semua!',
+        cancelButtonText: 'Batal'
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({

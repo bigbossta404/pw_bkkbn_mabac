@@ -58,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row tabeldatalatih">
+                    <div class="row tabeldatalatih " style="visibility:hidden; display:none">
                         <div class="col-xl mb-4">
                             <div class="card shadow tablecard">
                                 <table id="tablelatih" class="table table-striped table-bordered display nowrap" width="100%" cellspacing="0">
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row tabeldatauji" style="visibility:hidden; display:none">
+                    <div class="row tabeldatauji">
                         <div class="col-xl mb-4">
                             <div class="card shadow tablecard">
                                 <table id="tableluji" class="table table-striped table-bordered display wrap" width="100%" cellspacing="0">
