@@ -36,6 +36,7 @@
              <!-- Custom scripts for all pages-->
              <script src="<?= base_url('asset/js/sb-admin-2.min.js') ?>"></script>
              <script src="<?= base_url('asset/js/hitung.js') ?>"></script>
+             <script src="<?= base_url('asset/js/sweetalert2.js') ?>"></script>
 
              <!-- Page level plugins -->
 
@@ -121,6 +122,30 @@
                              "className": "text-center",
                              "orderable": false
                          }]
+
+                     });
+
+                 });
+             </script>
+             <script>
+                 var tabelriwayat;
+                 $(document).ready(function() {
+
+                     //datatables
+                     tabelriwayat = $('#tabelriwayat').DataTable({
+                         "language": {
+                             "emptyTable": "Tidak Ada Data",
+                             "processing": "Memuat Data",
+                             "zeroRecords": "Data Tidak Ditemukan"
+                         },
+                         "scrollX": true,
+                         "processing": true, //Feature control the processing indicator.
+                         "serverSide": true, //Feature control DataTables' server-side processing mode.
+                         "order": [],
+                         ajax: {
+                             url: "<?php echo site_url('admin/getDataRiwayat') ?>",
+                             type: "POST"
+                         },
 
                      });
 

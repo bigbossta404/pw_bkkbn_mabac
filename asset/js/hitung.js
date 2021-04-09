@@ -224,13 +224,57 @@ $(document).on('click', '.close_res', function(e) {
         $('.resuji').css({ 'visibility': 'hidden', 'display': 'none' });
     });
 });
+$(document).on('click', '#resetlog', function() {
+    Swal.fire({
+        title: 'Hapus semua?',
+        text: "Data tidak bisa dikembalikan!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, hapus semua!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: 'admin/resetriwayat',
+                type: 'POST',
+                dataType: 'JSON',
+                success: function(data) {
+                    if (data.success) {
+                        Swal.fire(
+                            'Dihapus!',
+                            'Table sudah direset menjadi kosong.',
+                            'success'
+                        )
+                        $('#tableriwayat').DataTable().ajax.reload()
+                    }
+                    if (data.error) {
+                        Swal.fire(
+                            'Gagal hapus!',
+                            'Cek database anda.',
+                            'error'
+                        )
+                    }
+                }
+            })
 
-// $(document).on('click', 'input:radio', function() {
-//     // alert($("input:radio").val());
-//     $('input:radio').change(function() {
-//         console.log($('input[name=pilih1]').val());
-//     });
-//     // if ($("input:radio").is(":checked")) {
+        }
+    })
 
-//     // }
-// });
+})
+
+$(document).on('click', '.btn_detail', function(e) {
+    var id = $(this).attr('id');
+    $.ajax({
+        url: "admin/getRiwayatData/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data) {
+            $('#normalcell').html(data.status_normal);
+            $('#autiscell').html(data.status_autis);
+            $('#resultcell').html(data.hasil_status);
+            $('#waktulog').html('Waktu: ' + data.time);
+            $('#modaldetriwayat').modal('show')
+        }
+    });
+});

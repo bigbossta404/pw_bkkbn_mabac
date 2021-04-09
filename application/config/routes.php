@@ -9,6 +9,7 @@ $route['/'] = 'pengguna';
 $route['dashboard'] = 'admin';
 $route['data_uji'] = 'admin/index_datauji';
 $route['hitung'] = 'admin/index_hitung';
+$route['riwayat'] = 'admin/index_riwayat';
 $route['cek-asd'] = 'pengguna/index_hitung';
 $route['testhitung'] = 'pengguna/testhitung';
 

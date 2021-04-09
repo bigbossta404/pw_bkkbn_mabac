@@ -15,6 +15,7 @@ $(document).on('click', '#cekakurasi', function() {
                 var akurasi_n = data.akurasi_n;
                 var akurasi_y = data.akurasi_y;
                 var akurasi;
+                var datauji = data.normal + data.autis;
                 var akurasitotal = data.totakurasi;
                 var precision = data.precision;
                 var recall = data.recall;
@@ -29,6 +30,13 @@ $(document).on('click', '#cekakurasi', function() {
                 $('.bar2').css('width', precision + '%')
                 $('.bar3').css('width', recall + '%')
                 $('.bar4').css('width', f1score + '%')
+                $('#nuji').html('N = ' + datauji)
+                $('#tp').html('TP = ' + data.autis)
+                $('#tn').html('TN = ' + data.normal)
+                $('#fp').html('FP = ' + data.fp)
+                $('#fn').html('FN = ' + data.fn)
+                $('#jum1').html(data.autis + data.fn)
+                $('#jum2').html(data.fp + data.normal)
 
                 if (data.akurasi_benar > data.akurasi_salah) {
                     akurasi = data.akurasi_benar;

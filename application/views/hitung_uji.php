@@ -182,6 +182,68 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-xl col-lg-5">
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-primary">Confusion Matrix</h6>
+                                        </div>
+                                        <!-- Card Body -->
+                                        <div class="card-body">
+                                            <div tyle="width: 100px; height: 100px; float: left; position: relative;">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <th id="nuji">N = 0</th>
+                                                            <th>Aktual: ASD (1)</th>
+                                                            <th>Aktual: Normal (0)</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><b>Prediksi: ASD (1)</b></td>
+                                                                <td id="tp">TP: 0</td>
+                                                                <td id="fp">FP: 0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><b>Prediksi: Normal (0)</b></td>
+                                                                <td id="fn">FN: 0</td>
+                                                                <td id="tn">TN: 0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td> </td>
+                                                                <td id="jum1">0</td>
+                                                                <td id="jum2">0</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl">
+                                    <!-- Project Card Example -->
+                                    <div class="card shadow mb-4" style="height: 95%;">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Tidak Tepat</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <td>Id_uji</td>
+                                                        <td>Class</td>
+                                                        <td>Prediksi</td>
+                                                    </thead>
+                                                    <tbody id='notmatch'>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-xl-4 col-lg-5">
                                     <div class="card shadow mb-4">
                                         <!-- Card Header - Dropdown -->
@@ -244,31 +306,6 @@
                                         </div>
                                     </div>
 
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-xl">
-                                    <!-- Project Card Example -->
-                                    <div class="card shadow mb-4">
-                                        <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Tidak Tepat</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover">
-                                                    <thead>
-                                                        <td>Id_uji</td>
-                                                        <td>Class</td>
-                                                        <td>Prediksi</td>
-                                                    </thead>
-                                                    <tbody id='notmatch'>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

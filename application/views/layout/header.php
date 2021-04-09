@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.23/b-1.6.5/cr-1.5.3/fc-3.3.2/fh-3.1.8/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sc-2.0.3/sb-1.0.1/sp-1.2.2/sl-1.3.1/datatables.min.css" />
     <link href="<?= base_url('asset/css/sb-admin-2.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('asset/css/styles.css') ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?= base_url('asset/css/sweetalert2.css') ?>">
 
 </head>
 
@@ -69,8 +70,8 @@
             <!-- Nav Item - Pages Collapse Menu -->
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+            <li class="nav-item <?= $this->uri->segment(1) == 'riwayat' ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= base_url('riwayat') ?>">
                     <i class="fas fa-fw fa-history"></i>
                     <span>Riwayat Input</span></a>
             </li>
