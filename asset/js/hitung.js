@@ -120,7 +120,6 @@ $(document).ready(function() {
             $(".tabeldatauji").css({ 'visibility': 'unset', 'display': 'inherit', 'opacity': '0.0' }).animate({ opacity: 1.0 }, 200);
             $(this).addClass('btn-secondary').removeClass('btn-success').html('<i class="fas fa-eye-slash"></i>');
         }
-
     });
 });
 $(document).ready(function() {
@@ -212,10 +211,6 @@ $(document).on('click', '#cektesting', function(e) {
         });
 
     }
-    // else {
-    //     $("#cektesting").addClass('btn-primary').removeClass('btn-secondary');
-    //     $('.resuji').css({ 'visibility': 'hidden', 'display': 'none', 'opacity': '1.0' }).animate({ opacity: 0.0 }, 800);
-    // }
 });
 
 

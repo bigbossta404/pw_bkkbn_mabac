@@ -944,10 +944,12 @@ class Admin extends CI_Controller
 
         $cocok = 0;
         $salah = 0;
+        $dt_benar = array();
         $dt_salah = array();
         foreach ($forClass as $k => $v) {
             if (isset($k, $dt_uji)) {
                 if ($v == $dt_uji[$k]['Class']) {
+                    $dt_benar[] = array('id' => $dt_uji[$k]['id_uji'], 'class' => $dt_uji[$k]['Class'], 'prediksi' => $v);
                     $cocok++;
                 } else {
                     $dt_salah[] = array('id' => $dt_uji[$k]['id_uji'], 'class' => $dt_uji[$k]['Class'], 'prediksi' => $v);
@@ -955,6 +957,7 @@ class Admin extends CI_Controller
                 }
             }
         }
+
 
         $jum_predict_asd = 0;
         $jum_predict_normal = 0;
@@ -967,21 +970,29 @@ class Admin extends CI_Controller
                 }
             }
         }
+        $tp = 0;
+        $tn = 0;
+        if (isset($dt_benar)) {
+            foreach ($dt_benar as $db) {
+                if ($db['class'] == 'NO') {
+                    $tp++;
+                } elseif ($db['class'] == 'YES') {
+                    $tn++;
+                }
+            }
+        }
         //============= Perhitungan Persentase Akurasi ====================
 
         $akurasi_normal = number_format(($Normal / ($Normal + $Autis)) * 100, 1);
         $akurasi_autis = number_format($Autis / ($Normal + $Autis) * 100, 1);
         $akurasi_benar = number_format($cocok / ($Normal + $Autis) * 100, 1);
         $akurasi_salah = number_format($salah / ($Normal + $Autis) * 100, 1);
-        $akurasi_total = number_format(($Autis + $Normal) / ($Autis + $jum_predict_asd + $jum_predict_normal + $Normal) * 100, 1);
-        $precision = $Autis / ($Autis + $jum_predict_asd);
-        $precision_p = number_format($Autis / ($Autis + $jum_predict_asd) * 100, 1);
-        $recall = $Autis / ($Autis + $jum_predict_normal);
-        $recall_p = number_format($Autis / ($Autis + $jum_predict_normal) * 100, 1);
+        $akurasi_total = number_format(($tp + $tn) / ($tp + $jum_predict_asd + $jum_predict_normal + $tn) * 100, 1);
+        $precision = $tp / ($tp + $jum_predict_asd);
+        $precision_p = number_format($tp / ($tp + $jum_predict_asd) * 100, 1);
+        $recall = $tp / ($tp + $jum_predict_normal);
+        $recall_p = number_format($tp / ($tp + $jum_predict_normal) * 100, 1);
         $f1score = number_format((2 * $precision * $recall) / ($recall + $precision) * 100, 1);
-
-        // echo $akurasi_total . ' | ' . $precision_p . ' | ' . $recall_p . ' | ' . $f1score;
-
 
         $json  =  array(
             'normal' => $Normal,
@@ -997,6 +1008,8 @@ class Admin extends CI_Controller
             'totakurasi' => $akurasi_total,
             'recall' => $recall_p,
             'f1score' => $f1score,
+            'tp' => $tp,
+            'tn' => $tn,
             'fp' => $jum_predict_asd,
             'fn' => $jum_predict_normal
         );

@@ -16,27 +16,24 @@ $(document).on('click', '#cekakurasi', function() {
                 var akurasi_y = data.akurasi_y;
                 var akurasi;
                 var datauji = data.normal + data.autis;
-                var akurasitotal = data.totakurasi;
                 var precision = data.precision;
                 var recall = data.recall;
                 var f1score = data.f1score;
 
-                $('.totakurasi').html(akurasitotal + '%')
                 $('.precision').html(precision + '%')
                 $('.recall').html(recall + '%')
                 $('.f1score').html(f1score + '%')
 
-                $('.bar1').css('width', akurasitotal + '%')
                 $('.bar2').css('width', precision + '%')
                 $('.bar3').css('width', recall + '%')
                 $('.bar4').css('width', f1score + '%')
                 $('#nuji').html('N = ' + datauji)
-                $('#tp').html('TP = ' + data.autis)
-                $('#tn').html('TN = ' + data.normal)
+                $('#tp').html('TP = ' + data.tp)
+                $('#tn').html('TN = ' + data.tn)
                 $('#fp').html('FP = ' + data.fp)
                 $('#fn').html('FN = ' + data.fn)
-                $('#jum1').html(data.autis + data.fn)
-                $('#jum2').html(data.fp + data.normal)
+                $('#jum1').html(data.tp + data.fn)
+                $('#jum2').html(data.fp + data.tn)
 
                 if (data.akurasi_benar > data.akurasi_salah) {
                     akurasi = data.akurasi_benar;
