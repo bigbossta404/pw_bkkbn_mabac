@@ -15,15 +15,18 @@ $(document).on('click', '#cekakurasi', function() {
                 var akurasi_n = data.akurasi_n;
                 var akurasi_y = data.akurasi_y;
                 var akurasi;
+                var totakurasi = data.totakurasi; //dari matrix
                 var datauji = data.normal + data.autis;
                 var precision = data.precision;
                 var recall = data.recall;
                 var f1score = data.f1score;
 
+                $('.akurasitotal').html(totakurasi + '%')
                 $('.precision').html(precision + '%')
                 $('.recall').html(recall + '%')
                 $('.f1score').html(f1score + '%')
 
+                $('.bar1').css('width', totakurasi + '%')
                 $('.bar2').css('width', precision + '%')
                 $('.bar3').css('width', recall + '%')
                 $('.bar4').css('width', f1score + '%')
