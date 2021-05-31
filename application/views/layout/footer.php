@@ -35,7 +35,7 @@
              <script src="<?= base_url('asset/js/demo/chart-pie-demo.js') ?>"></script>
              <!-- Custom scripts for all pages-->
              <script src="<?= base_url('asset/js/sb-admin-2.min.js') ?>"></script>
-             <script src="<?= base_url('asset/js/hitung.js') ?>"></script>
+             <script src="<?= base_url('asset/js/hitung.js?v=2') ?>"></script>
              <script src="<?= base_url('asset/js/sweetalert2.js') ?>"></script>
 
              <!-- Page level plugins -->

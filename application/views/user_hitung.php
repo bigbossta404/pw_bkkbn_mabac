@@ -28,8 +28,8 @@
             <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link text-white active" aria-current="page" href="#">Beranda</a>
-                    <a class="nav-link text-white" href="#">Kontak</a>
-                    <a class="nav-link text-white" href="#">Tentang</a>
+                    <!--<a class="nav-link text-white" href="#">Kontak</a>-->
+                    <!--<a class="nav-link text-white" href="#">Tentang</a>-->
                 </div>
             </div>
         </div>
@@ -59,6 +59,7 @@
                                                         <option value="9">9</option>
                                                         <option value="10">10</option>
                                                         <option value="11">11</option>
+                                                        <option value="29">29</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -80,7 +81,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="mb-2" for="">Keluarga </label>
+                                                    <label class="mb-2" for="">Riwayat Keluarga Autis</label>
                                                     <select class="form-control border-primary" name="autism" id="autismSet">
                                                         <option value="">-- Turunan --</option>
                                                         <option value="yes">Ada</option>
@@ -110,137 +111,137 @@
 
                                         </div>
                                         <div class="form-group mt-3">
-                                            <label for="">2. dia biasanya lebih berkonsentrasi pada keseluruhan gambar, daripada detail-detail kecil</label>
+                                            <label for="">2. Apakah si Adik biasanya lebih berkonsentrasi pada keseluruhan gambar, daripada detail-detail kecil?</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih2" value="1" id="flexRadioDefault">
                                                 <label class="form-check-label" for="flexRadioDefault">
-                                                    Yes
+                                                    Iya
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih2" value="0" id="flexRadioDefault" checked>
                                                 <label class="form-check-label" for="flexRadioDefault">
-                                                    No
+                                                    Tidak
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-grup mt-3">
-                                            <label for="">3. dalam kelompok sosial, dia dapat dengan mudah melacak percakapan beberapa orang yang berbeda</label>
+                                            <label for="">3. Apakah dalam kelompok sosial, si Adik dapat dengan mudah melakukan percakapan dengan beberapa orang yang berbeda?</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih3" value="1" id="flexRadioDefault">
                                                 <label class="form-check-label" for="flexRadioDefault">
-                                                    Yes
+                                                    Iya
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih3" value="0" id="flexRadioDefault" checked>
                                                 <label class="form-check-label" for="flexRadioDefault">
-                                                    No
+                                                    Tidak
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-grup mt-3">
-                                            <label for="">4. dia merasa mudah untuk bolak-balik di antara aktivitas yang berbeda</label>
+                                            <label for="">4. Apakah si Adik merasa mudah untuk melakukan aktivitas di antara aktivitas yang berbeda?</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih4" value="1" id="flexRadioDefault">
                                                 <label class="form-check-label" for="flexRadioDefault">
-                                                    Yes
+                                                    Iya
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih4" value="0" id="flexRadioDefault" checked>
                                                 <label class="form-check-label" for="flexRadioDefault">
-                                                    No
+                                                    Tidak
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-grup mt-3">
-                                            <label for="">5. dia tidak tahu bagaimana menjaga percakapan tetap berjalan dengan teman-temannya</label>
+                                            <label for="">5. Apakah si Adik tidak tahu bagaimana menjaga percakapan tetap berjalan dengan teman-temannya?</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih5" value="1" id="flexRadioDefault">
                                                 <label class="form-check-label" for="flexRadioDefault">
-                                                    Yes
+                                                    Iya
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih5" value="0" id="flexRadioDefault" checked>
                                                 <label class="form-check-label" for="flexRadioDefault">
-                                                    No
+                                                    Tidak
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-grup mt-3">
-                                            <label for="">6. Si kecil pandai mengobrol?</label>
+                                            <label for="">6. Apakah Si Adik pandai mengobrol?</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih6" value="1" id="flexRadioDefault1">
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                    Yes
+                                                    Iya
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih6" value="0" id="flexRadioDefault2" checked>
                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                    No
+                                                    Tidak
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-grup mt-3">
-                                            <label for="">7. ketika dia membaca sebuah cerita, dia merasa sulit untuk mengetahui maksud atau perasaan karakter tersebut</label>
+                                            <label for="">7. Apakah ketika si Adik membaca sebuah cerita, dia merasa sulit untuk mengetahui maksud atau perasaan karakter tersebut?</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih7" value="1" id="flexRadioDefault1">
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                    Yes
+                                                    Iya
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih7" value="0" id="flexRadioDefault2" checked>
                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                    No
+                                                    Tidak
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-grup mt-3">
-                                            <label for="">8. Ketika dia masih di prasekolah, dia biasa menikmati permainan yang melibatkan berpura-pura dengan anak-anak lain</label>
+                                            <label for="">8. Ketika dia masih di prasekolah, dia biasa menikmati permainan yang melibatkan berpura-pura dengan anak-anak lain?</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih8" value="1" id="flexRadioDefault1">
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                    Yes
+                                                    Iya
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih8" value="0" id="flexRadioDefault2" checked>
                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                    No
+                                                    Tidak
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-grup mt-3">
-                                            <label for="">9. dia merasa mudah untuk mengetahui apa yang dipikirkan atau dirasakan seseorang hanya dengan melihat wajah mereka</label>
+                                            <label for="">9. Apakah si Adik merasa mudah untuk mengetahui apa yang dipikirkan atau dirasakan seseorang hanya dengan melihat wajah mereka?</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih9" value="1" id="flexRadioDefault1">
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                    Yes
+                                                    Iya
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih9" value="0" id="flexRadioDefault2" checked>
                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                    No
+                                                    Tidak
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-grup mt-3">
-                                            <label for="">10. dia merasa sulit untuk mendapatkan teman baru</label>
+                                            <label for="">10. Apakah si Adik merasa sulit untuk mendapatkan teman baru?</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih10" value="1" id="flexRadioDefault1">
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                    Yes
+                                                    Iya
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="pilih10" value="0" id="flexRadioDefault2" checked>
                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                    No
+                                                    Tidak
                                                 </label>
                                             </div>
                                         </div>

@@ -19,11 +19,11 @@
                                             </div>
                                             <!-- <div class="h5 mb-0 font-weight-bold text-gray-800"></div> -->
                                         </div>
-                                        <div class="col-md-2 mr-2">
-                                            <a type="button" class="btn-success font-weight-bold text-white shadow py-2 btnhitung">
-                                                Excel
-                                            </a>
-                                        </div>
+                                        <!--<div class="col-md-2 mr-2">-->
+                                        <!--    <a type="button" class="btn-success font-weight-bold text-white shadow py-2 btnhitung">-->
+                                        <!--        Excel-->
+                                        <!--    </a>-->
+                                        <!--</div>-->
                                         <div class="col-md-2">
                                             <a type="submit" class="card bg-danger font-weight-bold text-white shadow  py-2 btnhitung" id="resetlog">
                                                 Reset

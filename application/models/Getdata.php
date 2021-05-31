@@ -6,7 +6,7 @@ class Getdata extends CI_Model
     // {
     //     $query = $this->db->query("SELECT FLOOR(COUNT(*)*0.7) AS cekdatalatih FROM data_latih");
     //     return $query->row_array();
-    // }
+    // }c
     function countDataUji()
     {
         $query = $this->db->query("SELECT * FROM data_uji");
@@ -149,7 +149,7 @@ class Getdata extends CI_Model
     public function countrow()
     {
         $this->db->select('COUNT(*) jml_data_latih');
-        $this->db->from('dataset');
+        $this->db->from('data_latih');
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -292,7 +292,7 @@ class Getdata extends CI_Model
     //========================
     public function countatrib_uji()
     {
-        $this->db->select('COUNT(*)-8 jml_atrib');
+        $this->db->select('COUNT(*)-7 jml_atrib');
         $this->db->from('information_schema.columns');
         $this->db->where('table_name', 'dataset');
         $query = $this->db->get();
@@ -375,6 +375,33 @@ class Getdata extends CI_Model
         return $query->result_array();
     }
 
+    function getMeanAge()
+    {
+        $query = $this->db->query("SELECT (SELECT avg(age) from data_latih where Class = 'NO') normal, (SELECT avg(age) from data_latih where Class = 'YES') autis");
+        return $query->row_array();
+    }
+    function getAgeByNo(){
+        $query =  $this->db->query("SELECT age normal from data_latih where Class = 'NO'");
+        return $query->result_array();
+    }
+    function getAgeByYes(){
+        $query =  $this->db->query("SELECT age autis from data_latih where Class = 'YES'");
+        return $query->result_array();
+    }
+    
+    function sumAgeNo(){
+          $query =  $this->db->query("SELECT sum(age) from data_latih where Class = 'NO'");
+        return $query->row_array();
+    }
+    function sumAgeYes(){
+          $query =  $this->db->query("SELECT sum(age) from data_latih where Class = 'YES'");
+        return $query->row_array();
+    }
+    function getCountAge()
+    {
+        $query = $this->db->query("SELECT (SELECT count(age) from data_latih where Class = 'NO') normal, (SELECT count(age) from data_latih where Class = 'YES') autis");
+        return $query->row_array();
+    }
     function getAge()
     {
         $query = $this->db->query("SELECT p.age age, normal, autis

@@ -115,6 +115,45 @@
                     <div class="row resuji" style="visibility:hidden; display:none">
                         <div class="col-xl col-md-6 mb-4">
                             <div class="card p-10 shadow card_gen">
+                                <span class="mb-2" style="font-size: 20px">Nilai Mean</span/>
+                                <div class="table-responsive">
+                                    <table class="table res_mean_tab">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Mean</th>
+                                                <th scope="col">Nilai</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id='tbodyresmean'>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl col-md-6 mb-4">
+                            <div class="card p-10 shadow card_gen">
+                                <span class="mb-2" style="font-size: 20px">Standar Deviasi</span/>
+                                <div class="table-responsive">
+                                    <table class="table res_stdf_tab">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Stdf</th>
+                                                <th scope="col">Nilai</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id='tbodyresstdf'>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row resuji" style="visibility:hidden; display:none">
+                        <div class="col-xl col-md-6 mb-4">
+                            <div class="card p-10 shadow card_gen">
+                                <span class="mb-2" style="font-size: 20px">Hasil fungsi gauss data umur</span/>
                                 <div class="table-responsive">
                                     <table class="table res_age_tab">
                                         <thead>

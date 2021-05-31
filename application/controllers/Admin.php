@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+// require('./application/third_party/phpoffice/vendor/autoload.php');
 
+// use PhpOffice\PhpSpreadsheet\Spreadsheet;
+// use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Admin extends CI_Controller
 {
     public function __construct()
@@ -218,7 +221,41 @@ class Admin extends CI_Controller
         $get_row_jundice = $this->getdata->getJundice();
         $get_row_autis_tree = $this->getdata->getAutisTree();
         $get_row = $this->getdata->countrow();
-
+        
+        //=========== Proses Deviasi Umur ========
+        
+        $AgeNo = $this->getdata->getAgeByNo();
+        $AgeYes = $this->getdata->getAgeByYes();
+        $countAge = $this->getdata->getCountAge();
+        $meanAge = $this->getdata->getMeanAge();
+        
+        $sumNo_K = 0;
+        $sumNo = 0;
+       
+        foreach($AgeNo as $an){
+             $sumNo += $an['normal'];
+             $sumNo_K += $an['normal'] * $an['normal'];
+        }
+        
+        $sumYes_K = 0;
+        $sumYes = 0;
+        
+        foreach($AgeYes as $ay){
+            $sumYes += $ay['autis'];
+            $sumYes_K += $ay['autis'] * $ay['autis'];
+        }
+        
+        $sumKn = $sumNo * $sumNo;
+        $sumKy = $sumYes * $sumYes;
+        
+        $sk_n = (($countAge['normal'] * $sumNo_K) - $sumKn) / ($countAge['normal'] * ($countAge['normal'] - 1));
+        $sk_y = (($countAge['autis'] * $sumYes_K) - $sumKy) / ($countAge['autis'] * ($countAge['autis'] - 1));
+        
+        $sn_akar = number_format(sqrt($sk_n),6);
+        $sy_akar = number_format(sqrt($sk_y),6);
+        
+        //========================================
+        
         $row_autism = $get_row_class['Autism'];
         $row_normal = $get_row_class['Normal'];
 
@@ -301,11 +338,12 @@ class Admin extends CI_Controller
         }
 
         foreach ($get_row_age as $age) {
-            $rowAge['AGE_AUTISM'] = number_format($age['autis'] / $row_autism, 6);
-            $rowAge['AGE_NORMAL'] =  number_format($age['normal'] / $row_normal, 6);
+            $rowAge['AGE_AUTISM'] = number_format((1 / sqrt(2 * 3.14 * $sy_akar**2)) * (2.72)**(-($age['age']-$meanAge['autis'])**2/(2*$sy_akar**2)), 6);
+            $rowAge['AGE_NORMAL'] =  number_format((1 / sqrt(2 * 3.14 * $sn_akar**2)) * (2.72)**(-($age['age']-$meanAge['normal'])**2/(2*$sn_akar**2)), 6);
 
             $data[$age['age']] =  $rowAge;
         }
+        
         foreach ($get_row_jundice as $jun) {
             $rowJun['J_Y_NORMAL'] = number_format($jun['Y_normal'] / $row_normal, 6);
             $rowJun['J_Y_AUTISM'] =  number_format($jun['Y_autism'] / $row_autism, 6);
@@ -322,8 +360,15 @@ class Admin extends CI_Controller
 
             $data['autis_tree'] =  $rowAT;
         }
-
-
+        
+        $rowMean['MEAN_AUTISM'] = $meanAge['autis'];
+        $rowMean['MEAN_NORMAL'] = $meanAge['normal'];
+        $data['mean'] = $rowMean;
+        
+        $rowstdf['Stdf_AUTISM'] = $sy_akar;
+        $rowstdf['Stdf_NORMAL'] = $sn_akar;
+        $data['stdf'] = $rowstdf;
+        
         echo json_encode($data);
     }
 
@@ -335,6 +380,40 @@ class Admin extends CI_Controller
         $get_row_jundice = $this->getdata->getJundice();
         $get_row_autis_tree = $this->getdata->getAutisTree();
         $get_row = $this->getdata->countrow();
+        
+        //=========== Proses Deviasi Umur ========
+        
+        $AgeNo = $this->getdata->getAgeByNo();
+        $AgeYes = $this->getdata->getAgeByYes();
+        $countAge = $this->getdata->getCountAge();
+        $meanAge = $this->getdata->getMeanAge();
+        
+        $sumNo_K = 0;
+        $sumNo = 0;
+       
+        foreach($AgeNo as $an){
+             $sumNo += $an['normal'];
+             $sumNo_K += $an['normal'] * $an['normal'];
+        }
+        
+        $sumYes_K = 0;
+        $sumYes = 0;
+        
+        foreach($AgeYes as $ay){
+            $sumYes += $ay['autis'];
+            $sumYes_K += $ay['autis'] * $ay['autis'];
+        }
+        
+        $sumKn = $sumNo * $sumNo;
+        $sumKy = $sumYes * $sumYes;
+        
+        $sk_n = (($countAge['normal'] * $sumNo_K) - $sumKn) / ($countAge['normal'] * ($countAge['normal'] - 1));
+        $sk_y = (($countAge['autis'] * $sumYes_K) - $sumKy) / ($countAge['autis'] * ($countAge['autis'] - 1));
+        
+        $sn_akar = sqrt($sk_n);
+        $sy_akar = sqrt($sk_y);
+        
+        //=====================================
 
         $row_autism = $get_row_class['Autism'];
         $row_normal = $get_row_class['Normal'];
@@ -410,8 +489,8 @@ class Admin extends CI_Controller
         }
 
         foreach ($get_row_age as $age) {
-            $rowAge['AGE_AUTISM'] = number_format($age['autis'] / $row_autism, 6);
-            $rowAge['AGE_NORMAL'] =  number_format($age['normal'] / $row_normal, 6);
+             $rowAge['AGE_AUTISM'] = number_format((1 / sqrt(2 * 3.14 * $sy_akar**2)) * (2.72)**(-($age['age']-$meanAge['autis'])**2/(2*$sy_akar**2)), 6);
+            $rowAge['AGE_NORMAL'] =  number_format((1 / sqrt(2 * 3.14 * $sn_akar**2)) * (2.72)**(-($age['age']-$meanAge['normal'])**2/(2*$sn_akar**2)), 6);
 
             $data[$age['age']] =  $rowAge;
         }
@@ -715,6 +794,40 @@ class Admin extends CI_Controller
         $get_row_jundice = $this->getdata->getJundice();
         $get_row_autis_tree = $this->getdata->getAutisTree();
         $get_row = $this->getdata->countrow();
+        
+        //=========== Proses Deviasi Umur ========
+        
+        $AgeNo = $this->getdata->getAgeByNo();
+        $AgeYes = $this->getdata->getAgeByYes();
+        $countAge = $this->getdata->getCountAge();
+        $meanAge = $this->getdata->getMeanAge();
+        
+        $sumNo_K = 0;
+        $sumNo = 0;
+       
+        foreach($AgeNo as $an){
+             $sumNo += $an['normal'];
+             $sumNo_K += $an['normal'] * $an['normal'];
+        }
+        
+        $sumYes_K = 0;
+        $sumYes = 0;
+        
+        foreach($AgeYes as $ay){
+            $sumYes += $ay['autis'];
+            $sumYes_K += $ay['autis'] * $ay['autis'];
+        }
+        
+        $sumKn = $sumNo * $sumNo;
+        $sumKy = $sumYes * $sumYes;
+        
+        $sk_n = (($countAge['normal'] * $sumNo_K) - $sumKn) / ($countAge['normal'] * ($countAge['normal'] - 1));
+        $sk_y = (($countAge['autis'] * $sumYes_K) - $sumKy) / ($countAge['autis'] * ($countAge['autis'] - 1));
+        
+        $sn_akar = sqrt($sk_n);
+        $sy_akar = sqrt($sk_y);
+        
+        //========================================
 
         $row_autism = $get_row_class['Autism'];
         $row_normal = $get_row_class['Normal'];
@@ -790,11 +903,12 @@ class Admin extends CI_Controller
         }
 
         foreach ($get_row_age as $age) {
-            $rowAge['AGE_AUTIS'] = number_format($age['autis'] / $row_autism, 6);
-            $rowAge['AGE_NORMAL'] =  number_format($age['normal'] / $row_normal, 6);
+            $rowAge['AGE_AUTIS'] = number_format((1 / sqrt(2 * 3.14 * $sy_akar**2)) * (2.72)**(-($age['age']-$meanAge['autis'])**2/(2*$sy_akar**2)), 6);
+            $rowAge['AGE_NORMAL'] =  number_format((1 / sqrt(2 * 3.14 * $sn_akar**2)) * (2.72)**(-($age['age']-$meanAge['normal'])**2/(2*$sn_akar**2)), 6);
 
             $data[$age['age']] =  $rowAge;
         }
+        
         foreach ($get_row_jundice as $jun) {
             $rowJunY['J_Y_NORMAL'] = number_format($jun['Y_normal'] / $row_normal, 6);
             $rowJunY['J_Y_AUTIS'] =  number_format($jun['Y_autism'] / $row_autism, 6);
@@ -921,7 +1035,6 @@ class Admin extends CI_Controller
             $res_Y[] = array_product($sn) * $res_autism;
         }
 
-
         //=============== Memprediksi Class Baru =============
 
         $Autis = 0;
@@ -992,7 +1105,7 @@ class Admin extends CI_Controller
         $precision_p = number_format($tp / ($tp + $jum_predict_asd) * 100, 1);
         $recall = $tp / ($tp + $jum_predict_normal);
         $recall_p = number_format($tp / ($tp + $jum_predict_normal) * 100, 1);
-        $f1score = number_format((2 * $precision * $recall) / ($recall + $precision) * 100, 1);
+        $f1score = number_format((2 * $precision * $recall) / ($recall + $precision) * 100,1);
 
         $json  =  array(
             'normal' => $Normal,
@@ -1011,7 +1124,11 @@ class Admin extends CI_Controller
             'tp' => $tp,
             'tn' => $tn,
             'fp' => $jum_predict_asd,
-            'fn' => $jum_predict_normal
+            'fn' => $jum_predict_normal,
+            // 'sn_akar' => $sn_akar,
+            // 'sy_akar' => $sy_akar,
+            // 'mean_n' => $meanAge['normal'],
+            // 'mean_y' => $meanAge['autis'],
         );
         echo json_encode($json);
     }

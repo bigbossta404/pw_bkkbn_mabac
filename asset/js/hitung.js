@@ -207,6 +207,18 @@ $(document).on('click', '#cektesting', function(e) {
                         '<td>' + key5 + '</td><td>' + data["autis_tree"][key5] + '</td>'
                     );
                 });
+                $.each(data["mean"], function(key6, value6) {
+                    $('#tbodyresmean').append(
+                        '<tr id="idmean">' +
+                        '<td>' + key6 + '</td><td>' + data["mean"][key6] + '</td>'
+                    );
+                });
+                $.each(data["stdf"], function(key7, value7) {
+                    $('#tbodyresstdf').append(
+                        '<tr id="idstdf">' +
+                        '<td>' + key7 + '</td><td>' + data["stdf"][key7] + '</td>'
+                    );
+                });
             }
         });
 

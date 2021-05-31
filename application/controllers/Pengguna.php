@@ -43,6 +43,40 @@ class Pengguna extends CI_Controller
         $get_row_jundice = $this->getdata->getJundice();
         $get_row_autis_tree = $this->getdata->getAutisTree();
         $get_row = $this->getdata->countrow();
+        
+        //=========== Proses Deviasi Umur ========
+        
+        $AgeNo = $this->getdata->getAgeByNo();
+        $AgeYes = $this->getdata->getAgeByYes();
+        $countAge = $this->getdata->getCountAge();
+        $meanAge = $this->getdata->getMeanAge();
+        
+        $sumNo_K = 0;
+        $sumNo = 0;
+       
+        foreach($AgeNo as $an){
+             $sumNo += $an['normal'];
+             $sumNo_K += $an['normal'] * $an['normal'];
+        }
+        
+        $sumYes_K = 0;
+        $sumYes = 0;
+        
+        foreach($AgeYes as $ay){
+            $sumYes += $ay['autis'];
+            $sumYes_K += $ay['autis'] * $ay['autis'];
+        }
+        
+        $sumKn = $sumNo * $sumNo;
+        $sumKy = $sumYes * $sumYes;
+        
+        $sk_n = (($countAge['normal'] * $sumNo_K) - $sumKn) / ($countAge['normal'] * ($countAge['normal'] - 1));
+        $sk_y = (($countAge['autis'] * $sumYes_K) - $sumKy) / ($countAge['autis'] * ($countAge['autis'] - 1));
+        
+        $sn_akar = sqrt($sk_n);
+        $sy_akar = sqrt($sk_y);
+        
+        //=========================
 
         $row_autism = $get_row_class['Autism'];
         $row_normal = $get_row_class['Normal'];
@@ -116,12 +150,21 @@ class Pengguna extends CI_Controller
             $data['m'] = $rowM;
             $data['f'] = $rowF;
         }
+    
+        if($this->input->post('age') >= 12 || $this->input->post('age') < 4){
+            
+            $rowAge['AGE_AUTIS'] = (1 / sqrt(2 * 3.14 * $sy_akar**2)) * (2.72)**(-($this->input->post('age')-$meanAge['autis'])**2/(2*$sy_akar**2));
+            $rowAge['AGE_NORMAL'] =  (1 / sqrt(2 * 3.14 * $sn_akar**2)) * (2.72)**(-($this->input->post('age')-$meanAge['normal'])**2/(2*$sn_akar**2));
 
-        foreach ($get_row_age as $age) {
-            $rowAge['AGE_AUTIS'] = number_format($age['autis'] / $row_autism, 6);
-            $rowAge['AGE_NORMAL'] =  number_format($age['normal'] / $row_normal, 6);
-
-            $data[$age['age']] =  $rowAge;
+            $data[$this->input->post('age')] =  $rowAge;
+        }
+        else{
+            foreach ($get_row_age as $age) {
+              $rowAge['AGE_AUTIS'] = number_format((1 / sqrt(2 * 3.14 * $sy_akar**2)) * (2.72)**(-($age['age']-$meanAge['autis'])**2/(2*$sy_akar**2)), 6);
+                $rowAge['AGE_NORMAL'] =  number_format((1 / sqrt(2 * 3.14 * $sn_akar**2)) * (2.72)**(-($age['age']-$meanAge['normal'])**2/(2*$sn_akar**2)), 6);
+    
+                $data[$age['age']] =  $rowAge;
+            }
         }
         foreach ($get_row_jundice as $jun) {
             $rowJunY['J_Y_NORMAL'] = number_format($jun['Y_normal'] / $row_normal, 6);
@@ -142,10 +185,11 @@ class Pengguna extends CI_Controller
             $data['no'] =  $rowATN;
         }
         if ($this->input->post('visibleQ') == 0) {
-            $this->form_validation->set_rules('age', 'Age', 'trim|required|numeric|greater_than_equal_to[4]|less_than_equal_to[11]', [
+            $this->form_validation->set_rules('age', 'Age', 'trim|required|numeric', [
                 'numeric' => 'Tidak valid!',
-                'greater_than_equal_to' => 'Tidak valid!',
-                'less_than_equal_to' => 'Tidak valid!',
+                // 'greater_than_equal_to' => 'Tidak valid!',
+                // 'less_than_equal_to' => 'Tidak valid!',
+                // greater_than_equal_to[4]|less_than_equal_to[11]
 
             ]);
             $this->form_validation->set_rules('gender', 'Gender', 'trim|required', [
@@ -232,9 +276,12 @@ class Pengguna extends CI_Controller
         if ($this->form_validation->run() == false) {
             $alert = array(
                 'error' => true,
+                'age' => form_error('age')
             );
             echo json_encode($alert);
-        } else {
+        } 
+        
+        else {
 
             $datainput = [
                 'A1_Score' => $this->input->post('pilih1', true),
@@ -253,113 +300,222 @@ class Pengguna extends CI_Controller
                 'autism' => $this->input->post('autism', true)
             ];
             if ($this->input->post('visibleQ') == 2) {
-                $newYes = array();
-                $newNo = array();
-                $newAge = array();
-                $newGen = array();
-                $newJun = array();
-                $newAutism = array();
-                //--- sorting array ---
-                $idx = 0;
-                $n = [];
-                $y = [];
-                $age = [];
-                $gen = [];
-                $jun = [];
-                $au = [];
-                foreach ($datainput as $row => $v) {
-                    if ($idx < 10 && $idx >= 0) {
-
-                        if ($v == 1) {
+                if($this->input->post('age') >= 12 || $this->input->post('age') < 4){
+                    $newYes = array();
+                    $newNo = array();
+                    $newAge = array();
+                    $newGen = array();
+                    $newJun = array();
+                    $newAutism = array();
+                    //--- sorting array ---
+                    $idx = 0;
+                    $n = [];
+                    $y = [];
+                    $age = [];
+                    $gen = [];
+                    $jun = [];
+                    $au = [];
+                    foreach ($datainput as $row => $v) {
+                        if ($idx < 10 && $idx >= 0) {
+    
+                            if ($v == 1) {
+                                if (array_key_exists($v, $data)) {
+                                    // echo json_encode($v);
+                                    $y[$row] = array($data[1]['A_Y_NORMAL'][$idx], $data[1]['A_Y_AUTIS'][$idx]);
+                                }
+                            }
+                            if ($v == 0) {
+                                if (array_key_exists($v, $data)) {
+                                    $n[$row] = array($data[0]['A_N_NORMAL'][$idx], $data[0]['A_N_AUTIS'][$idx]);
+                                }
+                            }
+                        }
+                        // if ($idx >= 10 && $idx <= 10) {
+                            if (array_key_exists($this->input->post('age'), $data)) {
+                                // echo json_encode($v);
+                                $age[strval($this->input->post('age'))] = array($data[$this->input->post('age')]['AGE_NORMAL'], $data[$this->input->post('age')]['AGE_AUTIS']);
+                            }
+                        // }
+                        if ($idx >= 11 && $idx <= 11) {
                             if (array_key_exists($v, $data)) {
                                 // echo json_encode($v);
-                                $y[$row] = array($data[1]['A_Y_NORMAL'][$idx], $data[1]['A_Y_AUTIS'][$idx]);
+                                $gen[$v] = array($data[$v][strtoupper($v) . '_NORMAL'], $data[$v][strtoupper($v) . '_AUTIS']);
                             }
                         }
-                        if ($v == 0) {
+                        if ($idx >= 12 && $idx <= 12) {
+                            if (array_key_exists('JUN_' . strtoupper($v), $data)) {
+                                // echo json_encode($v);
+                                $jun[key((array)$data['JUN_' . strtoupper($v)])] = array($data['JUN_' . strtoupper($v)]['J_' . strtoupper(substr($v, 0, 1)) . '_NORMAL'], $data['JUN_' . strtoupper($v)]['J_' . strtoupper(substr($v, 0, 1)) . '_AUTIS']);
+                            }
+                        }
+                        if ($idx >= 13 && $idx <= 13) {
                             if (array_key_exists($v, $data)) {
-                                $n[$row] = array($data[0]['A_N_NORMAL'][$idx], $data[0]['A_N_AUTIS'][$idx]);
+                                // echo json_encode($v);
+                                $au[$v] = array($data[$v]['AT_' . strtoupper(substr($v, 0, 1)) . '_NORMAL'], $data[$v]['AT_' . strtoupper(substr($v, 0, 1)) . '_AUTIS']);
                             }
                         }
+                        $idx++;
                     }
-                    if ($idx >= 10 && $idx <= 10) {
-                        if (array_key_exists($v, $data)) {
-                            // echo json_encode($v);
-                            $age[strval($v)] = array($data[$v]['AGE_NORMAL'], $data[$v]['AGE_AUTIS']);
+                    array_push($newYes, $y);
+                    array_push($newNo, $n);
+                    array_push($newAge, $age);
+                    array_push($newGen, $gen);
+                    array_push($newJun, $jun);
+                    array_push($newAutism, $au);
+    
+                    $arrayTemp = array();
+                    $arrayTemp2 = array();
+                    $arrayTemp3 = array();
+                    $arrayTemp4 = array();
+                    $arrayTemp5 = array();
+                    foreach ($newYes as $key => $value) {
+                        $arrayTemp[] = (object)array_merge((array)$newNo[$key], (array)$value);
+                    }
+                    foreach ($arrayTemp as $key => $value) {
+                        $arrayTemp2[] = (object)array_merge((array)$newAge[$key], (array)$value);
+                    }
+                    foreach ($arrayTemp2 as $key => $value) {
+                        $arrayTemp3[] = (object)array_merge((array)$newGen[$key], (array)$value);
+                    }
+                    foreach ($arrayTemp3 as $key => $value) {
+                        $arrayTemp4[] = (object)array_merge((array)$newJun[$key], (array)$value);
+                    }
+                    foreach ($arrayTemp4 as $key => $value) {
+                        $arrayTemp5[] = (object)array_merge((array)$newAutism[$key], (array)$value);
+                    }
+    
+                    $store_normal = [];
+                    $store_autis = [];
+    
+                    foreach ($arrayTemp5 as $at) {
+                        $s_normal = array();
+                        $s_autis = array();
+                        foreach ($at as $key1 => $v2) {
+    
+                            $s_normal[] = $v2[0];
+                            $s_autis[] = $v2[1];
                         }
+                        array_push($store_normal, $s_normal);
+                        array_push($store_autis, $s_autis);
                     }
-                    if ($idx >= 11 && $idx <= 11) {
-                        if (array_key_exists($v, $data)) {
-                            // echo json_encode($v);
-                            $gen[$v] = array($data[$v][strtoupper($v) . '_NORMAL'], $data[$v][strtoupper($v) . '_AUTIS']);
+    
+                    $res_N = [];
+                    $res_Y = [];
+                    foreach ($store_normal as $sn) {
+                        $res_N[] = array_product($sn) * $res_normal;
+                    }
+                    foreach ($store_autis as $sn) {
+                        $res_Y[] = array_product($sn) * $res_autism;
+                    }
+                }else{
+                    $newYes = array();
+                    $newNo = array();
+                    $newAge = array();
+                    $newGen = array();
+                    $newJun = array();
+                    $newAutism = array();
+                    //--- sorting array ---
+                    $idx = 0;
+                    $n = [];
+                    $y = [];
+                    $age = [];
+                    $gen = [];
+                    $jun = [];
+                    $au = [];
+                    foreach ($datainput as $row => $v) {
+                        if ($idx < 10 && $idx >= 0) {
+    
+                            if ($v == 1) {
+                                if (array_key_exists($v, $data)) {
+                                    // echo json_encode($v);
+                                    $y[$row] = array($data[1]['A_Y_NORMAL'][$idx], $data[1]['A_Y_AUTIS'][$idx]);
+                                }
+                            }
+                            if ($v == 0) {
+                                if (array_key_exists($v, $data)) {
+                                    $n[$row] = array($data[0]['A_N_NORMAL'][$idx], $data[0]['A_N_AUTIS'][$idx]);
+                                }
+                            }
                         }
-                    }
-                    if ($idx >= 12 && $idx <= 12) {
-                        if (array_key_exists('JUN_' . strtoupper($v), $data)) {
-                            // echo json_encode($v);
-                            $jun[key((array)$data['JUN_' . strtoupper($v)])] = array($data['JUN_' . strtoupper($v)]['J_' . strtoupper(substr($v, 0, 1)) . '_NORMAL'], $data['JUN_' . strtoupper($v)]['J_' . strtoupper(substr($v, 0, 1)) . '_AUTIS']);
+                        if ($idx >= 10 && $idx <= 10) {
+                            if (array_key_exists($v, $data)) {
+                                // echo json_encode($v);
+                                $age[strval($v)] = array($data[$v]['AGE_NORMAL'], $data[$v]['AGE_AUTIS']);
+                            }
                         }
-                    }
-                    if ($idx >= 13 && $idx <= 13) {
-                        if (array_key_exists($v, $data)) {
-                            // echo json_encode($v);
-                            $au[$v] = array($data[$v]['AT_' . strtoupper(substr($v, 0, 1)) . '_NORMAL'], $data[$v]['AT_' . strtoupper(substr($v, 0, 1)) . '_AUTIS']);
+                        if ($idx >= 11 && $idx <= 11) {
+                            if (array_key_exists($v, $data)) {
+                                // echo json_encode($v);
+                                $gen[$v] = array($data[$v][strtoupper($v) . '_NORMAL'], $data[$v][strtoupper($v) . '_AUTIS']);
+                            }
                         }
+                        if ($idx >= 12 && $idx <= 12) {
+                            if (array_key_exists('JUN_' . strtoupper($v), $data)) {
+                                // echo json_encode($v);
+                                $jun[key((array)$data['JUN_' . strtoupper($v)])] = array($data['JUN_' . strtoupper($v)]['J_' . strtoupper(substr($v, 0, 1)) . '_NORMAL'], $data['JUN_' . strtoupper($v)]['J_' . strtoupper(substr($v, 0, 1)) . '_AUTIS']);
+                            }
+                        }
+                        if ($idx >= 13 && $idx <= 13) {
+                            if (array_key_exists($v, $data)) {
+                                // echo json_encode($v);
+                                $au[$v] = array($data[$v]['AT_' . strtoupper(substr($v, 0, 1)) . '_NORMAL'], $data[$v]['AT_' . strtoupper(substr($v, 0, 1)) . '_AUTIS']);
+                            }
+                        }
+                        $idx++;
                     }
-                    $idx++;
-                }
-                array_push($newYes, $y);
-                array_push($newNo, $n);
-                array_push($newAge, $age);
-                array_push($newGen, $gen);
-                array_push($newJun, $jun);
-                array_push($newAutism, $au);
-
-                $arrayTemp = array();
-                $arrayTemp2 = array();
-                $arrayTemp3 = array();
-                $arrayTemp4 = array();
-                $arrayTemp5 = array();
-                foreach ($newYes as $key => $value) {
-                    $arrayTemp[] = (object)array_merge((array)$newNo[$key], (array)$value);
-                }
-                foreach ($arrayTemp as $key => $value) {
-                    $arrayTemp2[] = (object)array_merge((array)$newAge[$key], (array)$value);
-                }
-                foreach ($arrayTemp2 as $key => $value) {
-                    $arrayTemp3[] = (object)array_merge((array)$newGen[$key], (array)$value);
-                }
-                foreach ($arrayTemp3 as $key => $value) {
-                    $arrayTemp4[] = (object)array_merge((array)$newJun[$key], (array)$value);
-                }
-                foreach ($arrayTemp4 as $key => $value) {
-                    $arrayTemp5[] = (object)array_merge((array)$newAutism[$key], (array)$value);
-                }
-
-                $store_normal = [];
-                $store_autis = [];
-
-                foreach ($arrayTemp5 as $at) {
-                    $s_normal = array();
-                    $s_autis = array();
-                    foreach ($at as $key1 => $v2) {
-
-                        $s_normal[] = $v2[0];
-                        $s_autis[] = $v2[1];
+                    array_push($newYes, $y);
+                    array_push($newNo, $n);
+                    array_push($newAge, $age);
+                    array_push($newGen, $gen);
+                    array_push($newJun, $jun);
+                    array_push($newAutism, $au);
+    
+                    $arrayTemp = array();
+                    $arrayTemp2 = array();
+                    $arrayTemp3 = array();
+                    $arrayTemp4 = array();
+                    $arrayTemp5 = array();
+                    foreach ($newYes as $key => $value) {
+                        $arrayTemp[] = (object)array_merge((array)$newNo[$key], (array)$value);
                     }
-                    array_push($store_normal, $s_normal);
-                    array_push($store_autis, $s_autis);
+                    foreach ($arrayTemp as $key => $value) {
+                        $arrayTemp2[] = (object)array_merge((array)$newAge[$key], (array)$value);
+                    }
+                    foreach ($arrayTemp2 as $key => $value) {
+                        $arrayTemp3[] = (object)array_merge((array)$newGen[$key], (array)$value);
+                    }
+                    foreach ($arrayTemp3 as $key => $value) {
+                        $arrayTemp4[] = (object)array_merge((array)$newJun[$key], (array)$value);
+                    }
+                    foreach ($arrayTemp4 as $key => $value) {
+                        $arrayTemp5[] = (object)array_merge((array)$newAutism[$key], (array)$value);
+                    }
+    
+                    $store_normal = [];
+                    $store_autis = [];
+    
+                    foreach ($arrayTemp5 as $at) {
+                        $s_normal = array();
+                        $s_autis = array();
+                        foreach ($at as $key1 => $v2) {
+    
+                            $s_normal[] = $v2[0];
+                            $s_autis[] = $v2[1];
+                        }
+                        array_push($store_normal, $s_normal);
+                        array_push($store_autis, $s_autis);
+                    }
+    
+                    $res_N = [];
+                    $res_Y = [];
+                    foreach ($store_normal as $sn) {
+                        $res_N[] = array_product($sn) * $res_normal;
+                    }
+                    foreach ($store_autis as $sn) {
+                        $res_Y[] = array_product($sn) * $res_autism;
+                    }
                 }
-
-                $res_N = [];
-                $res_Y = [];
-                foreach ($store_normal as $sn) {
-                    $res_N[] = array_product($sn) * $res_normal;
-                }
-                foreach ($store_autis as $sn) {
-                    $res_Y[] = array_product($sn) * $res_autism;
-                }
-
+                
 
                 //=============== Memprediksi Class Baru =============
 
@@ -369,47 +525,62 @@ class Pengguna extends CI_Controller
                 $forClass = array();
                 foreach ($res_Y as $k => $v) {
                     if (array_key_exists($k, $res_N)) {
-                        // echo $v / ($v + $resA_N[$k]) + $resA_N[$k] / ($v + $resA_N[$k]) . '<br>';
                         $finish_y = $v / ($v + $res_N[$k]);
                         $finish_n = $res_N[$k] / ($v + $res_N[$k]);
                         array_push($totnormal, $finish_n);
                         array_push($totautis, $finish_y);
                         if ($finish_y > $finish_n) {
                             $status_res[] = 'Autisme';
-                            $this->db->set('Class', 'YES');
-                            $this->db->insert('data_uji_user', $datainput);
-                            $insert_id = $this->db->insert_id();
+                            // $this->db->set('Class', 'YES');
+                            // $this->db->insert('data_uji_user', $datainput);
+                            // $insert_id = $this->db->insert_id();
 
-                            $this->db->set('id_uji_user',  $insert_id);
-                            $this->db->set('status_normal', $finish_n);
-                            $this->db->set('status_autis', $finish_y);
-                            $this->db->set('hasil_status', 'ASD');
-                            $this->db->set('time', 'NOW()', false);
-                            $this->db->insert('hasil_uji');
+                            // $this->db->set('id_uji_user',  $insert_id);
+                            // $this->db->set('status_normal', $finish_n);
+                            // $this->db->set('status_autis', $finish_y);
+                            // $this->db->set('hasil_status', 'ASD');
+                            // $this->db->set('time', 'NOW()', false);
+                            // $this->db->insert('hasil_uji');
                         } else {
                             $status_res[] = 'Normal';
                             $this->db->set('Class', 'NO');
-                            $this->db->insert('data_uji_user', $datainput);
-                            $insert_id = $this->db->insert_id();
+                            // $this->db->insert('data_uji_user', $datainput);
+                            // $insert_id = $this->db->insert_id();
 
-                            $this->db->set('id_uji_user',  $insert_id);
-                            $this->db->set('status_normal', $finish_n);
-                            $this->db->set('status_autis', $finish_y);
-                            $this->db->set('hasil_status', 'Normal');
-                            $this->db->set('time', 'NOW()', false);
-                            $this->db->insert('hasil_uji');
+                            // $this->db->set('id_uji_user',  $insert_id);
+                            // $this->db->set('status_normal', $finish_n);
+                            // $this->db->set('status_autis', $finish_y);
+                            // $this->db->set('hasil_status', 'Normal');
+                            // $this->db->set('time', 'NOW()', false);
+                            // $this->db->insert('hasil_uji');
                         }
                     }
                 }
 
+                // echo $row_autism . ' | ' . $row_normal . '<br>';
+                // echo $get_row['jml_data_latih'] . '<br>';
+                
                 //============= Pencocokan Hasil Prediksi Class Baru ====================
-
-                $alert = array(
-                    'status' => $status_res[0],
-                    'totnormal' => $totnormal[0],
-                    'totautis' => $totautis[0],
-                );
-                echo json_encode($alert);
+                
+                echo 'Probabilitas Autis: '. $res_autism . '<br>'; 
+                echo 'Probabilitas Normal: ' . $res_normal . '<br>';
+                
+                echo '<pre>';
+                echo var_dump($arrayTemp5);
+               
+                echo '<pre>';
+                echo 'Menentukan kelas data uji'.'<br>';
+                echo 'Normal : '. $res_N[0] . ' | AUTIS : ' .$res_Y[0] . '<br>';
+                echo '===============================' .'<br>';
+                echo 'P(Normal|data_baru) + P(ASD|data_baru) = 1'.'<br>';
+                echo 'Hasil Normal : '.$finish_n . ' | Hasil Autis : ' .$finish_y ;
+                
+                // $alert = array(
+                //     'status' => $status_res[0],
+                //     'totnormal' => $totnormal[0],
+                //     'totautis' => $totautis[0],
+                // );
+                // echo json_encode($alert);
                 // echo json_encode($datainput);
             } else {
                 $alert = array(

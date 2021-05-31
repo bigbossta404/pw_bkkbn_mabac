@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title><?= $title ?></title>
-    <meta name="description" content="">
+    <meta name="description" content="Sistem Deteksi Autisme Usia Dini Umur 4-11 Tahun Online">
+      <meta name="keywords" content="autisme, autis, deteksi autis, deteksi, online, gratis, deteksi autis gratis, autis anak,">
+  <meta name="author" content="Fanny Vega Variant">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
@@ -51,7 +53,7 @@ https://templatemo.com/tm-526-vanilla
     <div class="service-content" id="services">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md">
                     <div class="left-text text-black">
                         <h4>Tentang Desitis</h4>
                         <div class="line-dec"></div>
@@ -68,38 +70,38 @@ https://templatemo.com/tm-526-vanilla
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="service-item">
-                                <h4>Classic Modern Design</h4>
-                                <div class="line-dec"></div>
-                                <p>Sed lacinia ligula est, at venenatis ex iaculis quis. Morbi sollicitudin nulla eget odio pellentesque.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="service-item">
-                                <h4>Unique &amp; Creative Ideas</h4>
-                                <div class="line-dec"></div>
-                                <p>Sed lacinia ligula est, at venenatis ex iaculis quis. Morbi sollicitudin nulla eget odio pellentesque.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="service-item">
-                                <h4>Effective Team Work</h4>
-                                <div class="line-dec"></div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia ligula est, at venenatis ex iaculis quis.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="service-item">
-                                <h4>Fast Support 24/7</h4>
-                                <div class="line-dec"></div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia ligula est, at venenatis ex iaculis quis.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="col-md-8">-->
+                <!--    <div class="row">-->
+                <!--        <div class="col-md-6">-->
+                <!--            <div class="service-item">-->
+                <!--                <h4>Classic Modern Design</h4>-->
+                <!--                <div class="line-dec"></div>-->
+                <!--                <p>Sed lacinia ligula est, at venenatis ex iaculis quis. Morbi sollicitudin nulla eget odio pellentesque.</p>-->
+                <!--            </div>-->
+                <!--        </div>-->
+                <!--        <div class="col-md-6">-->
+                <!--            <div class="service-item">-->
+                <!--                <h4>Unique &amp; Creative Ideas</h4>-->
+                <!--                <div class="line-dec"></div>-->
+                <!--                <p>Sed lacinia ligula est, at venenatis ex iaculis quis. Morbi sollicitudin nulla eget odio pellentesque.</p>-->
+                <!--            </div>-->
+                <!--        </div>-->
+                <!--        <div class="col-md-6">-->
+                <!--            <div class="service-item">-->
+                <!--                <h4>Effective Team Work</h4>-->
+                <!--                <div class="line-dec"></div>-->
+                <!--                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia ligula est, at venenatis ex iaculis quis.</p>-->
+                <!--            </div>-->
+                <!--        </div>-->
+                <!--        <div class="col-md-6">-->
+                <!--            <div class="service-item">-->
+                <!--                <h4>Fast Support 24/7</h4>-->
+                <!--                <div class="line-dec"></div>-->
+                <!--                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia ligula est, at venenatis ex iaculis quis.</p>-->
+                <!--            </div>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
             </div>
         </div>
     </div>
