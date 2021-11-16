@@ -3,7 +3,6 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dataset Autism</h1>
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Ekspor Dataset</a> -->
                     </div>
 
@@ -16,8 +15,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                                Dataset</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $datalatih['jml_data_latih'] ?> Data</div>
+                                                Total Data</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $datalatih['jml_data'] ?> Data</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-database fa-2x text-gray-300"></i>
@@ -33,11 +32,23 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                                Total Atribut</div>
+                                                Total Kriteria</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $atribut['jml_atrib'] ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-table fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row align-items-center justify-align-center">
+                                        <div class="col d-flex align-items-center justify-align-center">
+                                            <a href="#" data-toggle="modal" data-target="#entrydata" class="btn btn-primary mr-2"><i class="fas fa-plus-circle"></i> Tambah data</a>
+                                            <a href="<?= base_url('admin/hitungRanking') ?>" class="btn btn-success"><i class="fas fa-calculator"></i></i> Hitung Ranking</a>
                                         </div>
                                     </div>
                                 </div>
@@ -55,23 +66,13 @@
                                 <table id="dataset" class="table table-striped table-bordered display nowrap" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <td>#</td>
-                                            <td>ID</td>
-                                            <td>A1</td>
-                                            <td>A2</td>
-                                            <td>A3</td>
-                                            <td>A4</td>
-                                            <td>A5</td>
-                                            <td>A6</td>
-                                            <td>A7</td>
-                                            <td>A8</td>
-                                            <td>A9</td>
-                                            <td>A10</td>
-                                            <td>age</td>
-                                            <td>gender</td>
-                                            <td>jundice</td>
-                                            <td>autism</td>
-                                            <td>class</td>
+                                            <th>ID</th>
+                                            <th>Nama</th>
+                                            <th>Jangka Waktu</th>
+                                            <th>Melahirkan</th>
+                                            <th>Menstruasi</th>
+                                            <th>Usia</th>
+                                            <th>Penyakit</th>
                                         </tr>
                                     </thead>
                                     <tbody>

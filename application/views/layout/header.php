@@ -34,9 +34,9 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('dashboard') ?>">
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-brain"></i>
+                    <i class="fas fa-user-md"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">ASD Naïve</div>
+                <div class="sidebar-brand-text mx-3">BKKBN</div>
             </a>
 
             <!-- Divider -->
@@ -51,21 +51,21 @@
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item <?= $this->uri->segment(1) == 'data_uji' ? 'active' : '' ?>">
+            <!-- <li class="nav-item <?= $this->uri->segment(1) == 'data_uji' ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= base_url('data_uji') ?>" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-microscope"></i>
                     <span>Data Uji & Latih</span>
                 </a>
 
-            </li>
+            </li> -->
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item <?= $this->uri->segment(1) == 'hitung' ? 'active' : '' ?>">
+            <!-- <li class="nav-item <?= $this->uri->segment(1) == 'hitung' ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= base_url('hitung') ?>" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-calculator"></i>
                     <span>Hitung</span>
                 </a>
-            </li>
+            </li> -->
 
             <!-- Nav Item - Pages Collapse Menu -->
 
@@ -73,7 +73,7 @@
             <li class="nav-item <?= $this->uri->segment(1) == 'riwayat' ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= base_url('riwayat') ?>">
                     <i class="fas fa-fw fa-history"></i>
-                    <span>Riwayat Input</span></a>
+                    <span>Riwayat Hitung</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
@@ -105,7 +105,9 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
+                    <div class="tag-header">
+                        <div class="h4 mb-0 text-gray-800 ml-3"><?= $tag ?></div>
+                    </div>
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
@@ -143,7 +145,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user['nama'] ?></span>
-                                <img class="img-profile rounded-circle" src="asset/img/profile/pp.jpg">
+                                <img class="img-profile rounded-circle" src="<?= base_url('asset/img/profile/default.png'); ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

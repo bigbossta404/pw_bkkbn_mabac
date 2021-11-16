@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-$route['default_controller'] = 'pengguna';
+$route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['/'] = 'pengguna';
+$route['/'] = 'login';
 $route['dashboard'] = 'admin';
 $route['data_uji'] = 'admin/index_datauji';
 $route['hitung'] = 'admin/index_hitung';

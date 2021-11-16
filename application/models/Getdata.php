@@ -67,31 +67,15 @@ class Getdata extends CI_Model
         return $query->row_array();
     }
 
-    var $column_order = array(null, 'id_dataset', 'A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score', 'A6_Score', 'A7_Score', 'A8_Score', 'A9_Score', 'A10_Score', 'age', 'gender', 'jundice', 'autism', 'Class'); //set column field database for datatable orderable
-    var $column_search = array('id_dataset', 'A1_Score', 'A2_Score', 'A3_Score', 'A4_Score', 'A5_Score', 'A6_Score', 'A7_Score', 'A8_Score', 'A9_Score', 'A10_Score', 'age', 'gender', 'jundice', 'autism', 'Class'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-    var $order = ['id_dataset' => 'desc']; // default
+    var $column_order = array('id_kriteria', 'nama', 'jangka_waktu', 'melahirkan', 'menstruasi', 'usia', 'penyakit'); //set column field database for datatable orderable
+    var $column_search = array('id_kriteria', 'nama', 'jangka_waktu', 'melahirkan', 'menstruasi', 'usia', 'penyakit'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $order = ['id_kriteria' => 'ASC']; // default
 
     private function _get_datatables()
     {
 
-        $this->db->select('id_dataset,
-        A1_Score,
-        A2_Score,
-        A3_Score,
-        A4_Score,
-        A5_Score,
-        A6_Score,
-        A7_Score,
-        A8_Score,
-        A9_Score,
-        A10_Score,
-        age,
-        gender,
-        jundice,
-        autism,
-        Class
-        ');
-        $this->db->from('dataset');
+        $this->db->select('*');
+        $this->db->from('kriteria');
 
         $i = 0;
 
@@ -148,19 +132,109 @@ class Getdata extends CI_Model
 
     public function countrow()
     {
-        $this->db->select('COUNT(*) jml_data_latih');
-        $this->db->from('data_latih');
+        $this->db->select('COUNT(*) jml_data');
+        $this->db->from('kriteria');
         $query = $this->db->get();
         return $query->row_array();
     }
     public function countatrib()
     {
-        $this->db->select('COUNT(*)-7 jml_atrib');
+        $this->db->select('COUNT(COLUMN_NAME) jml_atrib');
         $this->db->from('information_schema.columns');
-        $this->db->where('table_name', 'dataset');
+        $this->db->where('table_name', 'kriteria');
+        $this->db->where_not_in('COLUMN_NAME', 'id_kriteria');
         $query = $this->db->get();
         return $query->row_array();
     }
+    public function columnKriteria()
+    {
+        $this->db->select('COLUMN_NAME');
+        $this->db->from('information_schema.columns');
+        $this->db->where('table_name', 'kriteria');
+        $this->db->where_not_in('COLUMN_NAME', 'id_kriteria');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function primaryKriteria()
+    {
+        $ignore = array('id_kriteria', 'nama');
+        $this->db->select('COLUMN_NAME');
+        $this->db->from('information_schema.columns');
+        $this->db->where('table_name', 'kriteria');
+        $this->db->where_not_in('COLUMN_NAME', $ignore);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function getNama()
+    {
+        $this->db->select('*');
+        $this->db->from('kriteria');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getMax()
+    {
+        $this->db->select('MAX(jangka_waktu) maxwaktu, MAX(melahirkan) maxlahir,MAX(menstruasi) maxmens,MAX(usia)maxusia, MAX(penyakit)maxsakit');
+        $this->db->from('kriteria');
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    public function getMin()
+    {
+        $this->db->select('MIN(jangka_waktu) minwaktu, MIN(melahirkan) minlahir,MIN(menstruasi) minmens,MIN(usia)minusia, MIN(penyakit)minsakit');
+        $this->db->from('kriteria');
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
+    public function getBobot()
+    {
+        $bobot = array(
+            'jangka_waktu' => array(
+                'panjang' => 5,
+                'pendek' => 2
+            ),
+            'melahirkan' => array(
+                'sudah' => 3,
+                'belum' => 1
+            ),
+            'menstruasi' => array(
+                'ya' => 3,
+                'tidak' => 5
+            ),
+            'usia' => array(
+                '18-25' => 2,
+                '26-35' => 4,
+                '36-60' => 5
+            ),
+            'penyakit' => array(
+                'kanker_payudara' => 1,
+                'diabetes' => 2,
+                'radang' => 4,
+                'kuning' => 3,
+                'tidak_ada' => 5
+            ),
+        );
+
+        return $bobot;
+    }
+
+
+    public function saveTambah($data)
+    {
+        $this->db->insert('kriteria', $data);
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        }
+    }
+
+
+
+
+
+
+
 
 
     //================= DATA UJI
@@ -380,21 +454,25 @@ class Getdata extends CI_Model
         $query = $this->db->query("SELECT (SELECT avg(age) from data_latih where Class = 'NO') normal, (SELECT avg(age) from data_latih where Class = 'YES') autis");
         return $query->row_array();
     }
-    function getAgeByNo(){
+    function getAgeByNo()
+    {
         $query =  $this->db->query("SELECT age normal from data_latih where Class = 'NO'");
         return $query->result_array();
     }
-    function getAgeByYes(){
+    function getAgeByYes()
+    {
         $query =  $this->db->query("SELECT age autis from data_latih where Class = 'YES'");
         return $query->result_array();
     }
-    
-    function sumAgeNo(){
-          $query =  $this->db->query("SELECT sum(age) from data_latih where Class = 'NO'");
+
+    function sumAgeNo()
+    {
+        $query =  $this->db->query("SELECT sum(age) from data_latih where Class = 'NO'");
         return $query->row_array();
     }
-    function sumAgeYes(){
-          $query =  $this->db->query("SELECT sum(age) from data_latih where Class = 'YES'");
+    function sumAgeYes()
+    {
+        $query =  $this->db->query("SELECT sum(age) from data_latih where Class = 'YES'");
         return $query->row_array();
     }
     function getCountAge()

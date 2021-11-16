@@ -12,7 +12,7 @@ class Login extends CI_Controller
 
     public function index()
     {
-        if ($this->session->userdata('akses') == '1') {
+        if ($this->session->userdata('logged')) {
             redirect('dashboard', 'refresh');
         } else {
 
@@ -37,32 +37,23 @@ class Login extends CI_Controller
 
         $user = $this->akun->getakun($username);
         if ($user) {
-            if ($user['active'] == 1) {
-                if ($password == $user['password']) {
-                    $data = [
-                        'id_user' => $user['id_pengguna'],
-                        'username' => $user['username'],
-                        'email' => $user['email'],
-                        'nama' => $user['nama'],
-                    ];
-                    $this->session->set_userdata('akses', '1');
-                    $this->session->set_userdata($data);
-                    redirect('dashboard');
-                } else {
-                    $this->session->set_flashdata('pesan', '<div class="alert alert-warning alert-dismissible" role="alert">
+            if ($password == $user['password']) {
+                $data = [
+                    'id_admin' => $user['id_admin'],
+                    'username' => $user['username'],
+                    'email' => $user['email'],
+                    'nama' => $user['nama'],
+                ];
+                $this->session->set_userdata('logged', true);
+                $this->session->set_userdata($data);
+                redirect('dashboard');
+            } else {
+                $this->session->set_flashdata('pesan', '<div class="alert alert-warning alert-dismissible" role="alert">
                    Password salah.
                     <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
                   </div>');
 
-                    redirect('login');
-                }
-            } else {
-                $this->session->set_flashdata('pesan', '<div class="alert alert-warning alert-dismissible" role="alert">
-                Akun belum aktif.
-                <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
-              </div>');
-
-                redirect('login');
+                redirect('/');
             }
         } else {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
@@ -71,7 +62,7 @@ class Login extends CI_Controller
             <span aria-hidden="true">&times;</span>
           </button> </div>');
 
-            redirect('login');
+            redirect('/');
         }
     }
     function logout()

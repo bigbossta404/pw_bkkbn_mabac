@@ -2,7 +2,84 @@
              <a class="scroll-to-top rounded" href="#page-top">
                  <i class="fas fa-angle-up"></i>
              </a>
-
+             <div class="modal fade" id="entrydata" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                     <div class="modal-content">
+                         <div class="row  p-4">
+                             <div class="col">
+                                 <div class="modal-header">
+                                     <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                         <span aria-hidden="true">&times;</span>
+                                     </button>
+                                 </div>
+                                 <div class="modal-body">
+                                     <form>
+                                         <div class="row">
+                                             <div class="col">
+                                                 <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">Nama</label>
+                                                     <input type="text" class="form-control" id="nama" placeholder="Nama pasien">
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">Jangka Waktu</label>
+                                                     <select class="form-control" id="jangka">
+                                                         <option value selected>-- Pilih --</option>
+                                                         <option value="5">Panjang</option>
+                                                         <option value="2">Pendek</option>
+                                                     </select>
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">melahirkan</label>
+                                                     <select class="form-control" id="lahir">
+                                                         <option value selected>-- Pilih --</option>
+                                                         <option value="3">Sudah</option>
+                                                         <option value="1">Belum</option>
+                                                     </select>
+                                                 </div>
+                                             </div>
+                                             <div class="col">
+                                                 <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">Menstruasi</label>
+                                                     <select class="form-control" id="men">
+                                                         <option value selected>-- Pilih --</option>
+                                                         <option value="3">Ya</option>
+                                                         <option value="5">Tidak</option>
+                                                     </select>
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">Usia</label>
+                                                     <select class="form-control" id="usia">
+                                                         <option value selected>-- Pilih --</option>
+                                                         <option value="2">Umur 18-25</option>
+                                                         <option value="4">Umur 26-35</option>
+                                                         <option value="5">Umur 36-60</option>
+                                                     </select>
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">Penyaki</label>
+                                                     <select class="form-control" id="sakit">
+                                                         <option value selected>-- Pilih --</option>
+                                                         <option value="1">Kangker payudara</option>
+                                                         <option value="2">Diabetes</option>
+                                                         <option value="4">Radang</option>
+                                                         <option value="3">Sakit kuning</option>
+                                                         <option value="5">Tidak ada</option>
+                                                     </select>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </form>
+                                 </div>
+                                 <div class="modal-footer">
+                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                     <button type="button" class="btn btn-primary btntambah">Tambah Data</button>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
              <!-- Logout Modal-->
              <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                  <div class="modal-dialog" role="document">
@@ -51,19 +128,18 @@
                              "processing": "Memuat Data",
                              "zeroRecords": "Data Tidak Ditemukan"
                          },
-                         "scrollX": true,
+                         //  "scrollX": true,
                          "processing": true, //Feature control the processing indicator.
                          "serverSide": true, //Feature control DataTables' server-side processing mode.
-                         "order": [],
                          ajax: {
                              url: "<?php echo site_url('admin/getDataset') ?>",
                              type: "POST"
                          },
-                         "columnDefs": [{
-                             "targets": [0],
-                             "className": "text-center",
-                             "orderable": false
-                         }]
+                         //  "columnDefs": [{
+                         //      "targets": [0],
+                         //      "className": "text-center",
+                         //      "orderable": false
+                         //  }]
 
                      });
 
