@@ -21,6 +21,15 @@
     font-weight: 600;
 }
 
+.rekomendasiRes {
+    padding: 0 1em 0 1em;
+    background-color: #0d9636;
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 30px;
+    margin-left: 0.5em;
+}
+
 div.dataTables_wrapper {
     width: 100%;
     margin: 0 auto;

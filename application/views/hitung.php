@@ -26,7 +26,7 @@
                                 <div class="card-body">
                                     <div class="row align-items-center justify-align-center">
                                         <div class="col ">
-                                            <h5 class="m-0 text-center rekomen">Rekomendasi Alat: </h5>
+                                            <h5 class="m-0 text-center rekomen">Rekomendasi Alat: <span class="rekomendasiRes"><?= $rekomendasi; ?></span></h5>
                                         </div>
                                     </div>
                                 </div>
