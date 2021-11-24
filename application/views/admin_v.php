@@ -1,11 +1,6 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Ekspor Dataset</a> -->
-                    </div>
-
                     <!-- Content Row -->
                     <div class="row">
 
@@ -16,7 +11,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">
                                                 Total Data</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $datalatih['jml_data'] ?> Data</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="jmldata"><?= $datalatih['jml_data'] ?> Data</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-database fa-2x text-gray-300"></i>
@@ -48,7 +43,7 @@
                                     <div class="row align-items-center justify-align-center">
                                         <div class="col d-flex align-items-center justify-align-center">
                                             <a href="#" data-toggle="modal" data-target="#entrydata" class="btn btn-primary mr-2"><i class="fas fa-plus-circle"></i> Tambah data</a>
-                                            <a href="<?= base_url('admin/hitungRanking') ?>" class="btn btn-success"><i class="fas fa-calculator"></i></i> Hitung Ranking</a>
+                                            <a href="<?= base_url('hitung') ?>" class="btn btn-success"><i class="fas fa-calculator"></i></i> Hitung Ranking</a>
                                         </div>
                                     </div>
                                 </div>

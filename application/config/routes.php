@@ -7,11 +7,9 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['/'] = 'login';
 $route['dashboard'] = 'admin';
-$route['data_uji'] = 'admin/index_datauji';
-$route['hitung'] = 'admin/index_hitung';
+$route['hitung'] = 'admin/hitungRanking';
 $route['riwayat'] = 'admin/index_riwayat';
-$route['cek-asd'] = 'pengguna/index_hitung';
-$route['testhitung'] = 'pengguna/testhitung';
+$route['tambahdata'] = 'admin/tambahData';
 
 
 $route['logout'] = 'login/logout';

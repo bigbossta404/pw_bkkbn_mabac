@@ -1,8 +1,5 @@
 <?php
 
-use phpDocumentor\Reflection\Types\Float_;
-use PhpOffice\PhpSpreadsheet\Worksheet\Row;
-
 defined('BASEPATH') or exit('No direct script access allowed');
 // require('./application/third_party/phpoffice/vendor/autoload.php');
 
@@ -64,6 +61,7 @@ class Admin extends CI_Controller
         if ($this->session->userdata('logged')) {
             $jml_data = $this->getdata->countrow();
             $nilaiBobot = $this->getdata->getBobot();
+            $saveHitung = $this->getdata->getSaveHitung();
             $getNama = $this->getdata->getNama();
             $getKriteria = $this->getdata->primaryKriteria();
             $max = $this->getdata->getMax();
@@ -142,11 +140,24 @@ class Admin extends CI_Controller
             // Perankingan Finishing
             $data_rank = array();
             for ($i = 0; $i < count($jarak_alternatif); $i++) {
-                $data_rank[$getNama[$i]['nama']] = (float) number_format(array_sum($jarak_alternatif[$getNama[$i]['nama']]), 1);
+                $setRank['nama'] = $getNama[$i]['nama'];
+                $setRank['nilai'] = (float) number_format(array_sum($jarak_alternatif[$getNama[$i]['nama']]), 1);
+
+                $data_rank[] = $setRank;
             }
 
-            echo '<pre>';
-            var_dump($data_rank);
+            if (count($data_rank) > 0) {
+                $this->db->truncate('save_hitung');
+                foreach ($data_rank as $dt) {
+                    $this->db->insert('save_hitung', $dt);
+                }
+            }
+            $data['user'] = $this->session->userdata();
+            $data['hasilData'] = $this->getdata->getHasil();
+            $data['tag'] = 'Hasil Ranking';
+            $this->load->view('layout/header', $data);
+            $this->load->view('hitung', $data);
+            $this->load->view('layout/footer');
         } else {
             redirect('/');
         }

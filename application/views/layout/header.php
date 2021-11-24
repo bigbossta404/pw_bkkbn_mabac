@@ -50,38 +50,12 @@
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <!-- <li class="nav-item <?= $this->uri->segment(1) == 'data_uji' ? 'active' : '' ?>">
-                <a class="nav-link" href="<?= base_url('data_uji') ?>" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-microscope"></i>
-                    <span>Data Uji & Latih</span>
-                </a>
-
-            </li> -->
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <!-- <li class="nav-item <?= $this->uri->segment(1) == 'hitung' ? 'active' : '' ?>">
-                <a class="nav-link" href="<?= base_url('hitung') ?>" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-calculator"></i>
-                    <span>Hitung</span>
-                </a>
-            </li> -->
-
-            <!-- Nav Item - Pages Collapse Menu -->
-
             <!-- Nav Item - Charts -->
-            <li class="nav-item <?= $this->uri->segment(1) == 'riwayat' ? 'active' : '' ?>">
-                <a class="nav-link" href="<?= base_url('riwayat') ?>">
+            <li class="nav-item <?= $this->uri->segment(1) == 'hitung' ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= base_url('hitung') ?>">
                     <i class="fas fa-fw fa-history"></i>
-                    <span>Riwayat Hitung</span></a>
+                    <span>Laman Hitung</span></a>
             </li>
-
-            <!-- Nav Item - Tables -->
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-info-circle"></i>
-                    <span>Tentang</span></a>
-            </li> -->
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

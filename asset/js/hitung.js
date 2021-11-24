@@ -7,10 +7,12 @@ $(document).ready(function() {
         var men = $('#men').val();
         var usia = $('#usia').val();
         var sakit = $('#sakit').val();
-       
+        
+        jmldata = $('#jmldata').text();
+        jmldata_array = jmldata.split(' ');
         // console.log(jangka, nama, lahir, men, usia, sakit);
         $.ajax({
-            url:'tambahData',
+            url:'tambahdata',
             data:{nama:nama, jangka:jangka, lahir:lahir, men:men, usia:usia, sakit: sakit},
             type:'POST',
             dataType:'JSON',
@@ -25,6 +27,7 @@ $(document).ready(function() {
                     })
                     $('#dataset').DataTable().ajax.reload();
                 }else{
+                    $('#entrydata').modal('hide');
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
@@ -33,6 +36,7 @@ $(document).ready(function() {
                         timer: 2500
                     })
                     $('#dataset').DataTable().ajax.reload()
+                    $('#jmldata').html(parseInt(jmldata_array[0])+1);
                 }
             }
         });

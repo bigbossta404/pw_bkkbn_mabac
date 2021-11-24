@@ -146,82 +146,19 @@
                  });
              </script>
              <script>
-                 var tablelatih;
+                 var tabelrank;
                  $(document).ready(function() {
 
                      //datatables
-                     tablelatih = $('#tablelatih').DataTable({
+                     tabelrank = $('#datarank').DataTable({
                          "language": {
                              "emptyTable": "Tidak Ada Data",
                              "processing": "Memuat Data",
                              "zeroRecords": "Data Tidak Ditemukan"
                          },
-                         "scrollX": true,
-                         "processing": true, //Feature control the processing indicator.
-                         "serverSide": true, //Feature control DataTables' server-side processing mode.
-                         "order": [],
-                         ajax: {
-                             url: "<?php echo site_url('admin/getDatalatih') ?>",
-                             type: "POST"
-                         },
-                         "columnDefs": [{
-                             "targets": [0],
-                             "className": "text-center",
-                             "orderable": false
-                         }]
-
-                     });
-
-                 });
-             </script>
-             <script>
-                 var tableuji;
-                 $(document).ready(function() {
-
-                     //datatables
-                     tableuji = $('#tableluji').DataTable({
-                         "language": {
-                             "emptyTable": "Tidak Ada Data",
-                             "processing": "Memuat Data",
-                             "zeroRecords": "Data Tidak Ditemukan"
-                         },
-                         "scrollX": true,
-                         "processing": true, //Feature control the processing indicator.
-                         "serverSide": true, //Feature control DataTables' server-side processing mode.
-                         "order": [],
-                         ajax: {
-                             url: "<?php echo site_url('admin/getDatauji') ?>",
-                             type: "POST"
-                         },
-                         "columnDefs": [{
-                             "targets": [0],
-                             "className": "text-center",
-                             "orderable": false
-                         }]
-
-                     });
-
-                 });
-             </script>
-             <script>
-                 var tabelriwayat;
-                 $(document).ready(function() {
-
-                     //datatables
-                     tabelriwayat = $('#tabelriwayat').DataTable({
-                         "language": {
-                             "emptyTable": "Tidak Ada Data",
-                             "processing": "Memuat Data",
-                             "zeroRecords": "Data Tidak Ditemukan"
-                         },
-                         "scrollX": true,
-                         "processing": true, //Feature control the processing indicator.
-                         "serverSide": true, //Feature control DataTables' server-side processing mode.
-                         "order": [],
-                         ajax: {
-                             url: "<?php echo site_url('admin/getDataRiwayat') ?>",
-                             type: "POST"
-                         },
+                         "order": [
+                             [2, "desc"]
+                         ]
 
                      });
 
