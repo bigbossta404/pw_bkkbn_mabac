@@ -69,6 +69,7 @@
                                             <th>Menstruasi</th>
                                             <th>Usia</th>
                                             <th>Penyakit</th>
+                                            <th>#</th>
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -135,11 +135,11 @@
                              url: "<?php echo site_url('admin/getDataset') ?>",
                              type: "POST"
                          },
-                         //  "columnDefs": [{
-                         //      "targets": [0],
-                         //      "className": "text-center",
-                         //      "orderable": false
-                         //  }]
+                         "columnDefs": [{
+                             "targets": [0, 7],
+                             "className": "text-center",
+                             "orderable": false
+                         }]
 
                      });
 

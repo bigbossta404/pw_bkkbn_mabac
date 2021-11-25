@@ -180,4 +180,11 @@ class Getdata extends CI_Model
             return true;
         }
     }
+    public function deleteData($data)
+    {
+        $this->db->delete('kriteria', array('id_kriteria' => $data));
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        }
+    }
 }
