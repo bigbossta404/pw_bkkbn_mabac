@@ -13,7 +13,7 @@
                                                     <p class="m-0">Sistem sudah melakukan perhitungan dibalik layar atau otomatis, hasil dapat dilihat pada tabel dibawah.</p>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-success"><i class="fas fa-file-excel"></i> Ekspor ke Excel</a>
+                                            <a href="<?= base_url('ekporHasilRank') ?>" class="btn btn-success"><i class="fas fa-file-excel"></i> Ekspor ke Excel</a>
                                         </div>
                                     </div>
                                 </div>

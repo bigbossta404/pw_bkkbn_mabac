@@ -1,10 +1,10 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
-// require('./application/third_party/phpoffice/vendor/autoload.php');
 
-// use PhpOffice\PhpSpreadsheet\Spreadsheet;
-// use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Admin extends CI_Controller
 {
     public function __construct()
@@ -229,78 +229,58 @@ class Admin extends CI_Controller
         }
     }
 
-    public function index_riwayat()
+    public function datasetExcel()
     {
-        if ($this->session->userdata('akses') == '1') {
-            $data['user'] = $this->session->userdata();
-            $this->load->view('layout/header', $data);
-            $this->load->view('riwayatinput', $data);
-            $this->load->view('layout/footer');
-        } else {
-            redirect('login');
-        }
-    }
-
-    public function getDataRiwayat()
-    {
-        // $list = $this->tagihan->_get_datatables($idkamar);
-        $list = $this->getdata->get_datatables_riwayat();
-        $data = array();
-        foreach ($list as $ds) {
-            $row = array();
-            $row[] = '<a href="#" class="btn_detail" data-toggle="modal" id="' . $ds->id_uji_user . '">' . $ds->id_uji_user . '</a>';
-            $row[] = ($ds->A1_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A2_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A3_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A4_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A5_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A6_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A7_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A8_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A9_Score == 1) ? 'yes' : 'no';
-            $row[] = ($ds->A10_Score == 1) ? 'yes' : 'no';
-            $row[] = $ds->age;
-            $row[] = $ds->gender;
-            $row[] = $ds->jundice;
-            $row[] = $ds->autism;
-            $row[] = ($ds->Class == 'NO') ? 'Normal' : 'ASD';
-            $data[] = $row;
-        }
-
-        $output = array(
-            "draw" => $_POST['draw'],
-            "recordsTotal" => $this->getdata->count_all_riwayat(),
-            "recordsFiltered" => $this->getdata->count_filtered_riwayat(),
-            "data" => $data,
-        );
-
-        echo json_encode($output);
-    }
-
-    public function resetriwayat()
-    {
-        if ($this->session->userdata('akses') == 1) {
-
-            $this->db->empty_table('data_uji_user');
-            $this->db->truncate('hasil_uji');
-            $query = $this->db->query('ALTER TABLE data_uji_user AUTO_INCREMENT = 0 ');
-
-            if ($query) {
-                $alert = array('success' => true);
-                echo json_encode($alert);
-            } else {
-                $alert = array('error' => true);
-                echo json_encode($alert);
+        if ($this->session->userdata('logged')) {
+            $list = $this->getdata->get_datatables();
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+            $sheet->setCellValue('A1', 'IdHasil');
+            $sheet->setCellValue('B1', 'Nama Pasien');
+            $sheet->setCellValue('C1', 'Nilai');
+            $sheet->setCellValue('D1', 'Ranking');
+            $rows = 2;
+            foreach ($list as $val) {
+                $sheet->setCellValue('A' . $rows, $val['id_hitung']);
+                $sheet->setCellValue('B' . $rows, $val['nama']);
+                $sheet->setCellValue('C' . $rows, $val['nilai']);
+                $sheet->setCellValue('D' . $rows, $val['rank']);
+                $rows++;
             }
+            $writer = new Xlsx($spreadsheet);
+
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="Rank_BKKBN.xlsx"');
+            $writer->save('php://output');
         } else {
-            redirect('login');
+            redirect('/');
         }
     }
-
-    public function getRiwayatData($idujiuser)
+    public function hasilExcel()
     {
-        $detriwayat = $this->getdata->getriwayat($idujiuser);
+        if ($this->session->userdata('logged')) {
+            $getHasil = $this->getdata->getHasil();
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+            $sheet->setCellValue('A1', 'IdHasil');
+            $sheet->setCellValue('B1', 'Nama Pasien');
+            $sheet->setCellValue('C1', 'Nilai');
+            $sheet->setCellValue('D1', 'Ranking');
+            $rows = 2;
+            foreach ($getHasil as $val) {
+                $sheet->setCellValue('A' . $rows, $val['id_hitung']);
+                $sheet->setCellValue('B' . $rows, $val['nama']);
+                $sheet->setCellValue('C' . $rows, $val['nilai']);
+                $sheet->setCellValue('D' . $rows, $val['rank']);
+                $rows++;
+            }
+            $writer = new Xlsx($spreadsheet);
 
-        echo json_encode($detriwayat);
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="Rank_BKKBN.xlsx"');
+            $writer->save('php://output');
+        } else {
+            redirect('/');
+        }
     }
 }

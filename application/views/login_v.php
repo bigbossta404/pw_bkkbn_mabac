@@ -38,7 +38,7 @@
 				?>
 				<div class="login100-form-title" style="background-image: url(asset/img/header-login.jpg);">
 					<span class="login100-form-title-1">
-						Sign In
+						Masuk Akun
 					</span>
 				</div>
 
@@ -65,7 +65,7 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" style="background-color: #e36f00; color:#ffffff">
+						<button class="login100-form-btn" style="background-color: #0010c9; color:#ffffff">
 							Login
 						</button>
 					</div>

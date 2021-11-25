@@ -37,13 +37,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 mb-4">
+                        <div class="col-xl mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
-                                    <div class="row align-items-center justify-align-center">
+                                    <div class="row">
                                         <div class="col d-flex align-items-center justify-align-center">
                                             <a href="#" data-toggle="modal" data-target="#entrydata" class="btn btn-primary mr-2"><i class="fas fa-plus-circle"></i> Tambah data</a>
-                                            <a href="<?= base_url('hitung') ?>" class="btn btn-success"><i class="fas fa-calculator"></i></i> Hitung Ranking</a>
+                                            <a href="<?= base_url('hitung') ?>" class="btn btn-warning mr-2"><i class="fas fa-calculator"></i></i> Hitung Ranking</a>
+                                            <a href="<?= base_url('hitung') ?>" class="btn btn-success"><i class="fas fa-file-excel"></i></i> Ekspor Excel</a>
                                         </div>
                                     </div>
                                 </div>

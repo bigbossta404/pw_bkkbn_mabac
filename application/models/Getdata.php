@@ -64,7 +64,7 @@ class Getdata extends CI_Model
 
         return $this->db->count_all_results();
     }
-
+    // =================================================================================
     function getHasil()
     {
         $query = $this->db->query('SELECT id_hitung,
@@ -75,84 +75,6 @@ class Getdata extends CI_Model
         ORDER BY  nilai DESC');
         return $query->result_array();
     }
-    // =============================================================
-    // var $column_order_itung = array('id_hitung', 'nama', 'nilai', null); //set column field database for datatable orderable
-    // var $column_search_itung = array('id_hitung', 'nama', 'nilai'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-    // var $order_itung = ['id_hitung' => 'ASC']; // default
-
-    // private function _get_datatables_itung()
-    // {
-
-
-    //     // $this->db->query('SELECT id_hitung,
-    //     // nama,
-    //     // nilai
-    //     // FROM save_hitung
-    //     // ORDER BY  nilai DESC');
-    //     $query = $this->db->query(`SELECT id_hitung,
-    //     nama,
-    //     nilai,
-    //     @curRank := @curRank + 1 AS rank
-    //     FROM      save_hitung, (SELECT @curRank := 0) r
-    //     ORDER BY  nilai DES`);
-    //     // return $query->result_array();
-    //     // $this->db->select(' ');
-    //     // $this->db->from('save_hitung');
-
-    //     $i = 0;
-
-    //     foreach ($this->column_search_itung as $item) // loop column
-    //     {
-    //         if ($_POST['search']['value']) // if datatable send POST for search
-    //         {
-
-    //             if ($i === 0) // first loop
-    //             {
-    //                 $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
-    //                 $this->db->like($item, $_POST['search']['value']);
-    //             } else {
-    //                 $this->db->or_like($item, $_POST['search']['value']);
-    //             }
-
-    //             if (count($this->column_search_itung) - 1 == $i) //last loop
-    //                 $this->db->group_end(); //close bracket
-    //         }
-    //         $i++;
-    //     }
-
-    //     if (isset($_POST['order'])) // here order processing
-    //     {
-    //         $this->db->order_by($this->column_order_itung[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
-    //     } else if (isset($this->order_itung)) {
-    //         $order_itung = $this->order_itung;
-    //         $this->db->order_by(key($order_itung), $order_itung[key($order_itung)]);
-    //     }
-    // }
-
-    // function get_datatablesItung()
-    // {
-    //     $this->_get_datatables_itung();
-    //     if ($_POST['length'] != -1)
-    //         $this->db->limit($_POST['length'], $_POST['start']);
-    //     $query = $this->db->get();
-    //     return $query->result();
-    // }
-
-    // function count_filteredItung()
-    // {
-    //     $this->_get_datatables_itung();
-    //     $query = $this->db->get();
-    //     return $query->num_rows();
-    // }
-
-    // public function count_allItung()
-    // {
-    //     $this->db->from($this->_get_datatables_itung());
-
-    //     return $this->db->count_all_results();
-    // }
-
-    // =============================================================
 
     public function countrow()
     {
