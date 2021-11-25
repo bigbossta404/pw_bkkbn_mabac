@@ -13,7 +13,7 @@
                                                     <p class="m-0">Sistem sudah melakukan perhitungan dibalik layar atau otomatis, hasil dapat dilihat pada tabel dibawah.</p>
                                                 </div>
                                             </div>
-                                            <a href="<?= base_url('ekporHasilRank') ?>" class="btn btn-success"><i class="fas fa-file-excel"></i> Ekspor ke Excel</a>
+                                            <a href="<?= base_url('eksporHasilRank') ?>" class="btn btn-success"><i class="fas fa-file-excel"></i> Ekspor ke Excel</a>
                                         </div>
                                     </div>
                                 </div>
@@ -26,7 +26,7 @@
                                 <div class="card-body">
                                     <div class="row align-items-center justify-align-center">
                                         <div class="col ">
-                                            <h5 class="m-0 text-center rekomen">Alat Terbanyak: <span class="rekomendasiRes"></span></h5>
+                                            <h5 class="m-0 text-center rekomen">Alat dipakai terbanyak: <span class="rekomendasiRes"><?php echo $terbanyak['alat'] . ' ( ' . $terbanyak['jum'] . ' Rekomendasi )'; ?></span></h5>
                                         </div>
                                     </div>
                                 </div>

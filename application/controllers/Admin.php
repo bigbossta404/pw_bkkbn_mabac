@@ -60,10 +60,7 @@ class Admin extends CI_Controller
     {
         if ($this->session->userdata('logged')) {
             $jml_data = $this->getdata->countrow();
-            $nilaiBobot = $this->getdata->getBobot();
-            $saveHitung = $this->getdata->getSaveHitung();
             $getNama = $this->getdata->getNama();
-            $getKriteria = $this->getdata->primaryKriteria();
             $max = $this->getdata->getMax();
             $min = $this->getdata->getMin();
 
@@ -153,8 +150,24 @@ class Admin extends CI_Controller
                 }
             }
 
-            // $getHasil = $this->getdata->getHasil();
-
+            // Cari alat terbanyak
+            $getHasil = $this->getdata->getHasil();
+            $alat = array();
+            foreach ($getHasil as $gh) {
+                if ($gh['nilai'] <= 2.5) {
+                    array_push($alat, 'IUD');
+                } elseif ($gh['nilai'] >= 2.6 && $gh['nilai'] <= 7.0) {
+                    array_push($alat, 'Suntik');
+                } elseif ($gh['nilai'] >= 7.1) {
+                    array_push($alat, 'Implan');
+                }
+            }
+            $count_alat = array_count_values($alat);
+            arsort($count_alat);
+            $data['terbanyak'] = array(
+                'alat' => key($count_alat),
+                'jum' => $count_alat[key($count_alat)]
+            );
             $data['user'] = $this->session->userdata();
             $data['hasilData'] = $this->getdata->getHasil();
             $data['tag'] = 'Hasil Ranking';
@@ -224,25 +237,35 @@ class Admin extends CI_Controller
     public function datasetExcel()
     {
         if ($this->session->userdata('logged')) {
-            $list = $this->getdata->get_datatables();
+            $list = $this->getdata->getNama();
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
-            $sheet->setCellValue('A1', 'IdHasil');
-            $sheet->setCellValue('B1', 'Nama Pasien');
-            $sheet->setCellValue('C1', 'Nilai');
-            $sheet->setCellValue('D1', 'Ranking');
-            $rows = 2;
+            $sheet->mergeCells('A1:G1');
+            $sheet->setCellValue('A1', 'Bobot');
+            $sheet->getStyle('A1:G1')
+                ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $sheet->setCellValue('A2', 'IdPasien');
+            $sheet->setCellValue('B2', 'Nama Pasien');
+            $sheet->setCellValue('C2', 'Jangka Waktu');
+            $sheet->setCellValue('D2', 'Melahirkan');
+            $sheet->setCellValue('E2', 'Menstruasi');
+            $sheet->setCellValue('F2', 'Usia');
+            $sheet->setCellValue('G2', 'Penyakit');
+            $rows = 3;
             foreach ($list as $val) {
-                $sheet->setCellValue('A' . $rows, $val['id_hitung']);
+                $sheet->setCellValue('A' . $rows, $val['id_kriteria']);
                 $sheet->setCellValue('B' . $rows, $val['nama']);
-                $sheet->setCellValue('C' . $rows, $val['nilai']);
-                $sheet->setCellValue('D' . $rows, $val['rank']);
+                $sheet->setCellValue('C' . $rows, $val['jangka_waktu']);
+                $sheet->setCellValue('D' . $rows, $val['melahirkan']);
+                $sheet->setCellValue('E' . $rows, $val['menstruasi']);
+                $sheet->setCellValue('F' . $rows, $val['usia']);
+                $sheet->setCellValue('G' . $rows, $val['penyakit']);
                 $rows++;
             }
             $writer = new Xlsx($spreadsheet);
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="Rank_BKKBN.xlsx"');
+            header('Content-Disposition: attachment;filename="Rekap_Bobot_BKKBN.xlsx"');
             $writer->save('php://output');
         } else {
             redirect('/');

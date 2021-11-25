@@ -44,7 +44,7 @@
                                         <div class="col d-flex align-items-center justify-align-center">
                                             <a href="#" data-toggle="modal" data-target="#entrydata" class="btn btn-primary mr-2"><i class="fas fa-plus-circle"></i> Tambah data</a>
                                             <a href="<?= base_url('hitung') ?>" class="btn btn-warning mr-2"><i class="fas fa-calculator"></i></i> Hitung Ranking</a>
-                                            <a href="<?= base_url('hitung') ?>" class="btn btn-success"><i class="fas fa-file-excel"></i></i> Ekspor Excel</a>
+                                            <a href="<?= base_url('eksporBobot') ?>" class="btn btn-success"><i class="fas fa-file-excel"></i></i> Ekspor Excel</a>
                                         </div>
                                     </div>
                                 </div>
