@@ -26,7 +26,7 @@
                                 <div class="card-body">
                                     <div class="row align-items-center justify-align-center">
                                         <div class="col ">
-                                            <h5 class="m-0 text-center rekomen">Rekomendasi Alat: <span class="rekomendasiRes"><?= $rekomendasi; ?></span></h5>
+                                            <h5 class="m-0 text-center rekomen">Alat Terbanyak: <span class="rekomendasiRes"></span></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -43,6 +43,7 @@
                                             <th>Nama</th>
                                             <th>Nilai</th>
                                             <th>Rank</th>
+                                            <th>Alat</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -52,6 +53,15 @@
                                                 <td><?php echo ucwords($hd['nama']); ?></td>
                                                 <td><?php echo $hd['nilai']; ?></td>
                                                 <td><?php echo $hd['rank']; ?></td>
+                                                <td><?php
+                                                    if ($hd['nilai'] <= 2.5) {
+                                                        echo 'IUD';
+                                                    } elseif ($hd['nilai'] >= 2.6 && $hd['nilai'] <= 7.0) {
+                                                        echo 'Suntik';
+                                                    } elseif ($hd['nilai'] >= 7.1) {
+                                                        echo 'Implan';
+                                                    }
+                                                    ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

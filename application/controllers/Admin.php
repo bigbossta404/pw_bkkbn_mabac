@@ -153,15 +153,7 @@ class Admin extends CI_Controller
                 }
             }
 
-            $getHasil = $this->getdata->getHasil();
-
-            if ($getHasil[0]['nilai'] <= 2.5) {
-                $data['rekomendasi'] = 'IUD';
-            } elseif ($getHasil[0]['nilai'] >= 2.6 && $getHasil[0]['nilai'] <= 7.0) {
-                $data['rekomendasi'] = 'Suntik';
-            } elseif ($getHasil[0]['nilai'] >= 7.1) {
-                $data['rekomendasi'] = 'Implan';
-            }
+            // $getHasil = $this->getdata->getHasil();
 
             $data['user'] = $this->session->userdata();
             $data['hasilData'] = $this->getdata->getHasil();
