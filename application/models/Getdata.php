@@ -71,7 +71,8 @@ class Getdata extends CI_Model
         nama,
         nilai,
         @curRank := @curRank + 1 AS rank
-        FROM      save_hitung, (SELECT @curRank := 0) r
+        FROM save_hitung, (SELECT @curRank := 0) r
+        WHERE id_loghitung = (SELECT MAX(id_loghitung) FROM save_hitung)
         ORDER BY  nilai DESC');
         return $query->result_array();
     }
@@ -186,5 +187,14 @@ class Getdata extends CI_Model
         if ($this->db->affected_rows() > 0) {
             return true;
         }
+    }
+
+    public function getIdLog()
+    {
+        $query = $this->db->query(
+            'SELECT id_loghitung FROM log_hitung
+            WHERE DATE = (SELECT MAX(DATE) FROM log_hitung)'
+        );
+        return $query->row_array();
     }
 }

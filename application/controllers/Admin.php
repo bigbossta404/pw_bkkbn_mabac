@@ -79,9 +79,7 @@ class Admin extends CI_Controller
                 $this->load->view('hitung', $data);
                 $this->load->view('layout/footer');
             } else {
-
                 // Normalisasi Matriks Awal (x)
-
                 $normalisasi_matrix = [];
 
                 foreach ($getNama as $gn) {
@@ -161,12 +159,16 @@ class Admin extends CI_Controller
                 }
 
                 if (count($data_rank) > 0) {
-                    $this->db->truncate('save_hitung');
+                    $this->db->set('date', 'NOW()', FALSE);
+                    $this->db->insert('log_hitung');
+                    $getIdLog = $this->getdata->getIdLog();
                     foreach ($data_rank as $dt) {
+                        $this->db->set('id_loghitung', $getIdLog['id_loghitung']);
                         $this->db->insert('save_hitung', $dt);
                     }
                 }
-
+                // echo '<pre>';
+                // var_dump($data_rank);
                 // Cari alat terbanyak
                 $getHasil = $this->getdata->getHasil();
                 $alat = array();
@@ -185,6 +187,8 @@ class Admin extends CI_Controller
                     'alat' => key($count_alat),
                     'jum' => $count_alat[key($count_alat)]
                 );
+
+                //View Halaman Hitung
                 $data['user'] = $this->session->userdata();
                 $data['hasilData'] = $this->getdata->getHasil();
                 $data['tag'] = 'Hasil Ranking';
