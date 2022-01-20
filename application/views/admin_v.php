@@ -64,11 +64,14 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Nama</th>
-                                            <th>Jangka Waktu</th>
-                                            <th>Melahirkan</th>
-                                            <th>Menstruasi</th>
-                                            <th>Usia</th>
-                                            <th>Penyakit</th>
+                                            <th>Menyusui</th>
+                                            <th>Hamil</th>
+                                            <th>KU</th>
+                                            <th>Radang</th>
+                                            <th>Keputihan</th>
+                                            <th>Kuning</th>
+                                            <th>Tumor</th>
+                                            <th>BB</th>
                                             <th>#</th>
                                         </tr>
                                     </thead>

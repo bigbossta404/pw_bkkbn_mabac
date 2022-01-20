@@ -38,11 +38,14 @@ class Admin extends CI_Controller
 
             $row[] = $ds->id_kriteria;
             $row[] = ucwords($ds->nama);
-            $row[] = $ds->jangka_waktu;
-            $row[] = $ds->melahirkan;
-            $row[] = $ds->menstruasi;
-            $row[] = $ds->usia;
-            $row[] = $ds->penyakit;
+            $row[] = $ds->menyusui;
+            $row[] = $ds->hamil;
+            $row[] = $ds->ku;
+            $row[] = $ds->radang;
+            $row[] = $ds->keputihan;
+            $row[] = $ds->kuning;
+            $row[] = $ds->tumor;
+            $row[] = $ds->bb;
             $row[] = '<a href="#" class="btn btn-danger btnhapus" id="' . $ds->id_kriteria . '"><i class="fas fa-trash"></i></a>';
             $data[] = $row;
         }
@@ -66,6 +69,7 @@ class Admin extends CI_Controller
             $max = $this->getdata->getMax();
             $min = $this->getdata->getMin();
 
+
             if (count($getNama) == 0) {
                 $this->db->truncate('save_hitung');
                 $data['terbanyak'] = array(
@@ -79,28 +83,34 @@ class Admin extends CI_Controller
                 $this->load->view('hitung', $data);
                 $this->load->view('layout/footer');
             } else {
-                // Normalisasi Matriks Awal (x)
+                // // Normalisasi Matriks Awal (x)
                 $normalisasi_matrix = [];
 
                 foreach ($getNama as $gn) {
-                    $row['jangka_waktu'] = ($gn['jangka_waktu'] - $min['minwaktu']) / ($max['maxwaktu'] - $min['minwaktu']);
-                    $row['melahirkan'] = ($gn['melahirkan'] - $min['minlahir']) / ($max['maxlahir'] - $min['minlahir']);
-                    $row['menstruasi'] = ($gn['menstruasi'] - $min['minmens']) / ($max['maxmens'] - $min['minmens']);
-                    $row['usia'] = ($gn['usia'] - $min['minusia']) / ($max['maxusia'] - $min['minusia']);
-                    $row['penyakit'] = ($gn['penyakit'] - $min['minsakit']) / ($max['maxsakit'] - $min['minsakit']);
+                    $row['menyusui'] = ($gn['menyusui'] - $min['minnyusu']) / ($max['maxnyusu'] - $min['minnyusu']) * ($gn['menyusui'] - $max['maxnyusu']) / ($min['minnyusu'] - $max['maxnyusu']);
+                    $row['hamil'] = ($gn['hamil'] - $min['minhamil']) / ($max['maxhamil'] - $min['minhamil']) * ($gn['hamil'] - $max['maxhamil']) / ($min['minhamil'] - $max['maxhamil']);
+                    $row['ku'] = ($gn['ku'] - $min['minku']) / ($max['maxku'] - $min['minku'])  * ($gn['ku'] - $max['maxku']) / ($min['minku'] - $max['maxku']);
+                    $row['radang'] = ($gn['radang'] - $min['minradang']) / ($max['maxradang'] - $min['minradang'])  * ($gn['radang'] - $max['maxradang']) / ($min['minradang'] - $max['maxradang']);
+                    $row['keputihan'] = ($gn['keputihan'] - $min['minputih']) / ($max['maxputih'] - $min['minputih']) * ($gn['keputihan'] - $max['maxputih']) / ($min['minputih'] - $max['maxputih']);
+                    $row['kuning'] = ($gn['kuning'] - $min['minkuning']) / ($max['maxkuning'] - $min['minkuning']) * ($gn['kuning'] - $max['maxkuning']) / ($min['minkuning'] - $max['maxkuning']);
+                    $row['tumor'] = ($gn['tumor'] - $min['mintumor']) / ($max['maxtumor'] - $min['mintumor']) * ($gn['tumor'] - $max['maxtumor']) / ($min['mintumor'] - $max['maxtumor']);
+                    $row['bb'] = ($gn['bb'] - $min['minbb']) / ($max['maxbb'] - $min['minbb']) * ($gn['bb'] - $max['maxbb']) / ($min['minbb'] - $max['maxbb']);
 
                     $normalisasi_matrix[$gn['nama']] = $row;
                 }
 
-                //Ekstrak Data DB menjadi array sejenis
+                // //Ekstrak Data DB menjadi array sejenis
                 $data = [];
 
                 foreach ($getNama as $gn) {
-                    $extract['jangka_waktu'] = (int) $gn['jangka_waktu'];
-                    $extract['melahirkan'] = (int) $gn['melahirkan'];
-                    $extract['menstruasi'] = (int) $gn['menstruasi'];
-                    $extract['usia'] = (int) $gn['usia'];
-                    $extract['penyakit'] = (int) $gn['penyakit'];
+                    $extract['menyusui'] = (int) $gn['menyusui'];
+                    $extract['hamil'] = (int) $gn['hamil'];
+                    $extract['ku'] = (int) $gn['ku'];
+                    $extract['radang'] = (int) $gn['radang'];
+                    $extract['keputihan'] = (int) $gn['keputihan'];
+                    $extract['kuning'] = (int) $gn['kuning'];
+                    $extract['tumor'] = (int) $gn['tumor'];
+                    $extract['bb'] = (int) $gn['bb'];
 
                     $data[$gn['nama']] = $extract;
                 }
@@ -118,22 +128,28 @@ class Admin extends CI_Controller
 
                 // matriks area perbatasan (G)
                 foreach ($matriks_terimbangV as $g) {
-                    $jangka_waktu[] = $g[0];
-                    $melahirkan[] = $g[1];
-                    $menstruasi[] = $g[2];
-                    $usia[] = $g[3];
-                    $penyakit[] = $g[4];
+                    $menyusui[] = $g[0];
+                    $hamil[] = $g[1];
+                    $ku[] = $g[2];
+                    $radang[] = $g[3];
+                    $keputihan[] = $g[4];
+                    $kuning[] = $g[5];
+                    $tumor[] = $g[6];
+                    $bb[] = $g[7];
                 }
 
                 $jum_alternatif = $jml_data['jml_data'];
                 $pangkat = 1 / $jum_alternatif;
 
                 $databatas = array(
-                    array_product($jangka_waktu) ** $pangkat,
-                    array_product($melahirkan) ** $pangkat,
-                    array_product($menstruasi) ** $pangkat,
-                    array_product($usia) ** $pangkat,
-                    array_product($penyakit) ** $pangkat
+                    array_product($menyusui) ** $pangkat,
+                    array_product($hamil) ** $pangkat,
+                    array_product($ku) ** $pangkat,
+                    array_product($radang) ** $pangkat,
+                    array_product($keputihan) ** $pangkat,
+                    array_product($kuning) ** $pangkat,
+                    array_product($tumor) ** $pangkat,
+                    array_product($bb) ** $pangkat
                 );
 
                 // Menghitung jarak alternatif
@@ -145,6 +161,9 @@ class Admin extends CI_Controller
                     $row3['3'] = (float) number_format($mt[2] - $databatas[2], 1);
                     $row3['4'] = (float) number_format($mt[3] - $databatas[3], 1);
                     $row3['5'] = (float) number_format($mt[4] - $databatas[4], 1);
+                    $row3['6'] = (float) number_format($mt[5] - $databatas[5], 1);
+                    $row3['7'] = (float) number_format($mt[6] - $databatas[6], 1);
+                    $row3['8'] = (float) number_format($mt[7] - $databatas[7], 1);
                     $jarak_alternatif[$getNama[$id]['nama']] = $row3;
                     $id++;
                 }
@@ -167,17 +186,15 @@ class Admin extends CI_Controller
                         $this->db->insert('save_hitung', $dt);
                     }
                 }
-                // echo '<pre>';
-                // var_dump($data_rank);
-                // Cari alat terbanyak
+
                 $getHasil = $this->getdata->getHasil();
                 $alat = array();
                 foreach ($getHasil as $gh) {
-                    if ($gh['nilai'] <= 2.5) {
+                    if ($gh['nilai'] <= 0.5) {
                         array_push($alat, 'IUD');
-                    } elseif ($gh['nilai'] >= 2.6 && $gh['nilai'] <= 7.0) {
+                    } elseif ($gh['nilai'] >= 0.6 && $gh['nilai'] <= 1.5) {
                         array_push($alat, 'Suntik');
-                    } elseif ($gh['nilai'] >= 7.1) {
+                    } elseif ($gh['nilai'] >= 1.6) {
                         array_push($alat, 'Implan');
                     }
                 }
@@ -188,13 +205,15 @@ class Admin extends CI_Controller
                     'jum' => $count_alat[key($count_alat)]
                 );
 
-                //View Halaman Hitung
+                // View Halaman Hitung
                 $data['user'] = $this->session->userdata();
                 $data['hasilData'] = $this->getdata->getHasil();
                 $data['tag'] = 'Hasil Ranking';
                 $this->load->view('layout/header', $data);
                 $this->load->view('hitung', $data);
                 $this->load->view('layout/footer');
+                // echo '<pre>';
+                // echo var_dump($data['terbanyak']);
             }
         } else {
             redirect('/');
@@ -280,20 +299,26 @@ class Admin extends CI_Controller
                 ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $sheet->setCellValue('A2', 'IdPasien');
             $sheet->setCellValue('B2', 'Nama Pasien');
-            $sheet->setCellValue('C2', 'Jangka Waktu');
-            $sheet->setCellValue('D2', 'Melahirkan');
-            $sheet->setCellValue('E2', 'Menstruasi');
-            $sheet->setCellValue('F2', 'Usia');
-            $sheet->setCellValue('G2', 'Penyakit');
+            $sheet->setCellValue('C2', 'Menyusui');
+            $sheet->setCellValue('D2', 'Hamil');
+            $sheet->setCellValue('E2', 'Keadaan Umum');
+            $sheet->setCellValue('F2', 'Radang');
+            $sheet->setCellValue('G2', 'Keputihan');
+            $sheet->setCellValue('H2', 'Kuning');
+            $sheet->setCellValue('I2', 'Tumor');
+            $sheet->setCellValue('J2', 'Berat Badan');
             $rows = 3;
             foreach ($list as $val) {
                 $sheet->setCellValue('A' . $rows, $val['id_kriteria']);
                 $sheet->setCellValue('B' . $rows, $val['nama']);
-                $sheet->setCellValue('C' . $rows, $val['jangka_waktu']);
-                $sheet->setCellValue('D' . $rows, $val['melahirkan']);
-                $sheet->setCellValue('E' . $rows, $val['menstruasi']);
-                $sheet->setCellValue('F' . $rows, $val['usia']);
-                $sheet->setCellValue('G' . $rows, $val['penyakit']);
+                $sheet->setCellValue('C' . $rows, $val['menyusui']);
+                $sheet->setCellValue('D' . $rows, $val['hamil']);
+                $sheet->setCellValue('E' . $rows, $val['ku']);
+                $sheet->setCellValue('F' . $rows, $val['radang']);
+                $sheet->setCellValue('G' . $rows, $val['keputihan']);
+                $sheet->setCellValue('H' . $rows, $val['kuning']);
+                $sheet->setCellValue('I' . $rows, $val['tumor']);
+                $sheet->setCellValue('J' . $rows, $val['bb']);
                 $rows++;
             }
             $writer = new Xlsx($spreadsheet);

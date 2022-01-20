@@ -54,11 +54,11 @@
                                                 <td><?php echo $hd['nilai']; ?></td>
                                                 <td><?php echo $hd['rank']; ?></td>
                                                 <td><?php
-                                                    if ($hd['nilai'] <= 2.5) {
+                                                    if ($hd['nilai'] <= 0.5) {
                                                         echo 'IUD';
-                                                    } elseif ($hd['nilai'] >= 2.6 && $hd['nilai'] <= 7.0) {
+                                                    } elseif ($hd['nilai'] >= 0.6 && $hd['nilai'] <= 1.5) {
                                                         echo 'Suntik';
-                                                    } elseif ($hd['nilai'] >= 7.1) {
+                                                    } elseif ($hd['nilai'] >= 1.6) {
                                                         echo 'Implan';
                                                     }
                                                     ?></td>

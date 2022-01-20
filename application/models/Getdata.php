@@ -2,8 +2,8 @@
 
 class Getdata extends CI_Model
 {
-    var $column_order = array('id_kriteria', 'nama', 'jangka_waktu', 'melahirkan', 'menstruasi', 'usia', 'penyakit'); //set column field database for datatable orderable
-    var $column_search = array('id_kriteria', 'nama', 'jangka_waktu', 'melahirkan', 'menstruasi', 'usia', 'penyakit'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $column_order = array('id_kriteria', 'nama', 'menyusui', 'hamil', 'radang', 'keputihan', 'kuning', 'tumor', 'bb', null); //set column field database for datatable orderable
+    var $column_search = array('id_kriteria', 'nama', 'menyusui', 'hamil', 'radang', 'keputihan', 'kuning', 'tumor', 'bb'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $order = ['id_kriteria' => 'ASC']; // default
 
     private function _get_datatables()
@@ -122,14 +122,21 @@ class Getdata extends CI_Model
     }
     public function getMax()
     {
-        $this->db->select('MAX(jangka_waktu) maxwaktu, MAX(melahirkan) maxlahir,MAX(menstruasi) maxmens,MAX(usia)maxusia, MAX(penyakit)maxsakit');
+        $this->db->select('MAX(menyusui) maxnyusu, MAX(hamil) maxhamil, MAX(ku) maxku, MAX(radang) maxradang, MAX(keputihan) maxputih, MAX(kuning) maxkuning, MAX(tumor) maxtumor, MAX(bb) maxbb');
         $this->db->from('kriteria');
         $query = $this->db->get();
         return $query->row_array();
     }
     public function getMin()
     {
-        $this->db->select('MIN(jangka_waktu) minwaktu, MIN(melahirkan) minlahir,MIN(menstruasi) minmens,MIN(usia)minusia, MIN(penyakit)minsakit');
+        $this->db->select('IF(MIN(menyusui) = MAX(menyusui),0,MIN(menyusui)) minnyusu, 
+        IF(MIN(hamil) = MAX(hamil),0,MIN(hamil)) minhamil, 
+        IF(MIN(ku) = MAX(ku),0,MIN(ku)) minku, 
+        IF(MIN(radang) =  MAX(radang),0,MIN(radang)) minradang, 
+        IF(MIN(keputihan) = MAX(keputihan),0,MIN(keputihan)) minputih, 
+        IF(MIN(kuning) = MAX(kuning),0,MIN(kuning)) minkuning, 
+        IF(MIN(tumor) = MAX(tumor),0,MIN(tumor)) mintumor, 
+        IF(MIN(bb) = MAX(bb),0,MIN(bb)) minbb');
         $this->db->from('kriteria');
         $query = $this->db->get();
         return $query->row_array();
@@ -138,31 +145,67 @@ class Getdata extends CI_Model
     public function getBobot()
     {
         $bobot = array(
-            'jangka_waktu' => array(
-                'panjang' => 5,
-                'pendek' => 2
+            'menyusui' => array(
+                'ya' => 1,
+                'tidak' => 3
             ),
-            'melahirkan' => array(
-                'sudah' => 3,
-                'belum' => 1
+            'hamil' => array(
+                'ya' => 1,
+                'tidak' => 3
             ),
-            'menstruasi' => array(
-                'ya' => 3,
-                'tidak' => 5
+            'keadaan_umum' => array(
+                'baik' => 1,
+                'sedang' => 2,
+                'kurang' => 3
             ),
-            'usia' => array(
-                '18-25' => 2,
-                '26-35' => 4,
-                '36-60' => 5
+            'radang' => array(
+                'ya' => 1,
+                'tidak' => 3
             ),
-            'penyakit' => array(
-                'kanker_payudara' => 1,
-                'diabetes' => 2,
-                'radang' => 4,
-                'kuning' => 3,
-                'tidak_ada' => 5
+            'keputihan' => array(
+                'ya' => 1,
+                'tidak' => 3
+            ),
+            'kuning' => array(
+                'ya' => 1,
+                'tidak' => 3
+            ),
+            'tumor' => array(
+                'ya' => 1,
+                'tidak' => 3
+            ),
+            'bb' => array(
+                '40-50' => 1,
+                '50-60' => 2,
+                '61-70' => 3
             ),
         );
+        // $bobot = array(
+        //     'jangka_waktu' => array(
+        //         'panjang' => 5,
+        //         'pendek' => 2
+        //     ),
+        //     'melahirkan' => array(
+        //         'sudah' => 3,
+        //         'belum' => 1
+        //     ),
+        //     'menstruasi' => array(
+        //         'ya' => 3,
+        //         'tidak' => 5
+        //     ),
+        //     'usia' => array(
+        //         '18-25' => 2,
+        //         '26-35' => 4,
+        //         '36-60' => 5
+        //     ),
+        //     'penyakit' => array(
+        //         'kanker_payudara' => 1,
+        //         'diabetes' => 2,
+        //         'radang' => 4,
+        //         'kuning' => 3,
+        //         'tidak_ada' => 5
+        //     ),
+        // );
 
         return $bobot;
     }
