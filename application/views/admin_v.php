@@ -57,6 +57,23 @@
                         </div> -->
                     </div>
                     <div class="row">
+                        <div class="col-xl mb-4">
+                            <div class="card border-left-primary shadow h-100">
+                                <div class="card-body">
+                                    <div class="row align-items-center justify-align-center">
+                                        <div class="col d-flex align-items-center justify-align-center">
+                                            <div class="col">
+                                                <div class="ketbox">
+                                                    <p class="m-0"><b>Ketentuan:</b> bobot berdasarkan banyaknya data 1(sedikit), 2(sedang), 3(banyak).</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl">
                             <div class="card shadow tablecard">
                                 <table id="dataset" class="table table-striped table-bordered display nowrap" width="100%" cellspacing="0">
