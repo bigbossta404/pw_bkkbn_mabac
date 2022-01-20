@@ -228,41 +228,65 @@ class Admin extends CI_Controller
                 'required' => 'Tidak valid!',
 
             ]);
-            $this->form_validation->set_rules('jangka', 'Jangka', 'trim|required', [
+            $this->form_validation->set_rules('menyusui', 'Menyusui', 'trim|required', [
                 'required' => 'Tidak valid!',
 
             ]);
-            $this->form_validation->set_rules('lahir', 'Lahir', 'trim|required', [
+            $this->form_validation->set_rules('hamil', 'Hamil', 'trim|required', [
                 'required' => 'Tidak valid!',
 
             ]);
-            $this->form_validation->set_rules('men', 'Men', 'trim|required', [
+            $this->form_validation->set_rules('ku', 'Ku', 'trim|required', [
                 'required' => 'Tidak valid!',
 
             ]);
-            $this->form_validation->set_rules('usia', 'Usia', 'trim|required', [
+            $this->form_validation->set_rules('radang', 'Radang', 'trim|required', [
                 'required' => 'Tidak valid!',
 
             ]);
-            $this->form_validation->set_rules('sakit', 'Sakit', 'trim|required', [
+            $this->form_validation->set_rules('putih', 'Putih', 'trim|required', [
+                'required' => 'Tidak valid!',
+
+            ]);
+            $this->form_validation->set_rules('kuning', 'Kuning', 'trim|required', [
+                'required' => 'Tidak valid!',
+
+            ]);
+            $this->form_validation->set_rules('tumor', 'Tumor', 'trim|required', [
+                'required' => 'Tidak valid!',
+
+            ]);
+            $this->form_validation->set_rules('bb', 'Bb', 'trim|required', [
                 'required' => 'Tidak valid!',
 
             ]);
             if ($this->form_validation->run() == false) {
                 $alert = array(
-                    'error' => true
+                    'error' => true,
+                    'nama' => form_error('nama'),
+                    'nyusu' => form_error('menyusui'),
+                    'ku' => form_error('ku'),
+                    'radang' => form_error('radang'),
+                    'putih' => form_error('putih'),
+                    'kun' => form_error('kuning'),
+                    'tum' => form_error('tumor'),
+                    'bb' => form_error('bb'),
                 );
                 echo json_encode($alert);
             } else {
 
                 $data_insert = array(
                     'nama' => $this->input->post('nama'),
-                    'jangka_waktu' => $this->input->post('jangka'),
-                    'melahirkan' => $this->input->post('lahir'),
-                    'menstruasi' => $this->input->post('men'),
-                    'usia' => $this->input->post('usia'),
-                    'penyakit' => $this->input->post('sakit'),
+                    'menyusui' => $this->input->post('menyusui'),
+                    'hamil' => $this->input->post('hamil'),
+                    'ku' => $this->input->post('ku'),
+                    'radang' => $this->input->post('radang'),
+                    'keputihan' => $this->input->post('putih'),
+                    'kuning' => $this->input->post('kuning'),
+                    'tumor' => $this->input->post('tumor'),
+                    'bb' => $this->input->post('bb'),
                 );
+
                 $submit_data = $this->getdata->saveTambah($data_insert);
                 if ($submit_data) {
                     echo json_encode('sukses');

@@ -2,18 +2,21 @@
 $(document).ready(function() {
     $(this).on('click','.btntambah',function(){
         var nama = $('#nama').val();
-        var jangka = $('#jangka').val();
-        var lahir = $('#lahir').val();
-        var men = $('#men').val();
-        var usia = $('#usia').val();
-        var sakit = $('#sakit').val();
+        var menyusui = $('#menyusui').val();
+        var hamil = $('#hamil').val();
+        var ku = $('#ku').val();
+        var radang = $('#radang').val();
+        var putih = $('#keputihan').val();
+        var kuning = $('#kuning').val();
+        var tumor = $('#tumor').val();
+        var bb = $('#bb').val();
         
         jmldata = $('#jmldata').text();
         jmldata_array = jmldata.split(' ');
         // console.log(jangka, nama, lahir, men, usia, sakit);
         $.ajax({
             url:'tambahdata',
-            data:{nama:nama, jangka:jangka, lahir:lahir, men:men, usia:usia, sakit: sakit},
+            data:{nama:nama, menyusui:menyusui, hamil:hamil, ku:ku, radang:radang, putih: putih, kuning:kuning,tumor:tumor,bb:bb},
             type:'POST',
             dataType:'JSON',
             success:function(data){
