@@ -32,6 +32,7 @@ class Admin extends CI_Controller
     public function getDataset()
     {
         $list = $this->getdata->get_datatables();
+        $bobot = $this->getdata->getBobot();
         $data = array();
         foreach ($list as $ds) {
             $row = array();
@@ -41,10 +42,7 @@ class Admin extends CI_Controller
             $row[] = $ds->menyusui;
             $row[] = $ds->hamil;
             $row[] = $ds->ku;
-            $row[] = $ds->radang;
-            $row[] = $ds->keputihan;
-            $row[] = $ds->kuning;
-            $row[] = $ds->tumor;
+            $row[] = $ds->penyakit;
             $row[] = $ds->bb;
             $row[] = '<a href="#" class="btn btn-danger btnhapus" id="' . $ds->id_kriteria . '"><i class="fas fa-trash"></i></a>';
             $data[] = $row;
@@ -60,15 +58,14 @@ class Admin extends CI_Controller
         echo json_encode($output);
     }
 
-
     public function hitungRanking()
     {
         if ($this->session->userdata('logged')) {
             $jml_data = $this->getdata->countrow();
             $getNama = $this->getdata->getNama();
+            $getDataBobot = $this->getdata->getDataBobot();
             $max = $this->getdata->getMax();
             $min = $this->getdata->getMin();
-
 
             if (count($getNama) == 0) {
                 $this->db->truncate('save_hitung');
@@ -83,61 +80,40 @@ class Admin extends CI_Controller
                 $this->load->view('hitung', $data);
                 $this->load->view('layout/footer');
             } else {
-                // // Normalisasi Matriks Awal (x)
+
+                // Normalisasi Matriks Awal (x)
                 $normalisasi_matrix = [];
 
                 foreach ($getNama as $gn) {
                     $row['menyusui'] = ($gn['menyusui'] - $min['minnyusu']) / ($max['maxnyusu'] - $min['minnyusu']) * ($gn['menyusui'] - $max['maxnyusu']) / ($min['minnyusu'] - $max['maxnyusu']);
                     $row['hamil'] = ($gn['hamil'] - $min['minhamil']) / ($max['maxhamil'] - $min['minhamil']) * ($gn['hamil'] - $max['maxhamil']) / ($min['minhamil'] - $max['maxhamil']);
                     $row['ku'] = ($gn['ku'] - $min['minku']) / ($max['maxku'] - $min['minku'])  * ($gn['ku'] - $max['maxku']) / ($min['minku'] - $max['maxku']);
-                    $row['radang'] = ($gn['radang'] - $min['minradang']) / ($max['maxradang'] - $min['minradang'])  * ($gn['radang'] - $max['maxradang']) / ($min['minradang'] - $max['maxradang']);
-                    $row['keputihan'] = ($gn['keputihan'] - $min['minputih']) / ($max['maxputih'] - $min['minputih']) * ($gn['keputihan'] - $max['maxputih']) / ($min['minputih'] - $max['maxputih']);
-                    $row['kuning'] = ($gn['kuning'] - $min['minkuning']) / ($max['maxkuning'] - $min['minkuning']) * ($gn['kuning'] - $max['maxkuning']) / ($min['minkuning'] - $max['maxkuning']);
-                    $row['tumor'] = ($gn['tumor'] - $min['mintumor']) / ($max['maxtumor'] - $min['mintumor']) * ($gn['tumor'] - $max['maxtumor']) / ($min['mintumor'] - $max['maxtumor']);
+                    $row['penyakit'] = ($gn['penyakit'] - $min['minpenyakit']) / ($max['maxpenyakit'] - $min['minpenyakit'])  * ($gn['penyakit'] - $max['maxpenyakit']) / ($min['minpenyakit'] - $max['maxpenyakit']);
                     $row['bb'] = ($gn['bb'] - $min['minbb']) / ($max['maxbb'] - $min['minbb']) * ($gn['bb'] - $max['maxbb']) / ($min['minbb'] - $max['maxbb']);
 
-                    $normalisasi_matrix[$gn['nama']] = $row;
+                    $normalisasi_matrix[] = $row;
                 }
 
-                // //Ekstrak Data DB menjadi array sejenis
-                $data = [];
+                // Matriks tertimbang (v)
+                $dataTertimbang = [];
 
-                foreach ($getNama as $gn) {
-                    $extract['menyusui'] = (int) $gn['menyusui'];
-                    $extract['hamil'] = (int) $gn['hamil'];
-                    $extract['ku'] = (int) $gn['ku'];
-                    $extract['radang'] = (int) $gn['radang'];
-                    $extract['keputihan'] = (int) $gn['keputihan'];
-                    $extract['kuning'] = (int) $gn['kuning'];
-                    $extract['tumor'] = (int) $gn['tumor'];
-                    $extract['bb'] = (int) $gn['bb'];
+                foreach ($normalisasi_matrix as $mx) {
+                    $x['menyusui'] = ($mx['menyusui'] * $getDataBobot[0]['bobot']) + $getDataBobot[0]['bobot'];
+                    $x['hamil'] = ($mx['hamil'] * $getDataBobot[1]['bobot']) + $getDataBobot[1]['bobot'];
+                    $x['ku'] = ($mx['ku'] * $getDataBobot[2]['bobot']) + $getDataBobot[2]['bobot'];
+                    $x['penyakit'] = ($mx['penyakit'] * $getDataBobot[3]['bobot']) + $getDataBobot[3]['bobot'];
+                    $x['bb'] = ($mx['bb'] * $getDataBobot[4]['bobot']) + $getDataBobot[4]['bobot'];
 
-                    $data[$gn['nama']] = $extract;
+                    $dataTertimbang[] = $x;
                 }
-
-                // Matriks matriks tertimbang (v)
-                $matriks_terimbangV = array();
-
-                foreach ($normalisasi_matrix as $nm => $v) {
-                    $row2 = [];
-                    foreach ($v as $k => $v2) {
-                        $row2[] =  $data[$nm][$k] * $v2  + $data[$nm][$k];
-                    }
-                    array_push($matriks_terimbangV, $row2);
+                foreach ($dataTertimbang as $g) {
+                    $menyusui[] = $g['menyusui'];
+                    $hamil[] = $g['hamil'];
+                    $ku[] = $g['ku'];
+                    $penyakit[] = $g['penyakit'];
+                    $bb[] = $g['bb'];
                 }
-
                 // matriks area perbatasan (G)
-                foreach ($matriks_terimbangV as $g) {
-                    $menyusui[] = $g[0];
-                    $hamil[] = $g[1];
-                    $ku[] = $g[2];
-                    $radang[] = $g[3];
-                    $keputihan[] = $g[4];
-                    $kuning[] = $g[5];
-                    $tumor[] = $g[6];
-                    $bb[] = $g[7];
-                }
-
                 $jum_alternatif = $jml_data['jml_data'];
                 $pangkat = 1 / $jum_alternatif;
 
@@ -145,25 +121,19 @@ class Admin extends CI_Controller
                     array_product($menyusui) ** $pangkat,
                     array_product($hamil) ** $pangkat,
                     array_product($ku) ** $pangkat,
-                    array_product($radang) ** $pangkat,
-                    array_product($keputihan) ** $pangkat,
-                    array_product($kuning) ** $pangkat,
-                    array_product($tumor) ** $pangkat,
+                    array_product($penyakit) ** $pangkat,
                     array_product($bb) ** $pangkat
                 );
 
                 // Menghitung jarak alternatif
                 $jarak_alternatif = [];
                 $id = 0;
-                foreach ($matriks_terimbangV as $mt) {
-                    $row3['1'] = (float) number_format($mt[0] - $databatas[0], 1);
-                    $row3['2'] = (float) number_format($mt[1] - $databatas[1], 1);
-                    $row3['3'] = (float) number_format($mt[2] - $databatas[2], 1);
-                    $row3['4'] = (float) number_format($mt[3] - $databatas[3], 1);
-                    $row3['5'] = (float) number_format($mt[4] - $databatas[4], 1);
-                    $row3['6'] = (float) number_format($mt[5] - $databatas[5], 1);
-                    $row3['7'] = (float) number_format($mt[6] - $databatas[6], 1);
-                    $row3['8'] = (float) number_format($mt[7] - $databatas[7], 1);
+                foreach ($dataTertimbang as $mt) {
+                    $row3['1'] = (float) number_format($mt['menyusui'] - $databatas[0], 1);
+                    $row3['2'] = (float) number_format($mt['hamil'] - $databatas[1], 1);
+                    $row3['3'] = (float) number_format($mt['ku'] - $databatas[2], 1);
+                    $row3['4'] = (float) number_format($mt['penyakit'] - $databatas[3], 1);
+                    $row3['5'] = (float) number_format($mt['bb'] - $databatas[4], 1);
                     $jarak_alternatif[$getNama[$id]['nama']] = $row3;
                     $id++;
                 }
@@ -176,7 +146,8 @@ class Admin extends CI_Controller
 
                     $data_rank[] = $setRank;
                 }
-
+                // echo '<pre>';
+                // echo var_dump($data_rank);
                 if (count($data_rank) > 0) {
                     $this->db->set('date', 'NOW()', FALSE);
                     $this->db->insert('log_hitung');
@@ -212,8 +183,6 @@ class Admin extends CI_Controller
                 $this->load->view('layout/header', $data);
                 $this->load->view('hitung', $data);
                 $this->load->view('layout/footer');
-                // echo '<pre>';
-                // echo var_dump($data['terbanyak']);
             }
         } else {
             redirect('/');
@@ -240,19 +209,7 @@ class Admin extends CI_Controller
                 'required' => 'Tidak valid!',
 
             ]);
-            $this->form_validation->set_rules('radang', 'Radang', 'trim|required', [
-                'required' => 'Tidak valid!',
-
-            ]);
-            $this->form_validation->set_rules('putih', 'Putih', 'trim|required', [
-                'required' => 'Tidak valid!',
-
-            ]);
-            $this->form_validation->set_rules('kuning', 'Kuning', 'trim|required', [
-                'required' => 'Tidak valid!',
-
-            ]);
-            $this->form_validation->set_rules('tumor', 'Tumor', 'trim|required', [
+            $this->form_validation->set_rules('penyakit', 'Penyakit', 'trim|required', [
                 'required' => 'Tidak valid!',
 
             ]);
@@ -266,10 +223,7 @@ class Admin extends CI_Controller
                     'nama' => form_error('nama'),
                     'nyusu' => form_error('menyusui'),
                     'ku' => form_error('ku'),
-                    'radang' => form_error('radang'),
-                    'putih' => form_error('putih'),
-                    'kun' => form_error('kuning'),
-                    'tum' => form_error('tumor'),
+                    'penyakit' => form_error('penyakit'),
                     'bb' => form_error('bb'),
                 );
                 echo json_encode($alert);
@@ -280,10 +234,7 @@ class Admin extends CI_Controller
                     'menyusui' => $this->input->post('menyusui'),
                     'hamil' => $this->input->post('hamil'),
                     'ku' => $this->input->post('ku'),
-                    'radang' => $this->input->post('radang'),
-                    'keputihan' => $this->input->post('putih'),
-                    'kuning' => $this->input->post('kuning'),
-                    'tumor' => $this->input->post('tumor'),
+                    'penyakit' => $this->input->post('penyakit'),
                     'bb' => $this->input->post('bb'),
                 );
 
@@ -326,11 +277,8 @@ class Admin extends CI_Controller
             $sheet->setCellValue('C2', 'Menyusui');
             $sheet->setCellValue('D2', 'Hamil');
             $sheet->setCellValue('E2', 'Keadaan Umum');
-            $sheet->setCellValue('F2', 'Radang');
-            $sheet->setCellValue('G2', 'Keputihan');
-            $sheet->setCellValue('H2', 'Kuning');
-            $sheet->setCellValue('I2', 'Tumor');
-            $sheet->setCellValue('J2', 'Berat Badan');
+            $sheet->setCellValue('F2', 'PENYAKIT');
+            $sheet->setCellValue('G2', 'Berat Badan');
             $rows = 3;
             foreach ($list as $val) {
                 $sheet->setCellValue('A' . $rows, $val['id_kriteria']);
@@ -338,11 +286,8 @@ class Admin extends CI_Controller
                 $sheet->setCellValue('C' . $rows, $val['menyusui']);
                 $sheet->setCellValue('D' . $rows, $val['hamil']);
                 $sheet->setCellValue('E' . $rows, $val['ku']);
-                $sheet->setCellValue('F' . $rows, $val['radang']);
-                $sheet->setCellValue('G' . $rows, $val['keputihan']);
-                $sheet->setCellValue('H' . $rows, $val['kuning']);
-                $sheet->setCellValue('I' . $rows, $val['tumor']);
-                $sheet->setCellValue('J' . $rows, $val['bb']);
+                $sheet->setCellValue('F' . $rows, $val['penyakit']);
+                $sheet->setCellValue('G' . $rows, $val['bb']);
                 $rows++;
             }
             $writer = new Xlsx($spreadsheet);

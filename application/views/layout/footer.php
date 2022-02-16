@@ -26,7 +26,7 @@
                                                      <select class="form-control" id="menyusui">
                                                          <option value selected>-- Pilih --</option>
                                                          <option value="1">Iya</option>
-                                                         <option value="2">Tidak</option>
+                                                         <option value="3">Tidak</option>
                                                      </select>
                                                  </div>
                                                  <div class="form-group">
@@ -34,24 +34,7 @@
                                                      <select class="form-control" id="hamil">
                                                          <option value selected>-- Pilih --</option>
                                                          <option value="1">Iya</option>
-                                                         <option value="2">Tidak</option>
-                                                     </select>
-                                                 </div>
-                                                 <div class="form-group">
-                                                     <label for="exampleFormControlSelect1">kuning</label>
-                                                     <select class="form-control" id="kuning">
-                                                         <option value selected>-- Pilih --</option>
-                                                         <option value="1">Iya</option>
-                                                         <option value="2">Tidak</option>
-                                                     </select>
-                                                 </div>
-                                                 <div class="form-group">
-                                                     <label for="exampleFormControlSelect1">Berat Badan</label>
-                                                     <select class="form-control" id="bb">
-                                                         <option value selected>-- Pilih --</option>
-                                                         <option value="1">40-50 Kg</option>
-                                                         <option value="2">51-60 Kg</option>
-                                                         <option value="3">61-70++ Kg</option>
+                                                         <option value="3">Tidak</option>
                                                      </select>
                                                  </div>
                                              </div>
@@ -60,33 +43,29 @@
                                                      <label for="exampleFormControlSelect1">Keadaan Umum</label>
                                                      <select class="form-control" id="ku">
                                                          <option value selected>-- Pilih --</option>
-                                                         <option value="1">Baik</option>
+                                                         <option value="3">Baik</option>
                                                          <option value="2">Menengah</option>
-                                                         <option value="3">Kurang</option>
+                                                         <option value="1">Kurang</option>
                                                      </select>
                                                  </div>
                                                  <div class="form-group">
-                                                     <label for="exampleFormControlSelect1">Radang</label>
-                                                     <select class="form-control" id="radang">
+                                                     <label for="exampleFormControlSelect1">Penyakit</label>
+                                                     <select class="form-control" id="penyakit">
                                                          <option value selected>-- Pilih --</option>
-                                                         <option value="1">Iya</option>
-                                                         <option value="2">Tidak</option>
+                                                         <option value="1">Radang</option>
+                                                         <option value="2">Keputihan</option>
+                                                         <option value="3">Sakit Kuning</option>
+                                                         <option value="4">Tumor</option>
+                                                         <option value="5">Tidak Ada</option>
                                                      </select>
                                                  </div>
                                                  <div class="form-group">
-                                                     <label for="exampleFormControlSelect1">Keputihan</label>
-                                                     <select class="form-control" id="keputihan">
+                                                     <label for="exampleFormControlSelect1">Berat Badan</label>
+                                                     <select class="form-control" id="bb">
                                                          <option value selected>-- Pilih --</option>
-                                                         <option value="1">Iya</option>
-                                                         <option value="2">Tidak</option>
-                                                     </select>
-                                                 </div>
-                                                 <div class="form-group">
-                                                     <label for="exampleFormControlSelect1">Tumor</label>
-                                                     <select class="form-control" id="tumor">
-                                                         <option value selected>-- Pilih --</option>
-                                                         <option value="1">Iya</option>
-                                                         <option value="2">Tidak</option>
+                                                         <option value="1">40-50 Kg</option>
+                                                         <option value="3">51-60 Kg</option>
+                                                         <option value="2">61-70++ Kg</option>
                                                      </select>
                                                  </div>
                                              </div>

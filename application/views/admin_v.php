@@ -79,10 +79,7 @@
                                             <th>Menyusui</th>
                                             <th>Hamil</th>
                                             <th>KU</th>
-                                            <th>Radang</th>
-                                            <th>Keputihan</th>
-                                            <th>Kuning</th>
-                                            <th>Tumor</th>
+                                            <th>PENYAKIT</th>
                                             <th>BB</th>
                                             <th>#</th>
                                         </tr>

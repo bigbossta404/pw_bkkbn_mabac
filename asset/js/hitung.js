@@ -5,10 +5,7 @@ $(document).ready(function() {
         var menyusui = $('#menyusui').val();
         var hamil = $('#hamil').val();
         var ku = $('#ku').val();
-        var radang = $('#radang').val();
-        var putih = $('#keputihan').val();
-        var kuning = $('#kuning').val();
-        var tumor = $('#tumor').val();
+        var penyakit = $('#penyakit').val();
         var bb = $('#bb').val();
         
         jmldata = $('#jmldata').text();
@@ -16,7 +13,7 @@ $(document).ready(function() {
         // console.log(jangka, nama, lahir, men, usia, sakit);
         $.ajax({
             url:'tambahdata',
-            data:{nama:nama, menyusui:menyusui, hamil:hamil, ku:ku, radang:radang, putih: putih, kuning:kuning,tumor:tumor,bb:bb},
+            data:{nama:nama, menyusui:menyusui, hamil:hamil, ku:ku, penyakit:penyakit,bb:bb},
             type:'POST',
             dataType:'JSON',
             success:function(data){
