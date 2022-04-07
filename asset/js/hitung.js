@@ -42,6 +42,66 @@ $(document).ready(function() {
         });
     });
 
+    $(this).on('click','.btnupdate ',function(){
+       let idkriteria = $(this).attr('id')
+        // console.log(jangka, nama, lahir, men, usia, sakit);
+        $.ajax({
+            url:'admin/getDataUpdate',
+            data:{idkriteria:idkriteria},
+            type:'POST',
+            dataType:'JSON',
+            success:function(data){
+               $('#namaupdate').val(data.nama);
+               $('#menyusuiupdate option[value='+data.menyusui+']').attr('selected','selected');
+               $('#hamilupdate option[value='+data.hamil+']').attr('selected','selected');
+               $('#kuupdate option[value='+data.ku+']').attr('selected','selected');
+               $('#penyakitupdate option[value='+data.penyakit+']').attr('selected','selected');
+               $('#bbupdate option[value='+data.bb+']').attr('selected','selected');
+               $('.saveupdate').attr('id',idkriteria)
+            }
+        });
+    });
+
+    $(this).on('click','.saveupdate',function(){
+        var nama = $('#namaupdate').val();
+        var menyusui = $('#menyusuiupdate').val();
+        var hamil = $('#hamilupdate').val();
+        var ku = $('#kuupdate').val();
+        var penyakit = $('#penyakitupdate').val();
+        var bb = $('#bbupdate').val();
+        var id = $(this).attr('id');
+
+        // console.log(jangka, nama, lahir, men, usia, sakit);
+        $.ajax({
+            url:'admin/saveUpdate',
+            data:{id:id,nama:nama, menyusui:menyusui, hamil:hamil, ku:ku, penyakit:penyakit,bb:bb},
+            type:'POST',
+            dataType:'JSON',
+            success:function(data){
+                if(data.error){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'warning',
+                        title: 'Update data gagal!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    $('#dataset').DataTable().ajax.reload();
+                }else{
+                    $('#updatedata').modal('hide');
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Update data berhasil!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    $('#dataset').DataTable().ajax.reload()
+                }
+            }
+        });
+    });
+
     $(this).on('click','.btnhapus', function(){
         var id = $(this).attr('id');
         jmldata = $('#jmldata').text();

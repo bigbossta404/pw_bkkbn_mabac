@@ -44,7 +44,8 @@ class Admin extends CI_Controller
             $row[] = $ds->ku;
             $row[] = $ds->penyakit;
             $row[] = $ds->bb;
-            $row[] = '<a href="#" class="btn btn-danger btnhapus" id="' . $ds->id_kriteria . '"><i class="fas fa-trash"></i></a>';
+            $row[] = '<a href="#" class="btn btn-warning btnupdate" data-toggle="modal" data-target="#updatedata" id="' . $ds->id_kriteria . '"><i class="fas fa-pen"></i></a>
+            <a href="#" class="btn btn-danger btnhapus" id="' . $ds->id_kriteria . '"><i class="fas fa-trash"></i></a>';
             $data[] = $row;
         }
 
@@ -57,6 +58,7 @@ class Admin extends CI_Controller
 
         echo json_encode($output);
     }
+
 
     public function hitungRanking()
     {
@@ -249,6 +251,77 @@ class Admin extends CI_Controller
             redirect('/');
         }
     }
+
+    public function getDataUpdate()
+    {
+        $id = $this->input->post('idkriteria');
+
+        $data = $this->getdata->getKriteria($id);
+        echo json_encode($data);
+    }
+
+    public function saveUpdate()
+    {
+        if ($this->session->userdata('logged')) {
+
+            $this->form_validation->set_rules('nama', 'Nama', 'trim|required', [
+                'required' => 'Tidak valid!',
+
+            ]);
+            $this->form_validation->set_rules('menyusui', 'Menyusui', 'trim|required', [
+                'required' => 'Tidak valid!',
+
+            ]);
+            $this->form_validation->set_rules('hamil', 'Hamil', 'trim|required', [
+                'required' => 'Tidak valid!',
+
+            ]);
+            $this->form_validation->set_rules('ku', 'Ku', 'trim|required', [
+                'required' => 'Tidak valid!',
+
+            ]);
+            $this->form_validation->set_rules('penyakit', 'Penyakit', 'trim|required', [
+                'required' => 'Tidak valid!',
+
+            ]);
+            $this->form_validation->set_rules('bb', 'Bb', 'trim|required', [
+                'required' => 'Tidak valid!',
+
+            ]);
+            if ($this->form_validation->run() == false) {
+                $alert = array(
+                    'error' => true,
+                    'nama' => form_error('nama'),
+                    'nyusu' => form_error('menyusui'),
+                    'ku' => form_error('ku'),
+                    'penyakit' => form_error('penyakit'),
+                    'bb' => form_error('bb'),
+                );
+                echo json_encode($alert);
+            } else {
+
+                $data_insert = array(
+                    'nama' => $this->input->post('nama'),
+                    'menyusui' => $this->input->post('menyusui'),
+                    'hamil' => $this->input->post('hamil'),
+                    'ku' => $this->input->post('ku'),
+                    'penyakit' => $this->input->post('penyakit'),
+                    'bb' => $this->input->post('bb'),
+                );
+
+                $id = $this->input->post('id');
+                $submit_data = $this->getdata->saveUpdate($data_insert, $id);
+                if ($submit_data) {
+                    echo json_encode('sukses');
+                } else {
+                    echo json_encode('error');
+                }
+            }
+        } else {
+            redirect('/');
+        }
+    }
+
     public function deleteData($id)
     {
         if ($this->session->userdata('logged')) {
@@ -262,6 +335,7 @@ class Admin extends CI_Controller
             redirect('/');
         }
     }
+
     public function datasetExcel()
     {
         if ($this->session->userdata('logged')) {

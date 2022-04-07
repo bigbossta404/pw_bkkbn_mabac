@@ -81,6 +81,85 @@
                      </div>
                  </div>
              </div>
+             <div class="modal fade" id="updatedata" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                     <div class="modal-content">
+                         <div class="row  p-4">
+                             <div class="col">
+                                 <div class="modal-header">
+                                     <h5 class="modal-title" id="exampleModalLabel">Update Data Kriteria</h5>
+                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                         <span aria-hidden="true">&times;</span>
+                                     </button>
+                                 </div>
+                                 <div class="modal-body">
+                                     <form>
+                                         <div class="row">
+                                             <div class="col">
+                                                 <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">Nama</label>
+                                                     <input type="text" class="form-control" id="namaupdate" placeholder="Nama pasien">
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">Sedang Menyusui?</label>
+                                                     <select class="form-control" id="menyusuiupdate">
+                                                         <option value selected>-- Pilih --</option>
+                                                         <option value="1">Iya</option>
+                                                         <option value="3">Tidak</option>
+                                                     </select>
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">Pernah/Sedang Hamil</label>
+                                                     <select class="form-control" id="hamilupdate">
+                                                         <option value selected>-- Pilih --</option>
+                                                         <option value="1">Iya</option>
+                                                         <option value="3">Tidak</option>
+                                                     </select>
+                                                 </div>
+                                             </div>
+                                             <div class="col">
+                                                 <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">Keadaan Umum</label>
+                                                     <select class="form-control" id="kuupdate">
+                                                         <option value selected>-- Pilih --</option>
+                                                         <option value="3">Baik</option>
+                                                         <option value="2">Menengah</option>
+                                                         <option value="1">Kurang</option>
+                                                     </select>
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">Penyakit</label>
+                                                     <select class="form-control" id="penyakitupdate">
+                                                         <option value selected>-- Pilih --</option>
+                                                         <option value="1">Radang</option>
+                                                         <option value="2">Keputihan</option>
+                                                         <option value="3">Sakit Kuning</option>
+                                                         <option value="4">Tumor</option>
+                                                         <option value="5">Tidak Ada</option>
+                                                     </select>
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">Berat Badan</label>
+                                                     <select class="form-control" id="bbupdate">
+                                                         <option value selected>-- Pilih --</option>
+                                                         <option value="1">40-50 Kg</option>
+                                                         <option value="3">51-60 Kg</option>
+                                                         <option value="2">61-70++ Kg</option>
+                                                     </select>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </form>
+                                 </div>
+                                 <div class="modal-footer">
+                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                     <button type="button" class="btn btn-primary saveupdate">Simpan Data</button>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
              <!-- Logout Modal-->
              <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                  <div class="modal-dialog" role="document">

@@ -179,6 +179,15 @@ class Getdata extends CI_Model
         return $bobot;
     }
 
+    public function getKriteria($id)
+    {
+        $this->db->select('*');
+        $this->db->from('kriteria');
+        $this->db->where('id_kriteria', $id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
     public function getSaveHitung()
     {
         $this->db->select('nama, nilai');
@@ -189,6 +198,14 @@ class Getdata extends CI_Model
     public function saveTambah($data)
     {
         $this->db->insert('kriteria', $data);
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        }
+    }
+    public function saveUpdate($data, $id)
+    {
+        $this->db->where('id_kriteria', $id);
+        $this->db->update('kriteria', $data);
         if ($this->db->affected_rows() > 0) {
             return true;
         }
